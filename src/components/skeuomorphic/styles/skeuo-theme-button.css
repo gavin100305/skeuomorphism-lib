@@ -1,0 +1,6 @@
+@import "./skeuo-base.css";
+.sk-theme-key{display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--sk-key-edge);border-radius:10px;color:var(--sk-ink);background:linear-gradient(145deg,var(--sk-key),var(--sk-surface));box-shadow:inset 0 2px var(--sk-highlight),inset 2px 0 2px var(--sk-highlight),inset 0 -3px var(--sk-key-base),0 4px var(--sk-key-base),0 5px var(--sk-key-edge),0 8px 8px var(--sk-shadow);cursor:pointer;transition:transform .18s,box-shadow .18s;}
+.sk-theme-key.sk-is-round{border-radius:50%;}
+.sk-theme-key:active{transform:translateY(3px);box-shadow:inset 0 2px 4px var(--sk-shadow),0 1px var(--sk-key-edge);}
+@media(prefers-reduced-motion:reduce){.sk-theme-key{transition:none;}}
+.sk-theme-key.sk-is-round{width:32px;height:32px;background:var(--sk-key);color:var(--sk-muted);box-shadow:inset 0 1px var(--sk-highlight),0 2px var(--sk-key-base),0 3px var(--sk-key-edge);}

@@ -142,6 +142,44 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-theme-button",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Theme Button",
+      "description": "A controlled light/dark theme control with key and round variants.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-theme-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-theme-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-theme-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-theme-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        }
+      ]
     }
   ]
 }
