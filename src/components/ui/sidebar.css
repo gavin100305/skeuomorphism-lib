@@ -152,3 +152,9 @@ html[data-theme="dark"] .docs-reference-layout { --sidebar-surface: var(--bg); }
 .docs-page-contents .docs-toc-source svg:last-child { margin-left: auto; opacity: .7; }
 @media(prefers-reduced-motion:reduce) { .docs-toc-indicator { transition: none; } }
 .docs-nav-group li > a { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 35px; padding: 8px 10px; border-radius: 6px; color: var(--muted); font-size: 13px; line-height: 1.4; transition: background .15s,color .15s; }.docs-nav-group li > a:hover { color: var(--ink); background: var(--surface); }.docs-nav-group li > a[aria-current="page"] { color: var(--sidebar-selected-ink); background: var(--sidebar-selected); font-weight: 500; }
+
+/* The documentation header stays above both reading rails. */
+.docs-header {position:sticky;top:0;z-index:40;background:var(--bg);align-self:start;}
+.docs-reference-layout .library-sidebar-desktop {top:68px;height:calc(100svh - 68px);}
+.docs-page-contents {top:100px;}
+.docs-reference-layout [id] {scroll-margin-top:96px;}
