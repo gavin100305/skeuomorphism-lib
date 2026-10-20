@@ -2,15 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./icons";
-import { Button } from "./ui/button";
+import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
 
-const example = `import { Button } from "@/components/ui/button";
+const example = `import { SkeuoButton } from "@/components/skeuomorphic/skeuo-button";
 
 export function SaveButton() {
   return (
-    <Button variant="primary">
+    <SkeuoButton variant="primary">
       Save to collection
-    </Button>
+    </SkeuoButton>
   );
 }`;
 

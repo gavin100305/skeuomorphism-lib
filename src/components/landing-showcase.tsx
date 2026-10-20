@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./icons";
-import { Button } from "./ui/button";
-import { FocusTimer } from "./ui/focus-timer";
+import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
+import { SkeuoFocusTimer as FocusTimer } from "./skeuomorphic/skeuo-focus-timer";
 
 export function ObjectShowcase() {
   const [tasks, setTasks] = useState([true, false, false]);

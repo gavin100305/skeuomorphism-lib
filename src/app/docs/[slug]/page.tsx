@@ -9,7 +9,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const component = findComponent(slug);
-  return { title: component ? `${component.name} — Skeumorphism` : "Component not found" };
+  return { title: component ? `${component.name} — Skeuomorphism` : "Component not found" };
 }
 async function ComponentContent({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

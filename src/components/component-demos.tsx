@@ -1,23 +1,25 @@
 "use client";
+import { SkeuoProvider } from "./skeuomorphic/skeuo-provider";
+import { SkeuoSoundProvider } from "./skeuomorphic/skeuo-sound-provider";
 import { useState } from "react";
-import { PhotoCarousel } from "./ui/photo-carousel";
-import { KeyButton } from "./ui/key-button";
-import { ThemeButton } from "./ui/theme-button";
-import { SectionDock } from "./ui/section-dock";
-import { Button } from "./ui/button";
-import { Switch } from "./ui/switch";
-import { Input, Textarea } from "./ui/input";
-import { Slider } from "./ui/slider";
-import { Tabs } from "./ui/tabs";
-import { Surface } from "./ui/surface";
-import { ProjectCard } from "./ui/project-card";
-import { IDCard } from "./ui/id-card";
-import { Astronaut } from "./ui/astronaut";
-import { ContributionCalendar, type ContributionDay } from "./ui/contribution-calendar";
-import { ContactForm } from "./ui/contact-form";
-import { ExperienceTabs } from "./ui/experience-tabs";
-import { FocusTimer } from "./ui/focus-timer";
-import { TestimonialCarousel } from "./ui/testimonial-carousel";
+import { SkeuoPhotoCarousel as PhotoCarousel } from "./skeuomorphic/skeuo-photo-carousel";
+import { SkeuoKeyButton as KeyButton } from "./skeuomorphic/skeuo-key-button";
+import { DemoThemeButton as ThemeButton } from "./demo-theme-button";
+import { SkeuoSectionDock as SectionDock } from "./skeuomorphic/skeuo-section-dock";
+import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
+import { SkeuoSwitch as Switch } from "./skeuomorphic/skeuo-switch";
+import { SkeuoInput as Input, SkeuoTextarea as Textarea } from "./skeuomorphic/skeuo-input";
+import { SkeuoSlider as Slider } from "./skeuomorphic/skeuo-slider";
+import { SkeuoTabs as Tabs } from "./skeuomorphic/skeuo-tabs";
+import { SkeuoSurface as Surface } from "./skeuomorphic/skeuo-surface";
+import { SkeuoProjectCard as ProjectCard } from "./skeuomorphic/skeuo-project-card";
+import { SkeuoIDCard as IDCard } from "./skeuomorphic/skeuo-id-card";
+import { SkeuoAstronaut as Astronaut } from "./skeuomorphic/skeuo-astronaut";
+import { SkeuoContributionCalendar as ContributionCalendar, type ContributionDay } from "./skeuomorphic/skeuo-contribution-calendar";
+import { SkeuoContactForm as ContactForm } from "./skeuomorphic/skeuo-contact-form";
+import { SkeuoExperienceTabs as ExperienceTabs } from "./skeuomorphic/skeuo-experience-tabs";
+import { SkeuoFocusTimer as FocusTimer } from "./skeuomorphic/skeuo-focus-timer";
+import { SkeuoTestimonialCarousel as TestimonialCarousel } from "./skeuomorphic/skeuo-testimonial-carousel";
 import { Icon } from "./icons";
 
 const contributionDays: ContributionDay[] = Array.from({ length: 730 }, (_, index) => {
@@ -49,7 +51,7 @@ export function ComponentDemo({ slug }: { slug: string }) {
   ]}/><p className="demo-feedback photo-demo-note">Sample stock photography · swipe, use arrow keys, or select a print.</p></div>;
   if (slug === "section-dock") return <div className="demo-stack"><div className="demo-controls"><Button size="sm" aria-pressed={orientation === "vertical"} onClick={() => setOrientation("vertical")}>Vertical</Button><Button size="sm" aria-pressed={orientation === "horizontal"} onClick={() => setOrientation("horizontal")}>Horizontal</Button></div><SectionDock orientation={orientation} value={dock} onValueChange={setDock} items={[{value:"home",label:"Home",icon:<Icon name="home"/>},{value:"projects",label:"Projects",icon:<Icon name="folder"/>},{value:"experience",label:"Experience",icon:<Icon name="briefcase"/>},{value:"achievements",label:"Achievements",icon:<Icon name="trophy"/>},{value:"contact",label:"Contact",icon:<Icon name="mail"/>}]} /><p className="demo-feedback" role="status">{dock.charAt(0).toUpperCase() + dock.slice(1)} selected</p></div>;
   if (slug === "theme-button") return <div className="demo-stack"><div className="demo-controls"><div className="demo-button-variant"><ThemeButton /><span>Raised key</span></div><div className="demo-button-variant"><ThemeButton variant="round" /><span>Round</span></div></div><p className="demo-feedback">Switch themes to try both appearances. Your choice is remembered.</p></div>;
-  if (slug === "keyboard-button") return <div className="demo-stack"><div className="demo-controls"><KeyButton icon={<img src="/tech-icons/react.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>React</KeyButton><KeyButton tone="cobalt" icon={<img src="/tech-icons/razorpay.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>Razorpay</KeyButton></div><div className="demo-controls"><KeyButton onClick={() => setCount(count + 1)}>Without icon</KeyButton><KeyButton disabled>Disabled key</KeyButton></div><p className="demo-feedback" role="status">{count ? `Key pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a key to feel its travel and hear the click."}</p></div>;
+  if (slug === "keyboard-button") return <div className="demo-stack"><div className="demo-controls"><KeyButton icon={<img src="/tech-icons/react.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>React</KeyButton><KeyButton tone="accent" icon={<img src="/tech-icons/razorpay.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>Razorpay</KeyButton></div><div className="demo-controls"><KeyButton onClick={() => setCount(count + 1)}>Without icon</KeyButton><KeyButton disabled>Disabled key</KeyButton></div><p className="demo-feedback" role="status">{count ? `Key pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a key to feel its travel and hear the click."}</p></div>;
   if (slug === "button") return <div className="demo-stack"><div className="demo-controls"><Button variant="primary" onClick={() => setCount(count + 1)}>Save changes <Icon name="arrow" size={16} /></Button><Button onClick={() => setCount(count + 1)}>Secondary</Button><Button square aria-label="Add item" onClick={() => setCount(count + 1)}><Icon name="plus" size={17} /></Button></div><div className="demo-controls"><Button size="sm">Small</Button><Button>Default</Button><Button size="lg">Large</Button></div><div className="demo-controls"><Button disabled>Disabled</Button><Button loading>Saving…</Button></div><p className="demo-feedback" role="status">{count ? `Button pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a button to try the sound and physical state."}</p></div>;
   if (slug === "switch") return <div className="demo-stack demo-narrow"><label className="demo-labeled-control"><span>Notifications</span><Switch checked={on} onCheckedChange={setOn} aria-label="Enable notifications" /></label><label className="demo-labeled-control"><span>Disabled</span><Switch checked={false} disabled onCheckedChange={() => {}} aria-label="Disabled switch" /></label><p className="demo-feedback">Notifications are {on ? "on" : "off"}.</p></div>;
   if (slug === "input") return <div className="demo-stack demo-narrow"><label className="demo-field">Email address<Input type="email" placeholder="you@example.com" /></label><label className="demo-field">Disabled field<Input disabled placeholder="Unavailable" /></label></div>;
@@ -64,5 +66,7 @@ export function ComponentDemo({ slug }: { slug: string }) {
   if (slug === "experience-tabs") return <div className="demo-full"><div className="demo-controls experience-options"><Button size="sm" aria-pressed={colorMode === "same"} onClick={() => setColorMode("same")}>Same color</Button><Button size="sm" aria-pressed={colorMode === "alternating"} onClick={() => setColorMode("alternating")}>Alternating colors</Button></div><ExperienceTabs items={experiences} value={experience} onValueChange={setExperience} colorMode={colorMode} /><p className="demo-feedback">Example roles and dates.</p></div>;
   if (slug === "focus-timer") return <div className="demo-timer"><FocusTimer /></div>;
   if (slug === "testimonial-carousel") return <div className="demo-full demo-testimonials"><TestimonialCarousel items={[{ id: "1", quote: "The difference is in the details you notice after the first click.", author: "Designer’s perspective", role: "Sample testimonial", initials: "01" },{ id: "2", quote: "Familiar controls. Just enough character to make them feel like yours.", author: "Developer’s perspective", role: "Sample testimonial", initials: "02" },{ id: "3", quote: "The kind of button you find yourself pressing one more time.", author: "A small interaction", role: "Sample testimonial", initials: "03" }]} /></div>;
+  if (slug === "provider") return <div className="demo-controls"><SkeuoProvider theme="light"><Button>Light scope</Button></SkeuoProvider><SkeuoProvider theme="dark"><Button>Dark scope</Button></SkeuoProvider></div>;
+  if (slug === "sound-provider") return <SkeuoSoundProvider><div className="demo-stack"><Button data-sk-sound="off">Silent by default</Button><p className="demo-feedback">Connect your own playback callback to opt in.</p></div></SkeuoSoundProvider>;
   return null;
 }

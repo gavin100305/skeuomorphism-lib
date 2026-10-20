@@ -1,6 +1,6 @@
 "use client";
 
-import { TestimonialCarousel } from "./ui/testimonial-carousel";
+import { SkeuoTestimonialCarousel as TestimonialCarousel } from "./skeuomorphic/skeuo-testimonial-carousel";
 
 const quotes = [
   { quote: "The difference is in the details you notice after the first click.", initials: "01", role: "Designer’s perspective" },

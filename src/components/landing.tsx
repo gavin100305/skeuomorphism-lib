@@ -5,18 +5,18 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Icon } from "./icons";
 import { SoundToggle } from "./button-sound-effects";
-import { Slider } from "./ui/slider";
-import { Input } from "./ui/input";
-import { Tabs } from "./ui/tabs";
+import { SkeuoSlider as Slider } from "./skeuomorphic/skeuo-slider";
+import { SkeuoInput as Input } from "./skeuomorphic/skeuo-input";
+import { SkeuoTabs as Tabs } from "./skeuomorphic/skeuo-tabs";
 import { useThemeToggle } from "./use-theme-toggle";
-import { Button } from "./ui/button";
+import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
 import { ObjectShowcase, ComponentCarousel, ProjectPreview } from "./landing-showcase";
 import { CodeExample } from "./landing-code";
 import { Testimonials } from "./landing-testimonials";
 import { useScrollReveal } from "./landing-motion";
-import { Switch as TactileSwitch } from "./ui/switch";
+import { SkeuoSwitch as TactileSwitch } from "./skeuomorphic/skeuo-switch";
 
-const repo = "https://github.com/gavin100305/skeumorphism-lib";
+const repo = "https://github.com/gavin100305/skeuomorphism-lib";
 function Mark() {
   return <span className="brand-mark" aria-hidden="true"><i /><i /><i /></span>;
 }
@@ -60,7 +60,7 @@ export default function Landing() {
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="site-header">
       <div className="header-inner">
-        <a href="#" className="brand"><Mark /><span>skeumorphism<span className="brand-period">.</span></span></a>
+        <a href="#" className="brand"><Mark /><span>skeuomorphism<span className="brand-period">.</span></span></a>
         <nav id="primary-nav" className={menu ? "nav-links open" : "nav-links"} aria-label="Main navigation">
           <a href="#components" onClick={() => setMenu(false)}>Components</a>
           <a href="#blocks" onClick={() => setMenu(false)}>Blocks</a>
@@ -112,7 +112,7 @@ export default function Landing() {
       </section>
     </main>
     <footer className="site-footer section-shell">
-      <div className="footer-top"><div className="footer-brand"><a href="#" className="brand"><Mark /><span>skeumorphism.</span></a><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><a href="#components">Components <Icon name="arrow" size={13} /></a><a href="#blocks">Blocks <Icon name="arrow" size={13} /></a><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
+      <div className="footer-top"><div className="footer-brand"><a href="#" className="brand"><Mark /><span>skeuomorphism.</span></a><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><a href="#components">Components <Icon name="arrow" size={13} /></a><a href="#blocks">Blocks <Icon name="arrow" size={13} /></a><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
       <div className="footer-bottom"><span>A work in progress by Gavin Soares.</span><a href="#">Back to top <Icon name="up" size={13} /></a></div>
     </footer>
   </>;
