@@ -180,6 +180,34 @@
           "target": "@ui/styles/skeuo-icons.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-key-button",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Keyboard Button",
+      "description": "A raised keyboard-style button with optional icons and neutral, accent, or cobalt colors.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-key-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-key-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-key-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-key-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
