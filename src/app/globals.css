@@ -448,3 +448,6 @@ html[data-theme="dark"] { --texture-ink: #ffffff12; --hero-weave: #dfe9e62a; --d
 .testimonials-section { padding-bottom: 120px; }
 .closing { padding-top: 40px; }
 @media(max-width:600px) { .testimonials-section { padding-bottom: 82px; }.closing { padding-top: 30px; } }
+/* Reused controls retain the landing specimens' compact scale. */
+.tabs-demo .sk-tab-panel { font-size: 10px; text-align: center; padding-top: 13px; }.input-well .sk-input { padding: 0; background: none; border: 0; box-shadow: none; font-size: 10px; }.input-well .sk-input:focus-visible { outline: none; }
+@media(max-width:600px) { .header-actions { gap: 5px; }.header-inner .brand { font-size: 15px; gap: 5px; } }

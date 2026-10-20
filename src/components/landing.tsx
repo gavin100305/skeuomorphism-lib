@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useId } from "react";
+import { useState } from "react";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Icon } from "./icons";
+import { SoundToggle } from "./button-sound-effects";
+import { Slider } from "./ui/slider";
+import { Input } from "./ui/input";
+import { Tabs } from "./ui/tabs";
 import { useThemeToggle } from "./use-theme-toggle";
 import { Button } from "./ui/button";
 import { ObjectShowcase, ComponentCarousel, ProjectPreview } from "./landing-showcase";
@@ -33,23 +37,16 @@ function SwitchDemo() {
   return <div className="switch-demo"><div><span><b>Focus mode</b><small>A little less distraction.</small></span><Switch checked={on} onChange={() => setOn(!on)} label="Focus mode" /></div><div><span><b>Notifications</b><small>Only when it matters.</small></span><Switch checked={quiet} onChange={() => setQuiet(!quiet)} label="Notifications demo" /></div></div>;
 }
 function TabsDemo() {
-  const [tab, setTab] = useState("Design");
-  const id = useId();
-  return <div className="tabs-demo"><div className="segmented" role="tablist" aria-label="Preview discipline">{["Design", "Develop", "Ship"].map(t => <button key={t} role="tab" id={`${id}-${t}`} aria-controls={`${id}-panel`} aria-selected={tab === t} tabIndex={tab === t ? 0 : -1} onKeyDown={e => {
-    const names = ["Design", "Develop", "Ship"];
-    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
-    e.preventDefault();
-    const index = e.key === "Home" ? 0 : e.key === "End" ? 2 : (names.indexOf(tab) + (e.key === "ArrowRight" ? 1 : 2)) % 3;
-    setTab(names[index]); document.getElementById(`${id}-${names[index]}`)?.focus();
-  }} onClick={() => setTab(t)}>{t}</button>)}</div><p role="tabpanel" id={`${id}-panel`} aria-labelledby={`${id}-${tab}`}>{tab === "Design" ? "Start with how it feels." : tab === "Develop" ? "Make the details work." : "Put it out into the world."}</p></div>;
+  const [tab, setTab] = useState("design");
+  return <div className="tabs-demo"><Tabs value={tab} onValueChange={setTab} label="Preview discipline" items={[{ value: "design", label: "Design", content: "Start with how it feels." },{ value: "develop", label: "Develop", content: "Make the details work." },{ value: "ship", label: "Ship", content: "Put it out into the world." }]} /></div>;
 }
 function SliderDemo() {
   const [depth, setDepth] = useState(65);
-  return <div className="slider-demo"><div className="slider-heading"><span>Surface depth</span><output>{String(depth).padStart(2, "0")}</output></div><div className="slider-housing"><span className="slider-track" aria-hidden="true"><i style={{ width: `${depth}%` }} /></span><input type="range" min="0" max="100" value={depth} aria-label="Surface depth demo" onChange={e => setDepth(Number(e.target.value))} /><div className="slider-ticks" aria-hidden="true">{Array.from({ length: 21 }, (_, i) => <i key={i} />)}</div></div><div className="slider-scale"><span>FLAT</span><span>RAISED</span></div><div className="depth-sample" style={{ "--sample-depth": `${depth / 7}px` } as CSSProperties}><Icon name="layers" size={26} /></div></div>;
+  return <div className="slider-demo"><div className="slider-heading"><span>Surface depth</span><output>{String(depth).padStart(2, "0")}</output></div><Slider value={depth} onValueChange={setDepth} aria-label="Surface depth demo" /><div className="slider-scale"><span>FLAT</span><span>RAISED</span></div><div className="depth-sample" style={{ "--sample-depth": `${depth / 7}px` } as CSSProperties}><Icon name="layers" size={26} /></div></div>;
 }
 function InputDemo() {
   const [saved, setSaved] = useState(false);
-  return <form className="input-demo" onSubmit={e => { e.preventDefault(); setSaved(true); }}><label htmlFor="demo-email">Email address</label><div className="input-well"><Icon name="mail" /><input id="demo-email" type="email" placeholder="you@example.com" required onChange={() => setSaved(false)} /><button type="submit" className="tactile square" aria-label="Try email input"><Icon name={saved ? "check" : "arrow"} /></button></div><p aria-live="polite">{saved ? "Looks good. This is just a demo—nothing was sent." : "Recessed, right down to the details."}</p></form>;
+  return <form className="input-demo" onSubmit={e => { e.preventDefault(); setSaved(true); }}><label htmlFor="demo-email">Email address</label><div className="input-well"><Icon name="mail" /><Input id="demo-email" type="email" placeholder="you@example.com" required onChange={() => setSaved(false)} /><button type="submit" className="tactile square" aria-label="Try email input"><Icon name={saved ? "check" : "arrow"} /></button></div><p aria-live="polite">{saved ? "Looks good. This is just a demo—nothing was sent." : "Recessed, right down to the details."}</p></form>;
 }
 function ComponentCard({ title, number, children, wide = false }: { title: string; number: string; children: React.ReactNode; wide?: boolean }) {
   return <article className={`component-card ${wide ? "wide" : ""}`}><div className="component-stage">{children}</div><div className="component-caption"><h3>{title}</h3><span>{number}</span></div></article>;
@@ -73,6 +70,7 @@ export default function Landing() {
         <div className="header-actions">
           <a className="nav-start" href="#getting-started">Get started <Icon name="arrow" size={14} /></a>
           <a href={repo} target="_blank" rel="noreferrer" className="github-link" aria-label="GitHub repository"><Icon name="github" size={18} /></a>
+          <SoundToggle />
           <button className="theme-button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={18} /></span><span className="theme-moon"><Icon name="moon" size={18} /></span></button>
           <button className="mobile-menu" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded={menu} onClick={() => setMenu(!menu)}><Icon name={menu ? "close" : "menu"} /></button>
         </div>
