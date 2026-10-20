@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState, useId, useRef } from "react";
+import { useState, useId } from "react";
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { Icon } from "./icons";
+import { useThemeToggle } from "./use-theme-toggle";
 import { Button } from "./ui/button";
 import { ObjectShowcase, ComponentCarousel, ProjectPreview } from "./landing-showcase";
 import { CodeExample } from "./landing-code";
@@ -54,38 +56,9 @@ function ComponentCard({ title, number, children, wide = false }: { title: strin
 }
 export default function Landing() {
   const [menu, setMenu] = useState(false);
-  const themeChanging = useRef(false);
+  const toggleTheme = useThemeToggle();
   const [messageSent, setMessageSent] = useState(false);
   useScrollReveal();
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    function sync() {
-      let stored: string | null = null;
-      try { stored = localStorage.getItem("skeumorphism-theme"); } catch {}
-      const next = stored === "dark" || stored === "light" ? stored === "dark" : media.matches;
-      document.documentElement.dataset.theme = next ? "dark" : "light";
-    }
-    sync(); media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
-  async function toggleTheme() {
-    if (themeChanging.current) return;
-    const next = document.documentElement.dataset.theme !== "dark";
-    function applyTheme() {
-      document.documentElement.dataset.theme = next ? "dark" : "light";
-      try { localStorage.setItem("skeumorphism-theme", next ? "dark" : "light"); } catch {}
-    }
-    if (!document.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      applyTheme(); return;
-    }
-    themeChanging.current = true;
-    try {
-      const transition = document.startViewTransition(applyTheme);
-      await transition.finished;
-    } catch {
-      // A skipped snapshot still leaves the chosen theme applied.
-    } finally { themeChanging.current = false; }
-  }
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="site-header">
@@ -94,7 +67,7 @@ export default function Landing() {
         <nav id="primary-nav" className={menu ? "nav-links open" : "nav-links"} aria-label="Main navigation">
           <a href="#components" onClick={() => setMenu(false)}>Components</a>
           <a href="#blocks" onClick={() => setMenu(false)}>Blocks</a>
-          <button className="nav-docs" aria-disabled="true" title="Documentation is coming soon">Docs</button>
+          <Link href="/docs" onClick={() => setMenu(false)}>Docs</Link>
           <a className="mobile-start" href="#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></a>
         </nav>
         <div className="header-actions">
