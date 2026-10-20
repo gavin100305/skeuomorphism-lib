@@ -107,6 +107,7 @@ export default function Landing() {
     </header>
     <main id="main">
       <section className="hero section-shell">
+        <div className="hero-woven-disc" aria-hidden="true" />
         <div className="hero-note">Tactile components for the web</div>
         <h1>Interfaces you can<br />almost <span>feel.</span></h1>
         <p className="hero-description">A little depth goes a long way. Tactile components for the web,<br className="desktop-break" /> crafted with the details that make an interface feel real.</p>

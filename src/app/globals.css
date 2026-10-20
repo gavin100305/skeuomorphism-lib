@@ -395,3 +395,40 @@ body { background-image: repeating-linear-gradient(113deg,transparent 0 3px,var(
 @media(min-width:1600px) { .hero { padding-top: 50px; } }
 @media(max-width:800px) { .hero { padding-top: 30px; } }
 @media(max-width:600px) { .hero { padding-top: 24px; } }
+
+/* A woven, recessed medallion behind the introduction. */
+:root { --texture-ink: #2017100a; --hero-weave: #24251e15; --disc-face: #f5f5f1; --disc-rim: #ffffff; --disc-shade: #00000019; }
+html[data-theme="dark"] { --texture-ink: #ffffff12; --hero-weave: #dfe9e62a; --disc-face: #101311; --disc-rim: #ffffff27; --disc-shade: #000000b3; }
+@media(prefers-color-scheme:dark) { html:not([data-theme="light"]) { --texture-ink: #ffffff12; --hero-weave: #dfe9e62a; --disc-face: #101311; --disc-rim: #ffffff27; --disc-shade: #000000b3; } }
+.hero { position: relative; isolation: isolate; }
+.hero-woven-disc {
+  position: absolute; z-index: -1; pointer-events: none;
+  width: min(640px,76vw); aspect-ratio: 1; top: -24px; left: 50%; transform: translateX(-50%);
+  border-radius: 50%; border: 1px solid var(--disc-rim);
+  background-color: var(--disc-face);
+  background-image: repeating-linear-gradient(113deg,transparent 0 3px,var(--hero-weave) 3px 4px,transparent 4px 7px),repeating-linear-gradient(23deg,transparent 0 5px,var(--hero-weave) 5px 6px,transparent 6px 11px);
+  box-shadow: inset 0 15px 26px var(--disc-shade),inset 5px 6px 12px var(--disc-shade),inset 0 -2px 3px var(--disc-rim),0 1px 0 var(--disc-rim),0 9px 24px var(--shadow);
+}
+.hero-woven-disc::after { content: ""; position: absolute; inset: 7px; border: 1px solid var(--disc-rim); border-radius: inherit; box-shadow: inset 0 2px 4px var(--disc-shade); opacity: .7; }
+@media(min-width:1600px) { .hero-woven-disc { width: 700px; top: -28px; } }
+@media(max-width:800px) { .hero-woven-disc { width: min(590px,92vw); top: -10px; } }
+@media(max-width:600px) { .hero-woven-disc { width: 108vw; max-width: 490px; top: 5px; }.hero { overflow: clip; } }
+
+/* The woven inset grows into place when the introduction opens. */
+.hero-woven-disc {
+  width: min(550px,70vw);
+  top: -8px;
+  transform-origin: center;
+  box-shadow: inset 0 24px 35px var(--disc-shade),inset 9px 8px 20px var(--disc-shade),inset -3px -4px 6px var(--disc-rim),0 1px 0 var(--disc-rim),0 6px 15px var(--shadow);
+  animation: woven-disc-reveal 2.6s cubic-bezier(.22,.65,.2,1) .25s both;
+}
+.hero-woven-disc::after { inset: 8px; box-shadow: inset 0 5px 10px var(--disc-shade),inset 0 -1px 1px var(--disc-rim); }
+@keyframes woven-disc-reveal {
+  from { opacity: 0; transform: translateX(-50%) scale(0); }
+  14% { opacity: 1; }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+@media(min-width:1600px) { .hero-woven-disc { width: 590px; top: -8px; } }
+@media(max-width:800px) { .hero-woven-disc { width: min(520px,88vw); top: -5px; } }
+@media(max-width:600px) { .hero-woven-disc { width: 108vw; max-width: 490px; top: 5px; } }
+@media(prefers-reduced-motion:reduce) { .hero-woven-disc { animation: none; opacity: 1; transform: translateX(-50%) scale(1); } }
