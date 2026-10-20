@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeuo-id-card",
+  "title": "Skeuomorphic ID Card",
+  "description": "A tactile identity card with a replaceable portrait and text.",
+  "files": [
+    {
+      "path": "src/components/skeuomorphic/skeuo-id-card.tsx",
+      "content": "import \"./styles/skeuo-id-card.css\";\nimport type { ReactNode } from \"react\";\n/** The portfolio access badge, with caller-provided content. */\nexport function SkeuoIDCard({ name, role, portrait, code = \"ID / 01\", heading = \"MEMBER ACCESS\" }: { name: string; role: string; portrait: ReactNode; code?: string; heading?: string }) {\n  return <article data-sk-root=\"\" className=\"sk-id-card\"><div className=\"sk-id-slot\" /><div className=\"sk-id-heading\"><span>{code}</span><span>{heading}</span></div><div className=\"sk-id-portrait\">{portrait}</div><h3>{name}</h3><div className=\"sk-id-meta\"><span>{role}</span><span className=\"sk-id-bars\" aria-hidden=\"true\" /></div></article>;\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-id-card.tsx"
+    },
+    {
+      "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+      "content": "@import \"./skeuo-tokens.css\";\n:where([data-sk-root],[data-sk-root] *) {box-sizing:border-box;}\n:where([data-sk-root]) {font-family:var(--sk-font-sans,system-ui,sans-serif);font-size:14px;line-height:1.5;color:var(--sk-ink);}\n:where([data-sk-root] button,[data-sk-root] input,[data-sk-root] textarea) {font:inherit;}\n:where([data-sk-root] :is(h1,h2,h3,h4,p,figure,blockquote,ul)) {margin:0;}\n:where([data-sk-root] button) {cursor:pointer;}\n:where([data-sk-root] :focus-visible) {outline:2px solid var(--sk-accent);outline-offset:3px;}\n:where([data-sk-root] button:disabled) {cursor:not-allowed;}\n",
+      "type": "registry:file",
+      "target": "@ui/styles/skeuo-base.css"
+    },
+    {
+      "path": "src/components/skeuomorphic/styles/skeuo-id-card.css",
+      "content": "@import \"./skeuo-base.css\";\n.sk-id-card{ width: 156px; padding: 9px 12px 13px; border: 1px solid #c1c9d5; border-radius: 12px; color: #243348; background: linear-gradient(135deg, #fff, #e4e9f0); transform: rotate(-6deg); box-shadow: inset 0 2px 1px #ffffff, inset 2px 0 2px #ffffffb3, inset -2px -2px 2px #a7b4c580, 0 2px 0 #d8e0e9, 0 4px 0 #96a6ba, 0 5px 0 #56677e, 2px 7px 3px #00000025, 7px 17px 19px #00000042; }\n.sk-id-slot{ width: 32px; height: 5px; margin: 0 auto 12px; border-radius: 6px; background: #1c3b8e; box-shadow: inset 0 1px 2px #071b60aa, 0 1px 0 #fff; }\n.sk-id-heading{ display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; font: 5px/1.5 var(--sk-font-mono), monospace; letter-spacing: .4px; }\n.sk-id-heading span:first-child{ color: #2457e6; font-weight: 700; }\n.sk-id-portrait{ position: relative; display: grid; place-items: center; height: 126px; overflow: hidden; border: 1px solid #8091a7; border-radius: 5px; background: #405775; box-shadow: inset 0 4px 7px #0c1a3680, inset 2px 0 4px #0c1a3640, 0 1px 0 #fff; }\n.sk-id-portrait::after{ content: \"\"; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 2px 4px #0b193e66, inset 0 -1px 0 #b9cde34d; }\n.sk-id-portrait .sk-astronaut-svg{ width: 91px; height: 114px; filter: drop-shadow(0 3px 0 #14263a55); }\n.sk-id-name{ margin-top: 10px; font-size: 11px; font-weight: 600; }\n.sk-id-meta{ display: flex; justify-content: space-between; align-items: center; margin-top: 5px; font: 7px/1.5 var(--sk-font-mono), monospace; color: #596d86; }\n.sk-id-bars{ width: 40px; height: 12px; background: repeating-linear-gradient(90deg, #243348 0 1px, transparent 1px 3px, #243348 3px 5px, transparent 5px 6px); }\n.sk-id-card{ width: 210px; padding: 13px 16px 18px; transform: rotate(-5deg); transition: transform .35s ease; }\n.sk-id-card:hover{ transform: rotate(0); }\n.sk-id-slot{ background: var(--sk-accent); }\n.sk-id-heading{ font-size: 7px; }\n.sk-id-heading span:first-child{ color: #355e50; }\n.sk-id-portrait{ height: 168px; }\n.sk-id-portrait .sk-astronaut-svg{ width: 122px; height: 150px; }\n.sk-id-card h3{ margin: 15px 0 0; font-size: 17px; letter-spacing: -.5px; font-weight: 600; }\n.sk-id-meta{ font-size: 9px; margin-top: 8px; }\n@media(prefers-reduced-motion:reduce){.sk-id-card:hover{ transform: none; }}\n",
+      "type": "registry:file",
+      "target": "@ui/styles/skeuo-id-card.css"
+    },
+    {
+      "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+      "content": "/* Namespaced defaults. Host applications can override any --sk-* token. */\n:where(:root,.light,[data-theme=\"light\"]) {\n  --sk-album-paper:#faf9f5;--sk-album-ink:#45423b;--sk-album-edge:#c4c2ba;--sk-album-base:#d6d4ca;\n  --sk-bg: #fff; --sk-ink: #202020; --sk-muted: #777774; --sk-line: #e7e7e4;\n  --sk-surface: #f5f5f2; --sk-surface-raised: #fafaf8; --sk-well: #e9e9e5;\n  --sk-edge: #d1d1cb; --sk-highlight: #fff; --sk-base: #d9d9d3; --sk-shadow: #00000017;\n  --sk-accent: #365e50; --sk-accent-bright: #487b68; --sk-accent-base: #213c32; --sk-accent-edge: #294b3e; --sk-accent-ink: #fff;\n  --sk-key: #f9f9f7; --sk-key-edge: #c6c7c1; --sk-key-base: #d0d1ca;\n  --sk-font-mono: ui-monospace, SFMono-Regular, Consolas, monospace; --sk-font-sans: system-ui, sans-serif;\n\n}\n:where(.dark,[data-theme=\"dark\"]) {\n  --sk-album-paper:#272728;--sk-album-ink:#d0cfca;--sk-album-edge:#555456;--sk-album-base:#111214;\n  --sk-bg: #000; --sk-ink: #efefeb; --sk-muted: #92928d; --sk-line: #242424;\n  --sk-surface: #191919; --sk-surface-raised: #252525; --sk-well: #111;\n  --sk-edge: #3b3b39; --sk-highlight: #ffffff1e; --sk-base: #080808; --sk-shadow: #00000099;\n  --sk-accent: #9ab5a6; --sk-accent-bright: #bbcec2; --sk-accent-base: #4d6558; --sk-accent-edge: #6f8a79; --sk-accent-ink: #14251c;\n  --sk-key: #292a29; --sk-key-edge: #484946; --sk-key-base: #101110;\n\n}\n@media(prefers-color-scheme:dark) { :where(html:not(.light):not(.dark):not([data-theme])) {\n  --sk-album-paper:#272728;--sk-album-ink:#d0cfca;--sk-album-edge:#555456;--sk-album-base:#111214;\n  --sk-bg: #000; --sk-ink: #efefeb; --sk-muted: #92928d; --sk-line: #242424;\n  --sk-surface: #191919; --sk-surface-raised: #252525; --sk-well: #111;\n  --sk-edge: #3b3b39; --sk-highlight: #ffffff1e; --sk-base: #080808; --sk-shadow: #00000099;\n  --sk-accent: #9ab5a6; --sk-accent-bright: #bbcec2; --sk-accent-base: #4d6558; --sk-accent-edge: #6f8a79; --sk-accent-ink: #14251c;\n  --sk-key: #292a29; --sk-key-edge: #484946; --sk-key-base: #101110;\n\n} }\n",
+      "type": "registry:file",
+      "target": "@ui/styles/skeuo-tokens.css"
+    }
+  ],
+  "type": "registry:ui"
+}
