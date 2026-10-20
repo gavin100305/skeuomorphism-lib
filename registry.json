@@ -540,6 +540,34 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-photo-carousel",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Photo Carousel",
+      "description": "A framed photo carousel with reveal animation and expanded details.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-photo-carousel.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-photo-carousel.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-photo-carousel.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-photo-carousel.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
