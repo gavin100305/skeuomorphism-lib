@@ -591,6 +591,19 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-sound-provider",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Sound Provider",
+      "description": "Optional scoped control sound events; playback and assets belong to the host.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-sound-provider.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-sound-provider.tsx"
+        }
+      ]
     }
   ]
 }
