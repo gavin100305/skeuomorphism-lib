@@ -55,3 +55,8 @@ Run `npm run registry:build` to regenerate the public registry files.
 See [registry setup and local installation](docs/registry.md) for usage and validation details.
 
 See [semantic theming](docs/theming.md) for standard primary, secondary, material, and focus colors.
+
+## License
+
+The project code is licensed under the [MIT License](LICENSE).
+Copyright (c) 2026 Gavin Soares. Third-party assets and dependencies retain their respective licenses.
