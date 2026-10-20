@@ -20,7 +20,7 @@
   will-change: transform;
 }
 .sk-project-card:hover{ box-shadow: inset 0 1px 0 var(--sk-highlight), inset 0 -2px 0 var(--sk-base), 0 5px 0 var(--sk-base), 0 6px 0 var(--sk-edge), 0 17px 19px var(--sk-shadow); }
-.sk-project-card:focus-visible{ outline: 2px solid var(--sk-accent); outline-offset: 5px; }
+.sk-project-card:focus-visible{ outline: 2px solid var(--sk-ring); outline-offset: 5px; }
 .sk-project-handle{ display: flex; align-items: center; gap: 10px; height: 31px; padding-inline: 5px; font: 10px/1.4 var(--sk-font-mono), monospace; touch-action: none; }
 .sk-project-handle svg{ margin-left: auto; opacity: .45; }
 .sk-project-number{ color: var(--sk-accent); font-size: 9px; padding-right: 9px; border-right: 1px solid var(--sk-line); }
@@ -40,3 +40,5 @@
 .sk-project-image > img{ aspect-ratio: 16/10; }
 .sk-project-card:hover{ transform: translateY(-3px); }
 @media(prefers-reduced-motion:reduce){.sk-project-card:hover{ transform: none; }}
+
+.sk-project-card { color: var(--sk-card-ink); }

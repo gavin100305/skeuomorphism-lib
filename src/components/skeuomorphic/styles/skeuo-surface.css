@@ -1,2 +1,4 @@
 @import "./skeuo-base.css";
-.sk-surface{ padding: 28px; border: 1px solid var(--sk-edge); border-radius: 12px; background: linear-gradient(145deg,var(--sk-surface-raised),var(--sk-surface)); }
+.sk-surface{ color: var(--sk-card-ink); padding: 28px; border: 1px solid var(--sk-edge); border-radius: 12px; background: linear-gradient(145deg,var(--sk-surface-raised),var(--sk-surface)); }
+
+.sk-surface-raised { box-shadow: inset 0 2px 0 var(--sk-highlight),0 4px 0 var(--sk-base),0 5px 0 var(--sk-edge),0 12px 18px var(--sk-shadow); }.sk-surface-recessed { background: var(--sk-well); box-shadow: inset 0 5px 10px var(--sk-shadow),inset 2px 0 5px var(--sk-shadow),0 1px 0 var(--sk-highlight); }

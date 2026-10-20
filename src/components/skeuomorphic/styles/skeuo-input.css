@@ -1,7 +1,7 @@
 @import "./skeuo-base.css";
-.sk-input{ display: block; width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid var(--sk-edge); border-radius: 6px; background: var(--sk-well); color: var(--sk-ink); box-shadow: inset 0 3px 6px var(--sk-shadow),inset 1px 1px 2px var(--sk-shadow),0 1px 0 var(--sk-highlight); font: inherit; font-size: 13px; line-height: 1.7; }
+.sk-input{ display: block; width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid var(--sk-input-edge); border-radius: 6px; background: var(--sk-well); color: var(--sk-ink); box-shadow: var(--sk-field-shadow); font: inherit; font-size: 13px; line-height: 1.7; }
 .sk-input::placeholder{ color: var(--sk-muted); }
-.sk-input:focus-visible{ outline: 2px solid var(--sk-accent); outline-offset: 3px; }
+.sk-input:focus-visible{ outline: 2px solid var(--sk-ring); outline-offset: 3px; }
 .sk-input:disabled{ opacity: .55; cursor: not-allowed; }
 .sk-textarea{ min-height: 130px; resize: vertical; }
 @media(max-width:600px){.sk-input{ font-size: 16px; }}

@@ -9,7 +9,7 @@
 .sk-dock-key[aria-current="page"]{color:#fff;border-color:#1744bd;background:linear-gradient(145deg,#2457e6,#1d43b2);box-shadow:inset 0 2px #789aff,inset 2px 0 #ffffff25,inset 0 -3px #17399b,0 3px #17399b,0 4px #1744bd,0 6px 4px #00000030;}
 .sk-dock-key[aria-current="page"]::before{border-color:#789aff80;box-shadow:inset 0 2px 3px #102a8b80,inset 0 -1px #789aff80;}
 .sk-dock-key:active{transform:translateY(3px);box-shadow:inset 0 2px 4px var(--sk-shadow),0 1px var(--sk-key-edge);}
-.sk-dock-key:focus-visible{outline:2px solid var(--sk-accent);outline-offset:4px;}
+.sk-dock-key:focus-visible{outline:2px solid var(--sk-ring);outline-offset:4px;}
 .sk-dock-tooltip{position:absolute;left:calc(100% + 16px);top:50%;transform:translateY(-50%);padding:7px 10px;border:1px solid var(--sk-edge);border-radius:5px;background:var(--sk-surface-raised);color:var(--sk-ink);box-shadow:0 3px 8px var(--sk-shadow);font-size:11px;white-space:nowrap;opacity:0;pointer-events:none;z-index:3;}
 .sk-dock-key:is(:hover,:focus-visible) .sk-dock-tooltip{opacity:1;}
 .sk-section-dock[data-orientation="horizontal"] .sk-dock-tooltip{top:auto;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);}

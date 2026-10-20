@@ -53,3 +53,5 @@ The website opts into click sounds through `SkeuoSoundProvider` and supplies its
 The shadcn registry includes 19 items: foundational controls, cards, forms, calendars, timers, carousels, and optional theme/sound providers.
 Run `npm run registry:build` to regenerate the public registry files.
 See [registry setup and local installation](docs/registry.md) for usage and validation details.
+
+See [semantic theming](docs/theming.md) for standard primary, secondary, material, and focus colors.

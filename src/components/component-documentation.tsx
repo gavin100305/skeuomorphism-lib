@@ -16,7 +16,36 @@ export function ComponentDocumentation({ slug }: { slug: string }) {
     <section id="preview" className="doc-section"><h2>Preview</h2><div className={`doc-live-preview preview-${slug}`}><ComponentDemo slug={slug} /></div></section>
     <section id="installation" className="doc-section"><h2>Installation</h2><p>Run from a React project configured for shadcn. The item includes its required local controls, icons, and CSS. Existing <code>button.tsx</code> files are not replaced.</p>{origin ? <CodeBlock name="Terminal" code={`npx shadcn@4.22.1 add ${origin}/r/${registryName}.json`} /> : <p>Loading the registry address…</p>}<p className="doc-small-note">{origin.includes("localhost") || origin.includes("127.0.0.1") ? "This is a local registry URL. Public installation requires deployment." : "This command uses this website’s registry address."} Requires a CSS-import-capable React setup. If shadcn is not configured, run its init command first. Adjust the example import alias to your configured UI folder.</p></section>
     <section id="usage" className="doc-section"><h2>Usage</h2><CodeBlock code={guide?.example ?? component.example} name="example.tsx" /><p className="doc-small-note">Examples with state or event handlers use a Next.js client boundary. Image paths are placeholders for assets you supply.</p></section>
-    <section id="customization" className="doc-section"><h2>Customization</h2><p>{guide?.notes}</p><p>Styles use <code>sk-*</code> classes and <code>--sk-*</code> tokens. Light and dark defaults follow your app’s <code>.light</code>, <code>.dark</code>, or <code>data-theme</code> convention. Fonts follow the host; no font files are downloaded.</p><p>All controls are silent by default. The optional <a href="/docs/provider">theme provider</a> applies local font and token overrides; the <a href="/docs/sound-provider">sound provider</a> connects your own click playback.</p></section>
+    <section id="customization" className="doc-section"><h2>Customization</h2><p>{guide?.notes}</p><p>Colors follow semantic tokens such as <code>--primary</code>, <code>--secondary</code>, <code>--card</code>, and <code>--ring</code>. Styles use <code>sk-*</code> classes; <code>--sk-*</code> tokens remain available for detailed overrides. Light and dark defaults follow your app’s <code>.light</code>, <code>.dark</code>, or <code>data-theme</code> convention. Fonts follow the host; no font files are downloaded.</p>{slug === "provider" && <CodeBlock name="app.css" code={`:root {
+  --primary: #365e50;
+  --primary-foreground: #ffffff;
+  --secondary: #eeeeeb;
+  --secondary-foreground: #202020;
+  --background: #ffffff;
+  --foreground: #202020;
+  --card: #fafaf8;
+  --card-foreground: #202020;
+  --muted: #e9e9e5;
+  --muted-foreground: #686863;
+  --border: #d1d1cb;
+  --input: #b8b8b1;
+  --ring: #365e50;
+}
+.dark {
+  --primary: #9ab5a6;
+  --primary-foreground: #14251c;
+  --secondary: #292a29;
+  --secondary-foreground: #efefeb;
+  --background: #090909;
+  --foreground: #efefeb;
+  --card: #191919;
+  --card-foreground: #efefeb;
+  --muted: #111111;
+  --muted-foreground: #a5a59f;
+  --border: #484946;
+  --input: #565752;
+  --ring: #bbcec2;
+}`} /> }<p>All controls are silent by default. The optional <a href="/docs/provider">theme provider</a> applies local font and token overrides; the <a href="/docs/sound-provider">sound provider</a> connects your own click playback.</p></section>
     <section id="props" className="doc-section"><h2>Props</h2><div className="doc-table-scroll"><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody>{component.props.map(([name,type,value]) => <tr key={name}><td><code>{name}</code></td><td><code>{type}</code></td><td>{value}</td></tr>)}</tbody></table></div></section>
     <section id="accessibility" className="doc-section"><h2>Accessibility</h2><p>{component.accessibility}</p></section>
   </main>;

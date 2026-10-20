@@ -8,3 +8,5 @@
 @media(max-width:600px){.sk-contact-fields{ grid-template-columns: 1fr; padding: 22px; gap: 18px; }
 .sk-contact-actions{ padding: 20px 22px; }
 .sk-contact-actions .sk-button{ width: 100%; justify-content: space-between; }}
+
+.sk-contact { color: var(--sk-card-ink); }

@@ -19,3 +19,5 @@
 .sk-id-card h3{ margin: 15px 0 0; font-size: 17px; letter-spacing: -.5px; font-weight: 600; }
 .sk-id-meta{ font-size: 9px; margin-top: 8px; }
 @media(prefers-reduced-motion:reduce){.sk-id-card:hover{ transform: none; }}
+
+.sk-id-card { color: var(--sk-card-ink); border-color: var(--sk-edge); background: linear-gradient(135deg,var(--sk-surface-raised),var(--sk-surface)); }

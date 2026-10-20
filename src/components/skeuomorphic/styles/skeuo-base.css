@@ -4,5 +4,5 @@
 :where([data-sk-root] button,[data-sk-root] input,[data-sk-root] textarea) {font:inherit;}
 :where([data-sk-root] :is(h1,h2,h3,h4,p,figure,blockquote,ul)) {margin:0;}
 :where([data-sk-root] button) {cursor:pointer;}
-:where([data-sk-root] :focus-visible) {outline:2px solid var(--sk-accent);outline-offset:3px;}
+:where([data-sk-root]:focus-visible,[data-sk-root] :focus-visible) {outline:2px solid var(--sk-ring);outline-offset:3px;}
 :where([data-sk-root] button:disabled) {cursor:not-allowed;}

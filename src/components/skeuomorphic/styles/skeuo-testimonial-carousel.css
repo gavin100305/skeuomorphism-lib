@@ -37,3 +37,5 @@
 @keyframes sk-testimonial-drift{ to { transform: translateX(-50%); } }
 
 .sk-testimonial-card {--sk-quote-tint:color-mix(in srgb,var(--sk-accent) 4%,transparent);}
+
+.sk-testimonial-card { color: var(--sk-card-ink); }

@@ -33,3 +33,5 @@
 .sk-timer-dial{ box-shadow: inset 0 2px 4px var(--sk-shadow),0 1px 0 var(--sk-highlight),0 3px 5px var(--sk-shadow); }
 .sk-focus-object {width:100%;max-width:360px;transform:none;}
 
+
+.sk-tactile-object { color: var(--sk-card-ink); }

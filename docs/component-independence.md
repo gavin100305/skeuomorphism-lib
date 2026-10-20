@@ -34,7 +34,7 @@ The optional `SkeuoProvider` sets a local theme and font choices. Its `style` pr
   theme="dark"
   fontFamily="Inter, sans-serif"
   monoFontFamily="JetBrains Mono, monospace"
-  style={{ "--sk-accent": "#365e50", "--sk-accent-bright": "#487b68" }}
+  style={{ "--primary": "#365e50", "--primary-foreground": "#ffffff" }}
 >
   <SkeuoButton variant="primary">Save</SkeuoButton>
 </SkeuoProvider>
@@ -71,3 +71,9 @@ The contact form takes an `onSend` callback; no email provider or credentials ar
 ## Next phase
 
 Describe each component and its dependency closure in `registry.json`, starting with the standard button. Generate its shadcn registry item, then validate actual CLI installation in a clean consumer project. This source-separation phase does not claim published installation or Next.js/Vite consumer verification.
+
+## Semantic color tokens
+
+The library reads modern shadcn semantic colors without overwriting host tokens.
+See [theming](theming.md) for global palettes, typed provider overrides, and
+advanced `--sk-*` precedence. Use complete CSS colors rather than bare HSL channels.
