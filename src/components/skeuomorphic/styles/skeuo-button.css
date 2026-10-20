@@ -1,0 +1,17 @@
+@import "./skeuo-base.css";
+.sk-button{ display: inline-flex; align-items: center; justify-content: center; gap: 19px; border: 1px solid var(--sk-edge); border-radius: 8px; padding: 13px 19px; min-height: 46px; background: linear-gradient(155deg,var(--sk-surface-raised),var(--sk-surface)); box-shadow: inset 0 1.5px 0 var(--sk-highlight), inset 0 -1px 1px var(--sk-base), 0 3px 0 var(--sk-base), 0 4px 0 var(--sk-edge), 0 6px 7px var(--sk-shadow); font-size: 12px; font-weight: 500; transition: transform .16s ease, box-shadow .16s ease, filter .16s ease; white-space: nowrap; }
+.sk-button:hover{ filter: brightness(1.04); transform: translateY(-1px); }
+.sk-button:active{ transform: translateY(3px); box-shadow: inset 0 2px 4px #00000025, 0 1px 0 var(--sk-edge); }
+.sk-button.sk-primary{ background: linear-gradient(160deg, var(--sk-accent-bright), var(--sk-accent)); color: var(--sk-accent-ink); border-color: #a0411e; box-shadow: inset 0 1.5px 0 #ffffff60,inset 0 -1px 1px #853416,0 3px 0 var(--sk-accent-base),0 4px 0 #5b2816,0 6px 7px #0000001c; }
+.sk-button.sk-primary:active{ box-shadow: inset 0 2px 4px #00000030, 0 1px 0 #5b2816; }
+.sk-button.sk-square{ width: 46px; padding: 0; }
+.sk-button:disabled{ cursor: not-allowed; opacity: .5; transform: none; }
+.sk-button.sk-primary{ border-color: var(--sk-accent-edge); box-shadow: inset 0 1.5px 0 #ffffff50,inset 0 -1px 1px var(--sk-accent-base),0 3px 0 var(--sk-accent-base),0 4px 0 var(--sk-accent-edge),0 7px 9px var(--sk-shadow); }
+.sk-button.sk-primary:active{ box-shadow: inset 0 2px 4px #00000030,0 1px 0 var(--sk-accent-edge); }
+.sk-button[data-size="sm"]{ min-height: 34px; padding: 8px 12px; font-size: 11px; }
+.sk-button[data-size="lg"]{ min-height: 52px; padding: 16px 24px; font-size: 14px; }
+.sk-button.sk-square[data-size="sm"]{ width: 34px; padding: 0; }
+.sk-button.sk-square[data-size="lg"]{ width: 52px; padding: 0; }
+.sk-spinner{ display: inline-block; width: 13px; height: 13px; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: sk-spin .7s linear infinite; }
+@media(prefers-reduced-motion:reduce){.sk-spinner{ animation-duration: 1.5s; }}
+@keyframes sk-spin{ to { transform: rotate(360deg); } }

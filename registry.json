@@ -2,5 +2,34 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "skeuomorphism",
   "homepage": "https://github.com/gavin100305/skeuomorphism-lib",
-  "items": []
+  "items": [
+    {
+      "name": "skeuo-button",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Button",
+      "description": "A tactile button with namespaced styles, light and dark themes, and no provider requirement.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
+    }
+  ]
 }
