@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import "@/components/ui/collection.css";
+import { ButtonSoundEffects } from "@/components/button-sound-effects";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <Script id="theme-init" strategy="beforeInteractive">{`try{var t=localStorage.getItem('skeumorphism-theme');document.documentElement.dataset.theme=t==='dark'||t==='light'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch{}`}</Script>
+        <ButtonSoundEffects />
         {children}
       </body>
     </html>
