@@ -2,10 +2,10 @@
 import { useId } from "react";
 import type { ReactNode } from "react";
 export type TabItem = { value: string; label: string; content: ReactNode; disabled?: boolean };
-export function Tabs({ items, value, onValueChange, label = "Tabs" }: { items: TabItem[]; value: string; onValueChange: (value: string) => void; label?: string }) {
+export function Tabs({ items, value, onValueChange, label = "Tabs", appearance = "segmented", colorMode = "same" }: { items: TabItem[]; value: string; onValueChange: (value: string) => void; label?: string; appearance?: "segmented" | "keys"; colorMode?: "same" | "alternating" }) {
   const id = useId();
   const active = items.find(item => item.value === value);
-  return <div className="sk-tabs"><div className="segmented" role="tablist" aria-label={label}>{items.map((item, index) => <button type="button" id={`${id}-tab-${index}`} key={item.value} role="tab" aria-selected={value === item.value} aria-controls={`${id}-panel-${index}`} tabIndex={value === item.value ? 0 : -1} disabled={item.disabled} onClick={() => onValueChange(item.value)} onKeyDown={e => {
+  return <div className={`sk-tabs ${appearance === "keys" ? "sk-key-tabs" : ""}`} data-color-mode={colorMode}><div className="segmented" role="tablist" aria-label={label}>{items.map((item, index) => <button type="button" id={`${id}-tab-${index}`} key={item.value} role="tab" aria-selected={value === item.value} aria-controls={`${id}-panel-${index}`} tabIndex={value === item.value ? 0 : -1} disabled={item.disabled} onClick={() => onValueChange(item.value)} onKeyDown={e => {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
     e.preventDefault();
     const available = items.map((tab, i) => ({ ...tab, index: i })).filter(tab => !tab.disabled);

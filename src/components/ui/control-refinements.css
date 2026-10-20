@@ -15,3 +15,10 @@
 .physical-switch[aria-checked="true"] > span {transform:translateX(31px);}
 .physical-switch > span i {width:1px;height:11px;background:var(--edge);box-shadow:1px 0 var(--highlight);}
 .physical-switch:active > span {top:5px;box-shadow:inset 0 1px var(--highlight),0 1px var(--key-base),0 2px var(--edge);}
+/* Individual keys stay within the original recessed tab tray. */
+.sk-key-tabs .segmented {display:flex;gap:10px;padding:10px 10px 14px;border-radius:10px;overflow:visible;background:var(--well);box-shadow:inset 0 4px 7px var(--shadow),inset 1px 1px 3px var(--shadow),0 1px var(--highlight);}
+.sk-key-tabs .segmented button {--key-tone:var(--surface-raised);--key-tone-base:var(--base);flex:1;min-width:0;white-space:nowrap;padding:14px 8px;border:1px solid var(--key-edge);border-radius:6px;color:var(--ink);background:linear-gradient(145deg,var(--key-tone),var(--surface));box-shadow:inset 0 2px var(--highlight),inset 0 -2px var(--key-tone-base),0 4px var(--key-tone-base),0 5px var(--key-edge),0 7px 5px var(--shadow);transform:none;transition:transform .15s,box-shadow .15s;}
+.sk-key-tabs[data-color-mode="alternating"] .segmented button:nth-child(even) {--key-tone:var(--accent-bright);--key-tone-base:var(--accent-base);background:linear-gradient(145deg,var(--accent-bright),var(--accent));color:var(--accent-ink);}
+.sk-key-tabs .segmented button[aria-selected="true"],.sk-key-tabs .segmented button:active {transform:translateY(3px);box-shadow:inset 0 3px 5px var(--shadow),inset 0 -1px var(--highlight),0 1px var(--key-tone-base),0 2px var(--key-edge);}
+.sk-key-tabs .segmented button[aria-selected="true"] {border-color:var(--accent);}
+.sk-key-tabs .segmented button:focus-visible {outline:2px solid var(--accent);outline-offset:4px;}
