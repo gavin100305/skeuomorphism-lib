@@ -1,0 +1,10 @@
+/* Deep channel and a machined, ridged fader. */
+.slider-housing { width:100%;height:68px;padding-inline:18px;border-radius:11px;background:linear-gradient(150deg,var(--surface-raised),var(--base));box-shadow:inset 0 2px 0 var(--highlight),inset 2px 0 2px var(--highlight),inset 0 -3px 0 var(--base),0 5px 0 var(--base),0 6px 0 var(--edge),0 12px 15px var(--shadow); }
+.slider-housing::before {content:"";position:absolute;inset:7px 8px 19px;border:1px solid var(--edge);border-radius:6px;background:var(--well);box-shadow:inset 0 5px 8px var(--shadow),inset 2px 1px 3px var(--shadow),0 1px 0 var(--highlight);pointer-events:none;}
+.slider-housing .slider-track {top:25px;left:20px;right:20px;height:8px;border-color:var(--key-edge);box-shadow:inset 0 3px 4px #00000070,0 1px var(--highlight);}
+.slider-housing input[type="range"] {height:54px;appearance:none;cursor:grab;}
+.slider-housing input[type="range"]:active {cursor:grabbing;}
+.slider-housing input::-webkit-slider-thumb {appearance:none;width:29px;height:36px;border:1px solid var(--key-edge);border-radius:5px;background:repeating-linear-gradient(90deg,transparent 0 4px,var(--edge) 4px 5px,var(--highlight) 5px 6px,transparent 6px 8px),linear-gradient(135deg,var(--surface-raised),var(--base));box-shadow:inset 0 2px var(--highlight),inset 0 -3px var(--base),0 4px var(--key-base),0 5px var(--key-edge),0 8px 7px #00000060;}
+.slider-housing input::-moz-range-thumb {width:29px;height:36px;border:1px solid var(--key-edge);border-radius:5px;background:repeating-linear-gradient(90deg,transparent 0 4px,var(--edge) 4px 5px,var(--highlight) 5px 6px,transparent 6px 8px),linear-gradient(135deg,var(--surface-raised),var(--base));box-shadow:inset 0 2px var(--highlight),0 4px var(--key-base),0 5px var(--key-edge),0 8px 7px #00000060;}
+.slider-housing .slider-ticks {bottom:6px;left:22px;right:22px;height:7px;}
+.slider-housing input:focus-visible {outline:2px solid var(--accent);outline-offset:7px;border-radius:4px;}
