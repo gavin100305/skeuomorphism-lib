@@ -3,20 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./icons";
 import { Button } from "./ui/button";
+import { FocusTimer } from "./ui/focus-timer";
 
 export function ObjectShowcase() {
   const [tasks, setTasks] = useState([true, false, false]);
   const [playing, setPlaying] = useState(false);
-  const [seconds, setSeconds] = useState(25 * 60);
-  const [timerRunning, setTimerRunning] = useState(false);
-  useEffect(() => {
-    if (!timerRunning) return;
-    const timer = window.setInterval(() => setSeconds(s => {
-      if (s <= 1) { setTimerRunning(false); return 0; }
-      return s - 1;
-    }), 1000);
-    return () => window.clearInterval(timer);
-  }, [timerRunning]);
   return <div className="object-showcase" data-reveal>
     <div className="showcase-heading"><span className="eyebrow">A FEW THINGS TO GET YOUR HANDS ON</span><span>Working objects, made from simple pieces.</span></div>
     <div className="object-scene">
@@ -26,11 +17,7 @@ export function ObjectShowcase() {
         <div className="task-list">{["Find an idea", "Make it tangible", "Put it out there"].map((task, i) => <label key={task} className={tasks[i] ? "done" : ""}><input type="checkbox" checked={tasks[i]} onChange={() => setTasks(tasks.map((v, n) => n === i ? !v : v))} /><span className="task-checkbox"><Icon name="check" size={11} /></span><span>{task}</span></label>)}</div>
         <div className="task-bottom"><span>{tasks.filter(Boolean).length} of 3 complete</span><span className="task-progress"><i style={{ width: `${tasks.filter(Boolean).length / 3 * 100}%` }} /></span></div>
       </article>
-      <article className="focus-object tactile-object">
-        <div className="object-overline"><span>A MOMENT OF FOCUS</span><span>01</span></div>
-        <div className={`timer-dial ${timerRunning ? "is-running" : ""}`}><div className="timer-dial-face"><time>{String(Math.floor(seconds / 60)).padStart(2, "0")}<span>:</span>{String(seconds % 60).padStart(2, "0")}</time><span>TAKE YOUR TIME</span></div></div>
-        <div className="timer-actions"><Button variant="primary" onClick={() => setTimerRunning(!timerRunning)} disabled={seconds === 0}><Icon name={timerRunning ? "pause" : "play"} size={13} />{timerRunning ? "Pause focus" : "Start focus"}</Button><Button square aria-label="Reset focus timer" onClick={() => { setTimerRunning(false); setSeconds(1500); }}><Icon name="reset" size={16} /></Button></div>
-      </article>
+      <FocusTimer />
       <article className={`audio-object tactile-object ${playing ? "is-playing" : ""}`}>
         <div className="object-overline"><span>OFF THE CLOCK</span><Icon name="music" size={15} /></div>
         <div className="record-sleeve"><div className="record"><span><Icon name="music" size={19} /></span></div><div className="record-label"><span>SIDE A</span><strong>Slow<br />Sunday.</strong><span>A PLAYER STUDY</span></div></div>
