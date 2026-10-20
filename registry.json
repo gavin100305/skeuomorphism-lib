@@ -86,6 +86,34 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-slider",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Slider",
+      "description": "A controlled range slider with a recessed housing, raised thumb, and tick marks.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-slider.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-slider.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-slider.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-slider.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
