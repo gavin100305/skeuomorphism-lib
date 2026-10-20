@@ -1,0 +1,42 @@
+@import "./skeuo-base.css";
+:is(a,button,.sk-project-mini,.sk-showcase-footer):hover .sk-arrow-icon{ scale: 1.22; }
+@media(prefers-reduced-motion:reduce){:is(a,button,.sk-project-mini,.sk-showcase-footer):hover .sk-arrow-icon{ scale: 1; }}
+.sk-project-card{
+  position: absolute;
+  display: block;
+  width: min(280px, 41%);
+  padding: 0 7px 8px;
+  overflow: hidden;
+  border: 1px solid var(--sk-edge);
+  border-radius: 9px;
+  background: var(--sk-surface-raised);
+  color: var(--sk-ink);
+  box-shadow: inset 0 1px 0 var(--sk-highlight), inset 0 -2px 0 var(--sk-base), 0 5px 0 var(--sk-base), 0 6px 0 var(--sk-edge), 0 12px 12px var(--sk-shadow);
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+  text-align: left;
+  transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease;
+  will-change: transform;
+}
+.sk-project-card:hover{ box-shadow: inset 0 1px 0 var(--sk-highlight), inset 0 -2px 0 var(--sk-base), 0 5px 0 var(--sk-base), 0 6px 0 var(--sk-edge), 0 17px 19px var(--sk-shadow); }
+.sk-project-card:focus-visible{ outline: 2px solid var(--sk-accent); outline-offset: 5px; }
+.sk-project-handle{ display: flex; align-items: center; gap: 10px; height: 31px; padding-inline: 5px; font: 10px/1.4 var(--sk-font-mono), monospace; touch-action: none; }
+.sk-project-handle svg{ margin-left: auto; opacity: .45; }
+.sk-project-number{ color: var(--sk-accent); font-size: 9px; padding-right: 9px; border-right: 1px solid var(--sk-line); }
+.sk-project-card::after{ content: ""; position: absolute; bottom: 2px; right: 17px; width: 22px; height: 2px; border-radius: 1px; background: var(--sk-accent); }
+.sk-project-image{ position: relative; display: block; overflow: hidden; padding: 4px; border: 1px solid var(--sk-base); border-bottom-color: var(--sk-highlight); border-radius: 5px; background: var(--sk-base); box-shadow: inset 0 3px 4px #00000085, 0 1px 0 var(--sk-highlight); }
+.sk-project-image::after{ content: ""; position: absolute; inset: 4px; border-radius: 2px; pointer-events: none; box-shadow: inset 0 5px 8px #000000a0, inset 3px 0 6px #00000055, inset 0 -1px 0 #ffffff26; }
+.sk-project-image img{ display: block; width: 100%; aspect-ratio: 16 / 10; height: auto; object-fit: cover; object-position: top; pointer-events: none; }
+.sk-project-card{ width: min(360px, calc(100% - 24px)); }
+.sk-project-handle{ height: 33px; }
+.sk-project-card{ position: relative; display: block; width: 100%; max-width: 340px; cursor: default; touch-action: auto; }
+.sk-project-card:is(button){ cursor: pointer; }
+.sk-project-handle{ font-size: 11px; height: 36px; }
+.sk-project-handle > span:first-child{ color: var(--sk-accent); padding-right: 10px; border-right: 1px solid var(--sk-line); }
+.sk-project-handle strong{ font-weight: 500; }
+.sk-project-handle svg{ margin-left: auto; }
+.sk-project-image{ min-height: 150px; }
+.sk-project-image > img{ aspect-ratio: 16/10; }
+.sk-project-card:hover{ transform: translateY(-3px); }
+@media(prefers-reduced-motion:reduce){.sk-project-card:hover{ transform: none; }}
