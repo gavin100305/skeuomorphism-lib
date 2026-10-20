@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Icon } from "./icons";
 import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
 import { SkeuoFocusTimer as FocusTimer } from "./skeuomorphic/skeuo-focus-timer";
@@ -24,7 +25,7 @@ export function ObjectShowcase() {
         <div className="audio-bottom"><div><strong>A little room to breathe.</strong><span>Interactive player preview · no audio</span></div><Button square aria-label={playing ? "Pause player animation" : "Play player animation"} onClick={() => setPlaying(!playing)}><Icon name={playing ? "pause" : "play"} size={15} /></Button></div>
       </article>
     </div>
-    <div className="showcase-footer"><span>Check a task. Start a timer. Spin a record.</span><Icon name="diagonal" size={14} /></div>
+    <div className="showcase-footer"><span>Check a task. Start a timer. Spin a record.</span><Link href="/docs/focus-timer" className="landing-doc-link">Focus timer docs <Icon name="diagonal" size={14} /></Link></div>
   </div>;
 }
 
@@ -87,5 +88,5 @@ export function ProjectPreview() {
     update(); window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", onScroll);
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(frame); };
   }, []);
-  return <div className="project-mini"><div className="project-art" ref={art}><div className="stack-paper paper-back" /><div className="stack-paper paper-middle" /><div className="stack-paper paper-front"><span>FORM &<br />FUNCTION.</span><i>001 — A STUDY IN DEPTH</i></div></div><div className="project-mini-caption"><span>Something worth showing.</span><Icon name="diagonal" /></div></div>;
+  return <Link href="/docs/photo-carousel" className="project-mini" aria-label="Photo carousel documentation"><div className="project-art" ref={art}><div className="stack-paper paper-back" /><div className="stack-paper paper-middle" /><div className="stack-paper paper-front"><span>FORM &<br />FUNCTION.</span><i>001 — A STUDY IN DEPTH</i></div></div><div className="project-mini-caption"><span>Something worth showing.</span><Icon name="diagonal" /></div></Link>;
 }

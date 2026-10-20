@@ -26,7 +26,7 @@ function SidebarNavigation({ selected, query, onQueryChange }: { selected: strin
   </>;
 }
 
-const introSections = [{ id: "overview", label: "Overview" },{ id: "components", label: "Components" },{ id: "getting-started", label: "About the previews" }];
+const introSections = [{ id: "overview", label: "Overview" },{ id: "components", label: "Components" },{ id: "blocks", label: "Composed components" },{ id: "getting-started", label: "Installation" }];
 function PageContents({ sections, route }: { sections: { id: string; label: string }[]; route: string }) {
   const pageSections = sections;
   const [active, setActive] = useState("overview");
@@ -61,7 +61,7 @@ function PageContents({ sections, route }: { sections: { id: string; label: stri
 
 function DocsHeader() {
   const toggleTheme = useThemeToggle();
-  return <header className="docs-header"><div className="docs-header-left"><span className="docs-mobile-trigger"><SidebarTrigger /></span><Link href="/" className="docs-header-brand"><Icon name="layers" size={23} /><span>skeuomorphism.</span></Link><nav aria-label="Main navigation"><Link href="/">Home</Link><Link href="/docs" aria-current="page">Docs</Link><Link href="/#components">Components</Link><Link href="/#blocks">Blocks</Link></nav></div><div className="docs-toolbar-actions"><SoundToggle /><a className="docs-github-link" href="https://github.com/gavin100305/skeuomorphism-lib" target="_blank" rel="noreferrer" aria-label="GitHub repository"><Icon name="github" size={18} /></a><button className="docs-theme-toggle" type="button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={17} /></span><span className="theme-moon"><Icon name="moon" size={17} /></span></button></div></header>;
+  return <header className="docs-header"><div className="docs-header-left"><span className="docs-mobile-trigger"><SidebarTrigger /></span><Link href="/" className="docs-header-brand"><Icon name="layers" size={23} /><span>skeuomorphism.</span></Link><nav aria-label="Main navigation"><Link href="/">Home</Link><Link href="/docs" aria-current="page">Docs</Link><Link href="/docs#components">Components</Link><Link href="/docs#blocks">Blocks</Link></nav></div><div className="docs-toolbar-actions"><SoundToggle /><a className="docs-github-link" href="https://github.com/gavin100305/skeuomorphism-lib" target="_blank" rel="noreferrer" aria-label="GitHub repository"><Icon name="github" size={18} /></a><button className="docs-theme-toggle" type="button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={17} /></span><span className="theme-moon"><Icon name="moon" size={17} /></span></button></div></header>;
 }
 
 export default function DocsShell({ children }: { children: ReactNode }) {

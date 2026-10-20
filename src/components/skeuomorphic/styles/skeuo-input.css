@@ -1,6 +1,6 @@
 @import "./skeuo-base.css";
 .sk-input{ display: block; width: 100%; min-width: 0; padding: 12px 14px; border: 1px solid var(--sk-input-edge); border-radius: 6px; background: var(--sk-well); color: var(--sk-ink); box-shadow: var(--sk-field-shadow); font: inherit; font-size: 13px; line-height: 1.7; }
-.sk-input::placeholder{ color: var(--sk-muted); }
+.sk-input::placeholder{ color: var(--sk-muted); opacity: 1; }
 .sk-input:focus-visible{ outline: 2px solid var(--sk-ring); outline-offset: 3px; }
 .sk-input:disabled{ opacity: .55; cursor: not-allowed; }
 .sk-textarea{ min-height: 130px; resize: vertical; }

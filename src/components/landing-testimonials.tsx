@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { SkeuoTestimonialCarousel as TestimonialCarousel } from "./skeuomorphic/skeuo-testimonial-carousel";
 
@@ -10,7 +11,7 @@ const quotes = [
 ];
 export function Testimonials() {
   return <section className="testimonials-section" aria-label="Testimonial component preview">
-    <div className="section-shell testimonial-heading" data-reveal><div><span className="eyebrow">WORDS WITH A LITTLE WEIGHT</span><h2>Good words.<br />A proper place for them.</h2></div><div><p>A testimonial component in motion.<br />Sample copy, ready for your real feedback.</p></div></div>
+    <div className="section-shell testimonial-heading" data-reveal><div><span className="eyebrow">WORDS WITH A LITTLE WEIGHT</span><h2>Good words.<br />A proper place for them.</h2></div><div><p>A testimonial component in motion.<br />Sample copy, ready for your real feedback.</p><Link href="/docs/testimonial-carousel" className="landing-doc-link">Testimonial carousel docs ↗</Link></div></div>
     <div data-reveal><TestimonialCarousel items={quotes.map(item => ({ id: item.initials, quote: item.quote, author: item.role, role: "Sample testimonial", initials: item.initials }))} /></div>
   </section>;
 }

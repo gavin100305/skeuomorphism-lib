@@ -48,8 +48,8 @@ function InputDemo() {
   const [saved, setSaved] = useState(false);
   return <form className="input-demo" onSubmit={e => { e.preventDefault(); setSaved(true); }}><label htmlFor="demo-email">Email address</label><div className="input-well"><Icon name="mail" /><Input id="demo-email" type="email" placeholder="you@example.com" required onChange={() => setSaved(false)} /><button type="submit" className="tactile square" aria-label="Try email input"><Icon name={saved ? "check" : "arrow"} /></button></div><p aria-live="polite">{saved ? "Looks good. This is just a demo—nothing was sent." : "Recessed, right down to the details."}</p></form>;
 }
-function ComponentCard({ title, number, children, wide = false }: { title: string; number: string; children: React.ReactNode; wide?: boolean }) {
-  return <article className={`component-card ${wide ? "wide" : ""}`}><div className="component-stage">{children}</div><div className="component-caption"><h3>{title}</h3><span>{number}</span></div></article>;
+function ComponentCard({ title, number, slug, children, wide = false }: { title: string; number: string; slug: string; children: React.ReactNode; wide?: boolean }) {
+  return <article className={`component-card ${wide ? "wide" : ""}`}><div className="component-stage">{children}</div><div className="component-caption"><h3><Link href={`/docs/${slug}`} aria-label={`${title} documentation`}>{title}<Icon name="diagonal" size={13} /></Link></h3><span>{number}</span></div></article>;
 }
 export default function Landing() {
   const [menu, setMenu] = useState(false);
@@ -58,17 +58,17 @@ export default function Landing() {
   useScrollReveal();
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="site-header">
+    <header id="top" className="site-header">
       <div className="header-inner">
-        <a href="#" className="brand"><Mark /><span>skeuomorphism<span className="brand-period">.</span></span></a>
+        <a href="/" className="brand"><Mark /><span>skeuomorphism<span className="brand-period">.</span></span></a>
         <nav id="primary-nav" className={menu ? "nav-links open" : "nav-links"} aria-label="Main navigation">
-          <a href="#components" onClick={() => setMenu(false)}>Components</a>
-          <a href="#blocks" onClick={() => setMenu(false)}>Blocks</a>
+          <a href="/docs#components" onClick={() => setMenu(false)}>Components</a>
+          <a href="/docs#blocks" onClick={() => setMenu(false)}>Blocks</a>
           <Link href="/docs" onClick={() => setMenu(false)}>Docs</Link>
-          <a className="mobile-start" href="#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></a>
+          <a className="mobile-start" href="/docs#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></a>
         </nav>
         <div className="header-actions">
-          <a className="nav-start" href="#getting-started">Get started <Icon name="arrow" size={14} /></a>
+          <a className="nav-start" href="/docs#getting-started">Get started <Icon name="arrow" size={14} /></a>
           <a href={repo} target="_blank" rel="noreferrer" className="github-link" aria-label="GitHub repository"><Icon name="github" size={18} /></a>
           <SoundToggle />
           <button className="theme-button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={18} /></span><span className="theme-moon"><Icon name="moon" size={18} /></span></button>
@@ -82,38 +82,38 @@ export default function Landing() {
         <div className="hero-note">Tactile components for the web</div>
         <h1>Interfaces you can<br />almost <span>feel.</span></h1>
         <p className="hero-description">A little depth goes a long way. Tactile components for the web,<br className="desktop-break" /> crafted with the details that make an interface feel real.</p>
-        <div className="hero-actions"><a className="tactile primary" href="#components">Explore components <Icon name="arrow" /></a><a className="text-link" href="#getting-started">Get started <Icon name="diagonal" size={15} /></a></div>
+        <div className="hero-actions"><a className="tactile primary" href="/docs#components">Explore components <Icon name="arrow" /></a><a className="text-link" href="/docs#getting-started">Get started <Icon name="diagonal" size={15} /></a></div>
         <div className="hero-footnote"><span>React</span><span>TypeScript</span><span>Tailwind CSS</span></div>
         <ObjectShowcase />
       </section>
       <section id="components" className="components-section section-shell">
         <div className="section-intro" data-reveal><div><span className="eyebrow">THE BUILDING BLOCKS</span><h2>Small details.<br />A tangible difference.</h2></div><p>Familiar components, with a little more character.<br />Press, toggle, slide. Feel the difference yourself.</p></div>
         <ComponentCarousel>
-          <ComponentCard title="Buttons" number="01"><ButtonDemo /></ComponentCard>
-          <ComponentCard title="Switches" number="02"><SwitchDemo /></ComponentCard>
-          <ComponentCard title="Tabs" number="03"><TabsDemo /></ComponentCard>
-          <ComponentCard title="Inputs" number="04"><InputDemo /></ComponentCard>
-          <ComponentCard title="Sliders" number="05"><SliderDemo /></ComponentCard>
-          <ComponentCard title="Surfaces" number="06"><SurfaceDemo /></ComponentCard>
+          <ComponentCard slug="button" title="Buttons" number="01"><ButtonDemo /></ComponentCard>
+          <ComponentCard slug="switch" title="Switches" number="02"><SwitchDemo /></ComponentCard>
+          <ComponentCard slug="tabs" title="Tabs" number="03"><TabsDemo /></ComponentCard>
+          <ComponentCard slug="input" title="Inputs" number="04"><InputDemo /></ComponentCard>
+          <ComponentCard slug="slider" title="Sliders" number="05"><SliderDemo /></ComponentCard>
+          <ComponentCard slug="surface" title="Surfaces" number="06"><SurfaceDemo /></ComponentCard>
         </ComponentCarousel>
         <p className="collection-note">The first collection. More pieces are taking shape.</p>
       </section>
       <section id="getting-started" className="getting-started section-shell">
-        <div className="start-copy" data-reveal><span className="eyebrow">FROM PREVIEW TO PROJECT</span><h2>Your code.<br />Your finishing touch.</h2><p>Choose a component. Make it your own.<br />The details should be yours to change.</p><a href={repo} target="_blank" rel="noreferrer" className="text-link">Follow the build on GitHub <Icon name="diagonal" size={16} /></a><span className="availability">The registry is in the making. Explore the live demos for now.</span></div>
+        <div className="start-copy" data-reveal><span className="eyebrow">FROM PREVIEW TO PROJECT</span><h2>Your code.<br />Your finishing touch.</h2><p>Choose a component. Make it your own.<br />The details should be yours to change.</p><Link href="/docs#getting-started" className="text-link">Installation guide <Icon name="diagonal" size={16} /></Link><span className="availability">Install components through the shadcn CLI. Source and usage examples are ready in the docs.</span></div>
         <CodeExample />
       </section>
-      <section id="blocks" className="blocks-section section-shell"><div className="section-intro" data-reveal><div><span className="eyebrow">PIECES THAT BELONG TOGETHER</span><h2>Beyond the button.</h2></div><p>Building towards complete sections.<br />The same attention, at a bigger scale.</p></div><div className="block-grid"><article className="block-card" data-reveal><ProjectPreview /><div className="block-caption"><h3>Project gallery</h3><span>IN DEVELOPMENT</span></div></article><article className="block-card" data-reveal><form className="contact-mini" onSubmit={e => { e.preventDefault(); setMessageSent(true); }}><span className="contact-mini-title">Start a conversation.</span><label htmlFor="block-message">Your message</label><textarea id="block-message" placeholder="I have something in mind…" rows={2} required onChange={() => setMessageSent(false)} /><button className="tactile primary" type="submit">{messageSent ? "Demo complete" : "Try the form"} <Icon name={messageSent ? "check" : "arrow"} size={16} /></button><span className="demo-notice" aria-live="polite">{messageSent ? "Nothing sent. Just a little interaction." : "Interactive preview · no email is sent"}</span></form><div className="block-caption"><h3>Contact section</h3><span>IN DEVELOPMENT</span></div></article></div></section>
+      <section id="blocks" className="blocks-section section-shell"><div className="section-intro" data-reveal><div><span className="eyebrow">PIECES THAT BELONG TOGETHER</span><h2>Beyond the button.</h2></div><p>Building towards complete sections.<br />The same attention, at a bigger scale.</p></div><div className="block-grid"><article className="block-card" data-reveal><ProjectPreview /><div className="block-caption"><h3><Link href="/docs/photo-carousel">Photo carousel <Icon name="diagonal" size={13} /></Link></h3><span>VIEW COMPONENT</span></div></article><article className="block-card" data-reveal><form className="contact-mini" onSubmit={e => { e.preventDefault(); setMessageSent(true); }}><span className="contact-mini-title">Start a conversation.</span><label htmlFor="block-message">Your message</label><textarea id="block-message" placeholder="I have something in mind…" rows={2} required onChange={() => setMessageSent(false)} /><button className="tactile primary" type="submit">{messageSent ? "Demo complete" : "Try the form"} <Icon name={messageSent ? "check" : "arrow"} size={16} /></button><span className="demo-notice" aria-live="polite">{messageSent ? "Nothing sent. Just a little interaction." : "Interactive preview · no email is sent"}</span></form><div className="block-caption"><h3><Link href="/docs/contact-form">Contact form <Icon name="diagonal" size={13} /></Link></h3><span>VIEW COMPONENT</span></div></article></div></section>
       <Testimonials />
       <section className="closing section-shell" data-reveal>
         <div className="closing-panel">
           <div className="closing-copy"><span className="eyebrow">YOUR NEXT LITTLE DETAIL</span><h2>Make something<br />worth feeling.</h2></div>
-          <div className="closing-actions"><a className="tactile primary" href="#components">Explore the components <Icon name="arrow" /></a><a className="text-link" href={repo} target="_blank" rel="noreferrer">Follow the build <Icon name="diagonal" size={14} /></a></div>
+          <div className="closing-actions"><a className="tactile primary" href="/docs#components">Explore the components <Icon name="arrow" /></a><a className="text-link" href={repo} target="_blank" rel="noreferrer">Follow the build <Icon name="diagonal" size={14} /></a></div>
         </div>
       </section>
     </main>
     <footer className="site-footer section-shell">
-      <div className="footer-top"><div className="footer-brand"><a href="#" className="brand"><Mark /><span>skeuomorphism.</span></a><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><a href="#components">Components <Icon name="arrow" size={13} /></a><a href="#blocks">Blocks <Icon name="arrow" size={13} /></a><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
-      <div className="footer-bottom"><span>A work in progress by Gavin Soares.</span><a href="#">Back to top <Icon name="up" size={13} /></a></div>
+      <div className="footer-top"><div className="footer-brand"><a href="/" className="brand"><Mark /><span>skeuomorphism.</span></a><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><a href="/docs#components">Components <Icon name="arrow" size={13} /></a><a href="/docs#blocks">Blocks <Icon name="arrow" size={13} /></a><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
+      <div className="footer-bottom"><span>A work in progress by Gavin Soares.</span><a href="#top">Back to top <Icon name="up" size={13} /></a></div>
     </footer>
   </>;
 }
