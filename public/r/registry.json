@@ -416,6 +416,54 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-focus-timer",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Focus Timer",
+      "description": "A configurable countdown timer with tactile controls.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-focus-timer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-focus-timer.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-focus-timer.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-focus-timer.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
