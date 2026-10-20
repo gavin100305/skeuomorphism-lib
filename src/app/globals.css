@@ -432,3 +432,19 @@ html[data-theme="dark"] { --texture-ink: #ffffff12; --hero-weave: #dfe9e62a; --d
 @media(max-width:800px) { .hero-woven-disc { width: min(520px,88vw); top: -5px; } }
 @media(max-width:600px) { .hero-woven-disc { width: 108vw; max-width: 490px; top: 5px; } }
 @media(prefers-reduced-motion:reduce) { .hero-woven-disc { animation: none; opacity: 1; transform: translateX(-50%) scale(1); } }
+
+/* Keep landing sections connected without horizontal separators. */
+.blocks-section, .testimonials-section, .closing, .site-footer, .footer-bottom, .showcase-footer { border-top: 0; }
+.testimonials-section { padding-bottom: 24px; }
+.testimonial-viewport { padding-bottom: 12px; }
+.closing { padding-top: 12px; }
+
+/* Match the closing invitation to the surrounding section rhythm. */
+.testimonials-section { padding-bottom: 76px; }
+.closing { padding-top: 24px; }
+@media(max-width:600px) { .testimonials-section { padding-bottom: 48px; }.closing { padding-top: 20px; } }
+
+/* Give the CTA a full section break after the moving quotes. */
+.testimonials-section { padding-bottom: 120px; }
+.closing { padding-top: 40px; }
+@media(max-width:600px) { .testimonials-section { padding-bottom: 82px; }.closing { padding-top: 30px; } }

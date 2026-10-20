@@ -79,7 +79,7 @@ export function ComponentCarousel({ children }: { children: React.ReactNode }) {
       const el = track.current;
       if (el?.firstElementChild) setPosition(Math.round(el.scrollLeft / ((el.firstElementChild as HTMLElement).offsetWidth + 22)) + 1);
     }} onTouchStart={() => setPaused(true)}>{children}</div>
-    <div className="carousel-footer"><span>0{position} <span>/ 06</span></span><div><button className="motion-toggle" onClick={() => setPaused(!paused)} aria-pressed={paused}>{paused || reduced ? "Auto-scroll paused" : "Auto-scroll on"}<Icon name={paused || reduced ? "play" : "pause"} size={12} /></button><Button square aria-label="Previous components" onClick={() => { setPaused(true); move(-1); }}><Icon name="arrow" size={16} style={{ transform: "rotate(180deg)" }} /></Button><Button square aria-label="Next components" onClick={() => { setPaused(true); move(1); }}><Icon name="arrow" size={16} /></Button></div></div>
+    <div className="carousel-footer"><span>0{position} <span>/ 06</span></span><div><Button square aria-label="Previous components" onClick={() => { setPaused(true); move(-1); }}><Icon name="arrow" size={16} style={{ transform: "rotate(180deg)" }} /></Button><Button square aria-label="Next components" onClick={() => { setPaused(true); move(1); }}><Icon name="arrow" size={16} /></Button></div></div>
   </div>;
 }
 
