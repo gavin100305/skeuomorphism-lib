@@ -8,3 +8,10 @@
 .slider-housing input::-moz-range-thumb {width:29px;height:36px;border:1px solid var(--key-edge);border-radius:5px;background:repeating-linear-gradient(90deg,transparent 0 4px,var(--edge) 4px 5px,var(--highlight) 5px 6px,transparent 6px 8px),linear-gradient(135deg,var(--surface-raised),var(--base));box-shadow:inset 0 2px var(--highlight),0 4px var(--key-base),0 5px var(--key-edge),0 8px 7px #00000060;}
 .slider-housing .slider-ticks {bottom:6px;left:22px;right:22px;height:7px;}
 .slider-housing input:focus-visible {outline:2px solid var(--accent);outline-offset:7px;border-radius:4px;}
+/* A compact sliding switch built from the same channel material. */
+.physical-switch {position:relative;width:72px;height:37px;padding:4px;border:1px solid var(--key-edge);border-radius:8px;flex-shrink:0;background:var(--well);box-shadow:inset 0 4px 7px #00000055,inset 1px 1px 3px var(--shadow),0 1px var(--highlight),0 3px var(--base),0 4px var(--edge);}
+.physical-switch[aria-checked="true"] {background:color-mix(in srgb,var(--accent) 48%,var(--well));}
+.physical-switch > span {display:flex;align-items:center;justify-content:center;gap:3px;position:absolute;left:4px;top:3px;width:31px;height:27px;margin:0;border:1px solid var(--key-edge);border-radius:5px;background:linear-gradient(135deg,var(--surface-raised),var(--base));box-shadow:inset 0 2px var(--highlight),inset 0 -2px var(--base),0 3px var(--key-base),0 4px var(--edge),0 5px 4px #00000055;transition:transform .3s cubic-bezier(.2,.7,.25,1);}
+.physical-switch[aria-checked="true"] > span {transform:translateX(31px);}
+.physical-switch > span i {width:1px;height:11px;background:var(--edge);box-shadow:1px 0 var(--highlight);}
+.physical-switch:active > span {top:5px;box-shadow:inset 0 1px var(--highlight),0 1px var(--key-base),0 2px var(--edge);}

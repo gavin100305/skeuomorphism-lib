@@ -9,5 +9,5 @@ type SwitchProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> & {
 
 /** Controlled switch; provide an accessible label or aria-labelledby. */
 export function Switch({ checked, onCheckedChange, className = "", ...props }: SwitchProps) {
-  return <button {...props} type="button" className={`physical-switch ${className}`} role="switch" aria-checked={checked} onClick={() => onCheckedChange(!checked)}><span /></button>;
+  return <button {...props} type="button" className={`physical-switch ${className}`} role="switch" aria-checked={checked} onClick={() => onCheckedChange(!checked)}><span><i /><i /><i /></span></button>;
 }
