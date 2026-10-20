@@ -502,6 +502,44 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-testimonial-carousel",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Testimonial Carousel",
+      "description": "An auto-scrolling testimonial collection with caller-supplied quotes.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-testimonial-carousel.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-testimonial-carousel.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-testimonial-carousel.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-testimonial-carousel.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,39 @@
+@import "./skeuo-base.css";
+.sk-testimonial-heading{ display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 35px; }
+.sk-testimonial-heading p{ font-size: 12px; line-height: 1.8; color: var(--sk-muted); margin: 0 0 6px; }
+.sk-testimonial-heading .sk-motion-toggle{ padding-left: 0; }
+.sk-testimonial-viewport{ overflow: hidden; padding: 8px 0 22px; mask-image: linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent); }
+.sk-testimonial-track{ display: flex; width: max-content; animation: sk-testimonial-drift 48s linear infinite; }
+.sk-testimonial-group{ display: flex; gap: 22px; padding-right: 22px; }
+.sk-testimonial-viewport:hover .sk-testimonial-track,.sk-testimonial-viewport:focus-within .sk-testimonial-track,.sk-testimonial-viewport.sk-is-paused .sk-testimonial-track{ animation-play-state: paused; }
+.sk-testimonial-card{ flex-shrink: 0; width: 335px; margin: 0; padding: 27px; border: 1px solid var(--sk-edge); border-radius: 13px; background: linear-gradient(150deg,var(--sk-surface-raised),var(--sk-surface)); box-shadow: inset 0 2px 0 var(--sk-highlight),0 4px 0 var(--sk-base),0 5px 0 var(--sk-edge),0 10px 13px var(--sk-shadow); }
+.sk-quote-engraving{ display: flex; justify-content: space-between; align-items: center; color: var(--sk-muted); }
+.sk-quote-engraving svg{ filter: drop-shadow(0 1px 0 var(--sk-highlight)); }
+.sk-quote-engraving > span{ font: 8px var(--sk-font-mono),monospace; letter-spacing: 1px; }
+.sk-testimonial-card blockquote{ margin: 22px 0 25px; min-height: 88px; font-size: 18px; letter-spacing: -.45px; line-height: 1.55; }
+.sk-testimonial-card figcaption{ display: flex; align-items: center; gap: 11px; border-top: 1px solid var(--sk-edge); padding-top: 18px; }
+.sk-testimonial-monogram{ display: grid; place-items: center; width: 36px; height: 36px; border-radius: 7px; background: var(--sk-well); border: 1px solid var(--sk-edge); box-shadow: inset 0 2px 3px var(--sk-shadow),0 1px 0 var(--sk-highlight); font: 11px var(--sk-font-mono),monospace; color: var(--sk-muted); }
+.sk-testimonial-card figcaption strong{ font-size: 11px; font-weight: 500; }
+.sk-testimonial-card figcaption > span:last-child > span{ display: block; font-size: 9px; color: var(--sk-muted); margin-top: 4px; }
+@media(max-width:600px){.sk-testimonial-heading{ flex-direction: column; align-items: flex-start; gap: 20px; }
+.sk-testimonial-heading h2{ font-size: 34px; }
+.sk-testimonial-card{ width: 290px; padding: 23px; }
+.sk-testimonial-card blockquote{ font-size: 17px; }
+.sk-testimonial-viewport{ mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); }}
+@media(prefers-reduced-motion:reduce){.sk-testimonial-track{ animation: none; }
+.sk-testimonial-viewport{ overflow-x: auto; mask-image: none; }
+.sk-testimonial-group.sk-duplicate{ display: none; }}
+.sk-testimonial-card{ width: 320px; padding: 21px 23px; border-top-color: color-mix(in srgb,var(--sk-accent),var(--sk-edge) 68%); background: linear-gradient(var(--sk-quote-tint),var(--sk-quote-tint)),linear-gradient(150deg,var(--sk-surface-raised),var(--sk-surface)); }
+.sk-quote-engraving svg{ width: 20px; height: 20px; color: var(--sk-accent); }
+.sk-quote-engraving > span{ font-size: 7px; }
+.sk-testimonial-card blockquote{ margin: 15px 0 17px; min-height: 68px; font-size: 16px; line-height: 1.5; letter-spacing: -.25px; }
+.sk-testimonial-card figcaption{ padding-top: 13px; gap: 10px; }
+.sk-testimonial-monogram{ width: 31px; height: 31px; background: color-mix(in srgb,var(--sk-accent) 12%,var(--sk-well)); color: var(--sk-accent); border-color: color-mix(in srgb,var(--sk-accent) 22%,var(--sk-edge)); font-size: 10px; }
+.sk-testimonial-card figcaption strong{ font-size: 10px; }
+.sk-testimonial-card figcaption > span:last-child > span{ font-size: 8px; margin-top: 3px; }
+@media(max-width:600px){.sk-testimonial-card{ width: 280px; padding: 20px; }
+.sk-testimonial-card blockquote{ min-height: 70px; font-size: 15px; margin-block: 14px 16px; }}
+.sk-testimonial-viewport{ padding-bottom: 12px; }
+@keyframes sk-testimonial-drift{ to { transform: translateX(-50%); } }
+
+.sk-testimonial-card {--sk-quote-tint:color-mix(in srgb,var(--sk-accent) 4%,transparent);}
