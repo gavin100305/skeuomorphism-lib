@@ -30,6 +30,10 @@
 .sk-tech-key[data-tone="accent"] .sk-tech-key-face {color:var(--accent-ink);}
 .sk-tech-key:hover .sk-tech-key-face {transform:translateY(1px);}
 .sk-tech-key-face:active {transform:translateY(4px);box-shadow:inset 0 4px 7px #00000055,inset 0 -1px var(--key-highlight);}
+.sk-theme-key {display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--key-edge);border-radius:10px;color:var(--ink);background:linear-gradient(145deg,var(--key),var(--surface));box-shadow:inset 0 2px var(--highlight),inset 2px 0 2px var(--highlight),inset 0 -3px var(--key-base),0 4px var(--key-base),0 5px var(--key-edge),0 8px 8px var(--shadow);cursor:pointer;transition:transform .18s,box-shadow .18s;}
+.sk-theme-key.is-round {border-radius:50%;}
+.sk-theme-key:active {transform:translateY(3px);box-shadow:inset 0 2px 4px var(--shadow),0 1px var(--key-edge);}
+.sk-theme-key.is-round {width:32px;height:32px;background:var(--key);color:var(--muted);box-shadow:inset 0 1px var(--highlight),0 2px var(--key-base),0 3px var(--key-edge);}
 .sk-tech-key:has(button:disabled) {opacity:.5;}.sk-tech-key button:disabled {cursor:not-allowed;}
 
 /* Original portfolio cobalt uses its own highlight, rather than a white edge. */
