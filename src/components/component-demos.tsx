@@ -1,5 +1,8 @@
 "use client";
 import { useState } from "react";
+import { KeyButton } from "./ui/key-button";
+import { ThemeButton } from "./ui/theme-button";
+import { SectionDock } from "./ui/section-dock";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
 import { Input, Textarea } from "./ui/input";
@@ -27,12 +30,18 @@ const experiences = [
   { id: "independent", label: "Independent", role: "Independent Maker", period: "2023 — 2024", description: "A selection of experiments, small projects, and things made out of curiosity.", technologies: ["Next.js","Web APIs","SVG"] },
 ];
 export function ComponentDemo({ slug }: { slug: string }) {
+  const [colorMode, setColorMode] = useState<"same" | "alternating">("same");
+  const [orientation, setOrientation] = useState<"vertical" | "horizontal">("vertical");
+  const [dock, setDock] = useState("home");
   const [mobile, setMobile] = useState(false);
   const [count, setCount] = useState(0);
   const [on, setOn] = useState(true);
   const [value, setValue] = useState(65);
   const [tab, setTab] = useState("design");
   const [experience, setExperience] = useState("studio");
+  if (slug === "section-dock") return <div className="demo-stack"><div className="demo-controls"><Button size="sm" aria-pressed={orientation === "vertical"} onClick={() => setOrientation("vertical")}>Vertical</Button><Button size="sm" aria-pressed={orientation === "horizontal"} onClick={() => setOrientation("horizontal")}>Horizontal</Button></div><SectionDock orientation={orientation} value={dock} onValueChange={setDock} items={[{value:"home",label:"Home",icon:<Icon name="home"/>},{value:"projects",label:"Projects",icon:<Icon name="folder"/>},{value:"experience",label:"Experience",icon:<Icon name="briefcase"/>},{value:"achievements",label:"Achievements",icon:<Icon name="trophy"/>},{value:"contact",label:"Contact",icon:<Icon name="mail"/>}]} /><p className="demo-feedback" role="status">{dock.charAt(0).toUpperCase() + dock.slice(1)} selected</p></div>;
+  if (slug === "theme-button") return <div className="demo-stack"><div className="demo-controls"><div className="demo-button-variant"><ThemeButton /><span>Raised key</span></div><div className="demo-button-variant"><ThemeButton variant="round" /><span>Round</span></div></div><p className="demo-feedback">Switch themes to try both appearances. Your choice is remembered.</p></div>;
+  if (slug === "keyboard-button") return <div className="demo-stack"><div className="demo-controls"><KeyButton icon={<img src="/tech-icons/react.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>React</KeyButton><KeyButton tone="cobalt" icon={<img src="/tech-icons/razorpay.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>Razorpay</KeyButton></div><div className="demo-controls"><KeyButton onClick={() => setCount(count + 1)}>Without icon</KeyButton><KeyButton disabled>Disabled key</KeyButton></div><p className="demo-feedback" role="status">{count ? `Key pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a key to feel its travel and hear the click."}</p></div>;
   if (slug === "button") return <div className="demo-stack"><div className="demo-controls"><Button variant="primary" onClick={() => setCount(count + 1)}>Save changes <Icon name="arrow" size={16} /></Button><Button onClick={() => setCount(count + 1)}>Secondary</Button><Button square aria-label="Add item" onClick={() => setCount(count + 1)}><Icon name="plus" size={17} /></Button></div><div className="demo-controls"><Button size="sm">Small</Button><Button>Default</Button><Button size="lg">Large</Button></div><div className="demo-controls"><Button disabled>Disabled</Button><Button loading>Saving…</Button></div><p className="demo-feedback" role="status">{count ? `Button pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a button to try the sound and physical state."}</p></div>;
   if (slug === "switch") return <div className="demo-stack demo-narrow"><label className="demo-labeled-control"><span>Notifications</span><Switch checked={on} onCheckedChange={setOn} aria-label="Enable notifications" /></label><label className="demo-labeled-control"><span>Disabled</span><Switch checked={false} disabled onCheckedChange={() => {}} aria-label="Disabled switch" /></label><p className="demo-feedback">Notifications are {on ? "on" : "off"}.</p></div>;
   if (slug === "input") return <div className="demo-stack demo-narrow"><label className="demo-field">Email address<Input type="email" placeholder="you@example.com" /></label><label className="demo-field">Disabled field<Input disabled placeholder="Unavailable" /></label></div>;
@@ -44,7 +53,7 @@ export function ComponentDemo({ slug }: { slug: string }) {
   if (slug === "id-card") return <IDCard name="Gavin Soares" role="Explorer" heading="STATION ACCESS" code="GS / 01" portrait={<Astronaut />} />;
   if (slug === "contribution-calendar") return <div className="demo-full"><div className="calendar-preview-tools"><Button size="sm" aria-pressed={mobile} onClick={() => setMobile(!mobile)}>{mobile ? "View desktop mode" : "View mobile mode"}</Button></div><ContributionCalendar days={contributionDays} mobile={mobile} /><p className="demo-feedback">Sample data · no GitHub account connection</p></div>;
   if (slug === "contact-form") return <div className="demo-full"><ContactForm onSend={() => new Promise(resolve => setTimeout(resolve,650))} /><p className="demo-feedback">Local demonstration only. No message or personal data is sent.</p></div>;
-  if (slug === "experience-tabs") return <div className="demo-full"><ExperienceTabs items={experiences} value={experience} onValueChange={setExperience} /><p className="demo-feedback">Example roles and dates.</p></div>;
+  if (slug === "experience-tabs") return <div className="demo-full"><div className="demo-controls experience-options"><Button size="sm" aria-pressed={colorMode === "same"} onClick={() => setColorMode("same")}>Same color</Button><Button size="sm" aria-pressed={colorMode === "alternating"} onClick={() => setColorMode("alternating")}>Alternating colors</Button></div><ExperienceTabs items={experiences} value={experience} onValueChange={setExperience} colorMode={colorMode} /><p className="demo-feedback">Example roles and dates.</p></div>;
   if (slug === "focus-timer") return <div className="demo-timer"><FocusTimer /></div>;
   if (slug === "testimonial-carousel") return <div className="demo-full demo-testimonials"><TestimonialCarousel items={[{ id: "1", quote: "The difference is in the details you notice after the first click.", author: "Designer’s perspective", role: "Sample testimonial", initials: "01" },{ id: "2", quote: "Familiar controls. Just enough character to make them feel like yours.", author: "Developer’s perspective", role: "Sample testimonial", initials: "02" },{ id: "3", quote: "The kind of button you find yourself pressing one more time.", author: "A small interaction", role: "Sample testimonial", initials: "03" }]} /></div>;
   return null;

@@ -10,7 +10,7 @@ import { Icon } from "./icons";
 import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger, useSidebar } from "./ui/sidebar";
 import { useThemeToggle } from "./use-theme-toggle";
 
-const groupNames = ["Getting started", "Actions", "Forms", "Surfaces", "Navigation", "Cards", "Signature"];
+const groupNames = ["Getting started", "Buttons", "Actions", "Forms", "Surfaces", "Navigation", "Cards", "Signature"];
 const groups = groupNames.map(title => ({ title, items: title === "Getting started" ? [{ name: "Introduction", slug: "" }] : components.filter(component => component.group === title) }));
 
 function SidebarNavigation({ selected, query, onQueryChange }: { selected: string; query: string; onQueryChange: (query: string) => void }) {
