@@ -1,0 +1,14 @@
+@import "./skeuo-base.css";
+.sk-switch{ width: 49px; height: 28px; border: 1px solid var(--sk-edge); background: var(--sk-well); box-shadow: inset 0 2px 4px var(--sk-shadow), 0 1px 0 var(--sk-highlight); border-radius: 20px; padding: 3px; flex-shrink: 0; transition: background .2s; }
+.sk-switch > span{ display: block; width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(150deg,#fff,#deded9); border: 1px solid #ffffff8a; box-shadow: 0 2px 3px #00000035,inset 0 -1px 1px #00000012; transition: transform .22s cubic-bezier(.2,.8,.2,1); }
+.sk-switch[aria-checked="true"]{ background: var(--sk-accent); border-color: #9c421d; }
+.sk-switch[aria-checked="true"] > span{ transform: translateX(20px); }
+.sk-switch[aria-checked="true"]{ border-color: var(--sk-accent-edge); }
+.sk-switch:disabled{ opacity: .5; cursor: not-allowed; }
+.sk-switch{position:relative;width:72px;height:37px;padding:4px;border:1px solid var(--sk-key-edge);border-radius:8px;flex-shrink:0;background:var(--sk-well);box-shadow:inset 0 4px 7px #00000055,inset 1px 1px 3px var(--sk-shadow),0 1px var(--sk-highlight),0 3px var(--sk-base),0 4px var(--sk-edge);}
+.sk-switch[aria-checked="true"]{background:color-mix(in srgb,var(--sk-accent) 48%,var(--sk-well));}
+.sk-switch > span{display:flex;align-items:center;justify-content:center;gap:3px;position:absolute;left:4px;top:3px;width:31px;height:27px;margin:0;border:1px solid var(--sk-key-edge);border-radius:5px;background:linear-gradient(135deg,var(--sk-surface-raised),var(--sk-base));box-shadow:inset 0 2px var(--sk-highlight),inset 0 -2px var(--sk-base),0 3px var(--sk-key-base),0 4px var(--sk-edge),0 5px 4px #00000055;transition:transform .3s cubic-bezier(.2,.7,.25,1);}
+.sk-switch[aria-checked="true"] > span{transform:translateX(31px);}
+.sk-switch > span i{width:1px;height:11px;background:var(--sk-edge);box-shadow:1px 0 var(--sk-highlight);}
+.sk-switch:active > span{top:5px;box-shadow:inset 0 1px var(--sk-highlight),0 1px var(--sk-key-base),0 2px var(--sk-edge);}
+@media(prefers-reduced-motion:reduce){.sk-switch > span{transition:none;}}
