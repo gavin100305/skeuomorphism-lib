@@ -151,3 +151,4 @@ html[data-theme="dark"] .docs-reference-layout { --sidebar-surface: var(--bg); }
 .docs-page-contents .docs-toc-source { margin-top: 28px; padding-top: 3px; display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 10px; }
 .docs-page-contents .docs-toc-source svg:last-child { margin-left: auto; opacity: .7; }
 @media(prefers-reduced-motion:reduce) { .docs-toc-indicator { transition: none; } }
+.docs-nav-group li > a { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 35px; padding: 8px 10px; border-radius: 6px; color: var(--muted); font-size: 13px; line-height: 1.4; transition: background .15s,color .15s; }.docs-nav-group li > a:hover { color: var(--ink); background: var(--surface); }.docs-nav-group li > a[aria-current="page"] { color: var(--sidebar-selected-ink); background: var(--sidebar-selected); font-weight: 500; }

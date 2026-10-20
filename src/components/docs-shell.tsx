@@ -1,44 +1,34 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
+import { components, componentSections } from "@/data/components";
+import { SoundToggle } from "./button-sound-effects";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./icons";
 import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger, useSidebar } from "./ui/sidebar";
 import { useThemeToggle } from "./use-theme-toggle";
 
-const groups = [
-  { title: "Getting started", items: ["Introduction", "Installation", "Theming", "Accessibility"] },
-  { title: "Actions", items: ["Button", "Switch"] },
-  { title: "Forms", items: ["Input", "Textarea", "Checkbox", "Slider"] },
-  { title: "Surfaces", items: ["Card", "Dialog"] },
-  { title: "Navigation", items: ["Tabs", "Tooltip"] },
-];
+const groupNames = ["Getting started", "Actions", "Forms", "Surfaces", "Navigation", "Cards", "Signature"];
+const groups = groupNames.map(title => ({ title, items: title === "Getting started" ? [{ name: "Introduction", slug: "" }] : components.filter(component => component.group === title) }));
 
-function SidebarNavigation({ selected, onSelect, query, onQueryChange }: { selected: string; onSelect: (item: string) => void; query: string; onQueryChange: (query: string) => void }) {
+function SidebarNavigation({ selected, query, onQueryChange }: { selected: string; query: string; onQueryChange: (query: string) => void }) {
   const { closeMobile } = useSidebar();
   const normalized = query.trim().toLowerCase();
-  const filtered = groups.map(group => ({ ...group, items: group.items.filter(item => item.toLowerCase().includes(normalized) || group.title.toLowerCase().includes(normalized)) })).filter(group => group.items.length > 0);
+  const filtered = groups.map(group => ({ ...group, items: group.items.filter(item => item.name.toLowerCase().includes(normalized) || group.title.toLowerCase().includes(normalized)) })).filter(group => group.items.length > 0);
   return <>
     <label className="docs-sidebar-search"><Icon name="search" size={15} /><input type="search" placeholder="Find a component…" aria-label="Filter documentation navigation" value={query} onChange={e => onQueryChange(e.target.value)} onKeyDown={e => { if (e.key === "Escape" && query) { e.preventDefault(); e.stopPropagation(); onQueryChange(""); } }} /><kbd>⌘ K</kbd></label>
     <nav className="docs-navigation" aria-label="Documentation sections">
-      {filtered.length === 0 ? <p className="docs-search-empty" role="status">No matches for “{query}”.</p> : filtered.map(group => <section className="docs-nav-group" key={group.title}><h2>{group.title}</h2><ul>{group.items.map(item => <li key={item}><button type="button" aria-current={selected === item ? "true" : undefined} onClick={() => { onSelect(item); closeMobile(); }}>{item}{selected === item && <span className="docs-selected-mark" aria-hidden="true"><Icon name="chevron" size={13} /></span>}</button></li>)}</ul></section>)}
+      {filtered.length === 0 ? <p className="docs-search-empty" role="status">No matches for “{query}”.</p> : filtered.map(group => <section className="docs-nav-group" key={group.title}><h2>{group.title}</h2><ul>{group.items.map(item => <li key={item.slug}><Link href={item.slug ? `/docs/${item.slug}` : "/docs"} aria-current={selected === item.slug ? "page" : undefined} onClick={closeMobile}>{item.name}{selected === item.slug && <span className="docs-selected-mark" aria-hidden="true"><Icon name="chevron" size={13} /></span>}</Link></li>)}</ul></section>)}
     </nav>
-    <div className="docs-sidebar-footer"><span>Documentation preview</span><a href="https://github.com/gavin100305/skeumorphism-lib" target="_blank" rel="noreferrer" aria-label="Open GitHub repository"><Icon name="github" size={16} /></a></div>
+    <div className="docs-sidebar-footer"><span>Component documentation</span><a href="https://github.com/gavin100305/skeumorphism-lib" target="_blank" rel="noreferrer" aria-label="Open GitHub repository"><Icon name="github" size={16} /></a></div>
   </>;
 }
 
-function Workspace({ selected }: { selected: string }) {
-  return <main id="docs-workspace" className="docs-workspace">
-    <div id="overview" className="docs-workspace-heading"><div><span className="docs-kicker">DOCUMENTATION</span><h1>{selected}</h1><p>Sidebar and documentation layout preview.</p></div><span className="docs-preview-badge">Layout only</span></div>
-    <div id="workspace" className="docs-empty-workspace"><div className="docs-workspace-message"><Icon name="layers" size={28} /><h2>Space for the documentation.</h2><p>The navigation and page layout are ready. Component documentation will be added here next.</p></div></div>
-  </main>;
-}
-
-const pageSections = [
-  { id: "overview", label: "Overview" },
-  { id: "workspace", label: "Workspace" },
-];
-function PageContents() {
+const introSections = [{ id: "overview", label: "Overview" },{ id: "components", label: "Components" },{ id: "getting-started", label: "About the previews" }];
+function PageContents({ sections, route }: { sections: { id: string; label: string }[]; route: string }) {
+  const pageSections = sections;
   const [active, setActive] = useState("overview");
   const list = useRef<HTMLUListElement>(null);
   const [indicator, setIndicator] = useState({ top: 0, height: 32 });
@@ -57,7 +47,7 @@ function PageContents() {
     update(); window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     return () => { window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); cancelAnimationFrame(frame); };
-  }, []);
+  }, [pageSections, route]);
   useEffect(() => {
     const item = list.current?.querySelector<HTMLElement>(`[data-section="${active}"]`);
     if (item) setIndicator({ top: item.offsetTop, height: item.offsetHeight });
@@ -71,11 +61,12 @@ function PageContents() {
 
 function DocsHeader() {
   const toggleTheme = useThemeToggle();
-  return <header className="docs-header"><div className="docs-header-left"><span className="docs-mobile-trigger"><SidebarTrigger /></span><Link href="/" className="docs-header-brand"><Icon name="layers" size={23} /><span>skeumorphism.</span></Link><nav aria-label="Main navigation"><Link href="/">Home</Link><Link href="/docs" aria-current="page">Docs</Link><Link href="/#components">Components</Link><Link href="/#blocks">Blocks</Link></nav></div><div className="docs-toolbar-actions"><a className="docs-github-link" href="https://github.com/gavin100305/skeumorphism-lib" target="_blank" rel="noreferrer" aria-label="GitHub repository"><Icon name="github" size={18} /></a><button className="docs-theme-toggle" type="button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={17} /></span><span className="theme-moon"><Icon name="moon" size={17} /></span></button></div></header>;
+  return <header className="docs-header"><div className="docs-header-left"><span className="docs-mobile-trigger"><SidebarTrigger /></span><Link href="/" className="docs-header-brand"><Icon name="layers" size={23} /><span>skeumorphism.</span></Link><nav aria-label="Main navigation"><Link href="/">Home</Link><Link href="/docs" aria-current="page">Docs</Link><Link href="/#components">Components</Link><Link href="/#blocks">Blocks</Link></nav></div><div className="docs-toolbar-actions"><SoundToggle /><a className="docs-github-link" href="https://github.com/gavin100305/skeumorphism-lib" target="_blank" rel="noreferrer" aria-label="GitHub repository"><Icon name="github" size={18} /></a><button className="docs-theme-toggle" type="button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={17} /></span><span className="theme-moon"><Icon name="moon" size={17} /></span></button></div></header>;
 }
 
-export default function DocsShell() {
-  const [selected, setSelected] = useState("Introduction");
+export default function DocsShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const slug = pathname === "/docs" ? "" : pathname.split("/").pop() ?? "";
   const [query, setQuery] = useState("");
-  return <><a className="skip-link" href="#docs-workspace">Skip to content</a><SidebarProvider className="docs-shell docs-reference-layout" collapsible={false} width={240}><DocsHeader /><Sidebar><SidebarNavigation selected={selected} onSelect={setSelected} query={query} onQueryChange={setQuery} /></Sidebar><SidebarInset><div className="docs-reading-layout"><Workspace selected={selected} /><PageContents /></div></SidebarInset></SidebarProvider></>;
+  return <><a className="skip-link" href="#docs-workspace">Skip to content</a><SidebarProvider className="docs-shell docs-reference-layout" collapsible={false} width={240}><DocsHeader /><Sidebar><SidebarNavigation selected={slug} query={query} onQueryChange={setQuery} /></Sidebar><SidebarInset><div className="docs-reading-layout">{children}<PageContents sections={slug ? componentSections : introSections} route={pathname} /></div></SidebarInset></SidebarProvider></>;
 }

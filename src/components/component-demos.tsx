@@ -1,0 +1,51 @@
+"use client";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Switch } from "./ui/switch";
+import { Input, Textarea } from "./ui/input";
+import { Slider } from "./ui/slider";
+import { Tabs } from "./ui/tabs";
+import { Surface } from "./ui/surface";
+import { ProjectCard } from "./ui/project-card";
+import { IDCard } from "./ui/id-card";
+import { Astronaut } from "./ui/astronaut";
+import { ContributionCalendar, type ContributionDay } from "./ui/contribution-calendar";
+import { ContactForm } from "./ui/contact-form";
+import { ExperienceTabs } from "./ui/experience-tabs";
+import { FocusTimer } from "./ui/focus-timer";
+import { TestimonialCarousel } from "./ui/testimonial-carousel";
+import { Icon } from "./icons";
+
+const contributionDays: ContributionDay[] = Array.from({ length: 730 }, (_, index) => {
+  const seed = (index * 17 + Math.floor(index / 7) * 3) % 29;
+  const count = seed < 16 ? 0 : seed - 15;
+  return { date: new Date(Date.UTC(2024,9,21 + index)).toISOString().slice(0,10), count, level: (count === 0 ? 0 : count < 4 ? 1 : count < 7 ? 2 : count < 11 ? 3 : 4) as ContributionDay["level"] };
+});
+const experiences = [
+  { id: "studio", label: "Studio", role: "Frontend Developer", period: "2025 — Present", description: "Building thoughtful interfaces, reusable components, and the small interactions that connect them.", technologies: ["React","TypeScript","CSS"] },
+  { id: "product", label: "Product", role: "Product Designer", period: "2024 — 2025", description: "Taking early ideas through prototypes and into working products, with a focus on clarity and accessibility.", technologies: ["Figma","Prototyping","Design systems"] },
+  { id: "independent", label: "Independent", role: "Independent Maker", period: "2023 — 2024", description: "A selection of experiments, small projects, and things made out of curiosity.", technologies: ["Next.js","Web APIs","SVG"] },
+];
+export function ComponentDemo({ slug }: { slug: string }) {
+  const [mobile, setMobile] = useState(false);
+  const [count, setCount] = useState(0);
+  const [on, setOn] = useState(true);
+  const [value, setValue] = useState(65);
+  const [tab, setTab] = useState("design");
+  const [experience, setExperience] = useState("studio");
+  if (slug === "button") return <div className="demo-stack"><div className="demo-controls"><Button variant="primary" onClick={() => setCount(count + 1)}>Save changes <Icon name="arrow" size={16} /></Button><Button onClick={() => setCount(count + 1)}>Secondary</Button><Button square aria-label="Add item" onClick={() => setCount(count + 1)}><Icon name="plus" size={17} /></Button></div><div className="demo-controls"><Button size="sm">Small</Button><Button>Default</Button><Button size="lg">Large</Button></div><div className="demo-controls"><Button disabled>Disabled</Button><Button loading>Saving…</Button></div><p className="demo-feedback" role="status">{count ? `Button pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a button to try the sound and physical state."}</p></div>;
+  if (slug === "switch") return <div className="demo-stack demo-narrow"><label className="demo-labeled-control"><span>Notifications</span><Switch checked={on} onCheckedChange={setOn} aria-label="Enable notifications" /></label><label className="demo-labeled-control"><span>Disabled</span><Switch checked={false} disabled onCheckedChange={() => {}} aria-label="Disabled switch" /></label><p className="demo-feedback">Notifications are {on ? "on" : "off"}.</p></div>;
+  if (slug === "input") return <div className="demo-stack demo-narrow"><label className="demo-field">Email address<Input type="email" placeholder="you@example.com" /></label><label className="demo-field">Disabled field<Input disabled placeholder="Unavailable" /></label></div>;
+  if (slug === "textarea") return <label className="demo-field demo-narrow">Your message<Textarea placeholder="A little room for your next idea…" rows={4} /></label>;
+  if (slug === "slider") return <div className="demo-stack demo-narrow"><div className="slider-heading"><span>Surface depth</span><output>{value}%</output></div><Slider value={value} onValueChange={setValue} aria-label="Surface depth" /><Surface variant="raised" className="demo-depth-surface" style={{ boxShadow: `inset 0 1px 0 var(--highlight), 0 ${value / 8}px 0 var(--base), 0 ${value / 8 + 1}px 0 var(--edge), 0 16px 18px var(--shadow)` }}><Icon name="layers" size={25} /></Surface></div>;
+  if (slug === "tabs") return <div className="demo-narrow"><Tabs value={tab} onValueChange={setTab} label="Workflow" items={[{ value: "design", label: "Design", content: "Start with how it feels." },{ value: "develop", label: "Develop", content: "Make the details work." },{ value: "ship", label: "Ship", content: "Put it out into the world." }]} /></div>;
+  if (slug === "surface") return <div className="demo-surface-grid"><Surface><Icon name="layers" size={25} /><h3>Raised</h3><p>Layered edges and a grounded shadow.</p></Surface><Surface variant="recessed"><Icon name="layers" size={25} /><h3>Recessed</h3><p>An inset well with soft inner depth.</p></Surface></div>;
+  if (slug === "project-card") return <div className="demo-stack"><ProjectCard title="Perspectives" number="01" onOpen={() => setCount(count + 1)}><img className="stock-light" src="/examples/architecture-light.jpg" alt="Pale geometric architecture viewed from below" draggable={false} /><img className="stock-dark" src="/examples/texture-dark.jpg" alt="Dark sculpted sand with fine ripples" draggable={false} /></ProjectCard><p className="demo-feedback" role="status">{count ? `Open callback triggered ${count} times.` : "Original portfolio card. Select it to trigger onOpen."}</p></div>;
+  if (slug === "id-card") return <IDCard name="Gavin Soares" role="Explorer" heading="STATION ACCESS" code="GS / 01" portrait={<Astronaut />} />;
+  if (slug === "contribution-calendar") return <div className="demo-full"><div className="calendar-preview-tools"><Button size="sm" aria-pressed={mobile} onClick={() => setMobile(!mobile)}>{mobile ? "View desktop mode" : "View mobile mode"}</Button></div><ContributionCalendar days={contributionDays} mobile={mobile} /><p className="demo-feedback">Sample data · no GitHub account connection</p></div>;
+  if (slug === "contact-form") return <div className="demo-full"><ContactForm onSend={() => new Promise(resolve => setTimeout(resolve,650))} /><p className="demo-feedback">Local demonstration only. No message or personal data is sent.</p></div>;
+  if (slug === "experience-tabs") return <div className="demo-full"><ExperienceTabs items={experiences} value={experience} onValueChange={setExperience} /><p className="demo-feedback">Example roles and dates.</p></div>;
+  if (slug === "focus-timer") return <div className="demo-timer"><FocusTimer /></div>;
+  if (slug === "testimonial-carousel") return <div className="demo-full demo-testimonials"><TestimonialCarousel items={[{ id: "1", quote: "The difference is in the details you notice after the first click.", author: "Designer’s perspective", role: "Sample testimonial", initials: "01" },{ id: "2", quote: "Familiar controls. Just enough character to make them feel like yours.", author: "Developer’s perspective", role: "Sample testimonial", initials: "02" },{ id: "3", quote: "The kind of button you find yourself pressing one more time.", author: "A small interaction", role: "Sample testimonial", initials: "03" }]} /></div>;
+  return null;
+}

@@ -1,11 +1,4 @@
 import type { Metadata } from "next";
-import DocsShell from "@/components/docs-shell";
-
-export const metadata: Metadata = {
-  title: "Documentation layout — Skeumorphism",
-  description: "The documentation sidebar and responsive layout preview for Skeumorphism.",
-};
-
-export default function DocumentationPreview() {
-  return <DocsShell />;
-}
+import DocsIntroduction from "@/components/docs-introduction";
+export const metadata: Metadata = { title: "Documentation — Skeumorphism", description: "Live previews, usage, and reusable component source from Skeumorphism." };
+export default function Documentation() { return <DocsIntroduction />; }
