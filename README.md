@@ -32,4 +32,10 @@ npm start      # Serve the production build
 npm run lint   # Run ESLint
 ```
 
-The initial commit contains the Next.js starter. Components and the registry will be added separately.
+## Current scope
+
+The landing page includes an interactive object showcase, a six-component carousel, animated block concepts, a syntax-colored example panel, and a sample testimonial marquee. Theme selection follows the system initially and persists in local storage.
+
+Reusable controls currently live in `src/components/ui/`. Shared material tokens and responsive styles live in `src/app/globals.css`. The documentation pages and installable component registry are not implemented yet.
+
+Form previews are local interactions and do not send email.
