@@ -330,6 +330,64 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-contact-form",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Contact Form",
+      "description": "A contact form with replaceable labels and a host-owned async submission callback.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-contact-form.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-contact-form.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-input.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-input.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-contact-form.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-contact-form.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-input.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-input.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }

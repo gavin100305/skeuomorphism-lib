@@ -1,0 +1,10 @@
+@import "./skeuo-base.css";
+.sk-contact{ position: relative; width: 100%; overflow: hidden; border: 1px solid var(--sk-edge); border-radius: 14px; background: linear-gradient(150deg,var(--sk-surface-raised),var(--sk-surface)); box-shadow: inset 0 1px 0 var(--sk-highlight),0 3px 0 var(--sk-base),0 4px 0 var(--sk-edge),0 15px 24px var(--sk-shadow); }
+.sk-contact-fields{ display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding: 28px; box-shadow: inset 0 4px 9px var(--sk-shadow),inset 2px 0 5px var(--sk-shadow); }
+.sk-contact-fields label{ display: grid; gap: 9px; font: 11px var(--sk-font-mono),monospace; }
+.sk-contact-message{ grid-column: 1/-1; }
+.sk-contact-actions{ display: flex; align-items: center; flex-wrap: wrap; gap: 20px; padding: 22px 28px; border-top: 1px solid var(--sk-edge); background: linear-gradient(160deg,var(--sk-surface),var(--sk-base)); box-shadow: inset 0 4px 7px var(--sk-shadow),inset 2px 0 5px var(--sk-shadow),inset 0 -2px 4px var(--sk-shadow),0 -1px 0 var(--sk-highlight); }
+.sk-contact-actions p{ margin: 0; font-size: 11px; color: var(--sk-muted); }
+@media(max-width:600px){.sk-contact-fields{ grid-template-columns: 1fr; padding: 22px; gap: 18px; }
+.sk-contact-actions{ padding: 20px 22px; }
+.sk-contact-actions .sk-button{ width: 100%; justify-content: space-between; }}
