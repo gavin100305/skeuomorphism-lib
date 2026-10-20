@@ -464,6 +464,44 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-experience-tabs",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Experience Tabs",
+      "description": "Keyboard-style experience tabs driven by caller-supplied records.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-experience-tabs.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-experience-tabs.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-tabs.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-tabs.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-experience-tabs.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-experience-tabs.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tabs.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tabs.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
