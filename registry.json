@@ -58,6 +58,34 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-input",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Input and Textarea",
+      "description": "Recessed text fields and textareas with scoped styles and native input props.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-input.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-input.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-input.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-input.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
