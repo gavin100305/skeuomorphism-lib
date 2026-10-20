@@ -1,0 +1,8 @@
+@import "./skeuo-tokens.css";
+:where([data-sk-root],[data-sk-root] *) {box-sizing:border-box;}
+:where([data-sk-root]) {font-family:var(--sk-font-sans,system-ui,sans-serif);font-size:14px;line-height:1.5;color:var(--sk-ink);}
+:where([data-sk-root] button,[data-sk-root] input,[data-sk-root] textarea) {font:inherit;}
+:where([data-sk-root] :is(h1,h2,h3,h4,p,figure,blockquote,ul)) {margin:0;}
+:where([data-sk-root] button) {cursor:pointer;}
+:where([data-sk-root] :focus-visible) {outline:2px solid var(--sk-accent);outline-offset:3px;}
+:where([data-sk-root] button:disabled) {cursor:not-allowed;}

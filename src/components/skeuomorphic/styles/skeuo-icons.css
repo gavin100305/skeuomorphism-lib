@@ -1,0 +1,4 @@
+@import "./skeuo-base.css";
+.sk-arrow-icon {flex-shrink:0;transform-origin:center;transition:scale .24s cubic-bezier(.2,.8,.2,1);}
+:is(button,a):hover .sk-arrow-icon,:is(button,a):focus-visible .sk-arrow-icon {scale:1.22;}
+@media(prefers-reduced-motion:reduce){.sk-arrow-icon{transition:none;}}

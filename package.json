@@ -1,12 +1,14 @@
 {
-  "name": "skeumorphism-lib",
+  "name": "skeuomorphism-lib",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "registry:build": "shadcn build",
+    "prebuild": "npm run registry:build"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -20,6 +22,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "shadcn": "4.22.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
