@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { PhotoCarousel } from "./ui/photo-carousel";
 import { KeyButton } from "./ui/key-button";
 import { ThemeButton } from "./ui/theme-button";
 import { SectionDock } from "./ui/section-dock";
@@ -39,6 +40,13 @@ export function ComponentDemo({ slug }: { slug: string }) {
   const [value, setValue] = useState(65);
   const [tab, setTab] = useState("design");
   const [experience, setExperience] = useState("studio");
+  if (slug === "photo-carousel") return <div className="demo-full"><PhotoCarousel label="Collected moments" items={[
+    {id:"lake",image:"/examples/lake.jpg",imageAlt:"Mountain peaks reflected in a still lake",title:"A moment of stillness",label:"Quiet mornings",meta:"01",eyebrow:"FIELD NOTES",subtitle:"A small collection of places and perspectives.",description:"A stock photograph used to demonstrate the original portfolio’s printed photo frame and details view."},
+    {id:"architecture",image:"/examples/architecture-light.jpg",imageAlt:"Pale geometric architecture viewed from below",title:"Looking up",label:"Architecture",meta:"02",eyebrow:"BUILT FORMS",subtitle:"Light, structure, and a different point of view."},
+    {id:"sand",image:"/examples/texture-dark.jpg",imageAlt:"Fine ripples across dark sand",title:"Patterns in the quiet",label:"Texture study",meta:"03",eyebrow:"SURFACE STUDIES",subtitle:"Small details found in ordinary places."},
+    {id:"geometry",image:"/examples/geometry.jpg",imageAlt:"Geometric lines of a modern building",title:"Lines and light",label:"City notes",meta:"04",eyebrow:"URBAN JOURNAL",subtitle:"A collection of shapes against the sky."},
+    {id:"facade",image:"/examples/facade.jpg",imageAlt:"Modern glass facade against a clear sky",title:"Glass and sky",label:"Perspectives",meta:"05",eyebrow:"ANOTHER ANGLE",subtitle:"A different view of the familiar."},
+  ]}/><p className="demo-feedback photo-demo-note">Sample stock photography · swipe, use arrow keys, or select a print.</p></div>;
   if (slug === "section-dock") return <div className="demo-stack"><div className="demo-controls"><Button size="sm" aria-pressed={orientation === "vertical"} onClick={() => setOrientation("vertical")}>Vertical</Button><Button size="sm" aria-pressed={orientation === "horizontal"} onClick={() => setOrientation("horizontal")}>Horizontal</Button></div><SectionDock orientation={orientation} value={dock} onValueChange={setDock} items={[{value:"home",label:"Home",icon:<Icon name="home"/>},{value:"projects",label:"Projects",icon:<Icon name="folder"/>},{value:"experience",label:"Experience",icon:<Icon name="briefcase"/>},{value:"achievements",label:"Achievements",icon:<Icon name="trophy"/>},{value:"contact",label:"Contact",icon:<Icon name="mail"/>}]} /><p className="demo-feedback" role="status">{dock.charAt(0).toUpperCase() + dock.slice(1)} selected</p></div>;
   if (slug === "theme-button") return <div className="demo-stack"><div className="demo-controls"><div className="demo-button-variant"><ThemeButton /><span>Raised key</span></div><div className="demo-button-variant"><ThemeButton variant="round" /><span>Round</span></div></div><p className="demo-feedback">Switch themes to try both appearances. Your choice is remembered.</p></div>;
   if (slug === "keyboard-button") return <div className="demo-stack"><div className="demo-controls"><KeyButton icon={<img src="/tech-icons/react.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>React</KeyButton><KeyButton tone="cobalt" icon={<img src="/tech-icons/razorpay.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>Razorpay</KeyButton></div><div className="demo-controls"><KeyButton onClick={() => setCount(count + 1)}>Without icon</KeyButton><KeyButton disabled>Disabled key</KeyButton></div><p className="demo-feedback" role="status">{count ? `Key pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a key to feel its travel and hear the click."}</p></div>;

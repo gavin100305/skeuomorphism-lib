@@ -11,3 +11,6 @@
 
 .demo-button-variant {display:grid;justify-items:center;align-content:center;gap:20px;min-width:100px;min-height:100px;}
 .demo-button-variant > span {font-size:11px;color:var(--muted);}
+
+.doc-live-preview.preview-photo-carousel {padding:28px 18px 32px;}
+.photo-demo-note {margin-top:24px !important;}
