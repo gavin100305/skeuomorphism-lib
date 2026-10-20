@@ -60,15 +60,15 @@ export default function Landing() {
     <a className="skip-link" href="#main">Skip to content</a>
     <header id="top" className="site-header">
       <div className="header-inner">
-        <a href="/" className="brand"><Mark /><span>skeuomorphism<span className="brand-period">.</span></span></a>
+        <Link href="/" className="brand"><Mark /><span>skeuomorphism<span className="brand-period">.</span></span></Link>
         <nav id="primary-nav" className={menu ? "nav-links open" : "nav-links"} aria-label="Main navigation">
-          <a href="/docs#components" onClick={() => setMenu(false)}>Components</a>
-          <a href="/docs#blocks" onClick={() => setMenu(false)}>Blocks</a>
+          <Link href="/docs#components" onClick={() => setMenu(false)}>Components</Link>
+          <Link href="/docs#blocks" onClick={() => setMenu(false)}>Blocks</Link>
           <Link href="/docs" onClick={() => setMenu(false)}>Docs</Link>
-          <a className="mobile-start" href="/docs#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></a>
+          <Link className="mobile-start" href="/docs#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></Link>
         </nav>
         <div className="header-actions">
-          <a className="nav-start" href="/docs#getting-started">Get started <Icon name="arrow" size={14} /></a>
+          <Link className="nav-start" href="/docs#getting-started">Get started <Icon name="arrow" size={14} /></Link>
           <a href={repo} target="_blank" rel="noreferrer" className="github-link" aria-label="GitHub repository"><Icon name="github" size={18} /></a>
           <SoundToggle />
           <button className="theme-button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={18} /></span><span className="theme-moon"><Icon name="moon" size={18} /></span></button>
@@ -82,7 +82,7 @@ export default function Landing() {
         <div className="hero-note">Tactile components for the web</div>
         <h1>Interfaces you can<br />almost <span>feel.</span></h1>
         <p className="hero-description">A little depth goes a long way. Tactile components for the web,<br className="desktop-break" /> crafted with the details that make an interface feel real.</p>
-        <div className="hero-actions"><a className="tactile primary" href="/docs#components">Explore components <Icon name="arrow" /></a><a className="text-link" href="/docs#getting-started">Get started <Icon name="diagonal" size={15} /></a></div>
+        <div className="hero-actions"><Link className="tactile primary" href="/docs#components">Explore components <Icon name="arrow" /></Link><Link className="text-link" href="/docs#getting-started">Get started <Icon name="diagonal" size={15} /></Link></div>
         <div className="hero-footnote"><span>React</span><span>TypeScript</span><span>Tailwind CSS</span></div>
         <ObjectShowcase />
       </section>
@@ -107,12 +107,12 @@ export default function Landing() {
       <section className="closing section-shell" data-reveal>
         <div className="closing-panel">
           <div className="closing-copy"><span className="eyebrow">YOUR NEXT LITTLE DETAIL</span><h2>Make something<br />worth feeling.</h2></div>
-          <div className="closing-actions"><a className="tactile primary" href="/docs#components">Explore the components <Icon name="arrow" /></a><a className="text-link" href={repo} target="_blank" rel="noreferrer">Follow the build <Icon name="diagonal" size={14} /></a></div>
+          <div className="closing-actions"><Link className="tactile primary" href="/docs#components">Explore the components <Icon name="arrow" /></Link><a className="text-link" href={repo} target="_blank" rel="noreferrer">Follow the build <Icon name="diagonal" size={14} /></a></div>
         </div>
       </section>
     </main>
     <footer className="site-footer section-shell">
-      <div className="footer-top"><div className="footer-brand"><a href="/" className="brand"><Mark /><span>skeuomorphism.</span></a><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><a href="/docs#components">Components <Icon name="arrow" size={13} /></a><a href="/docs#blocks">Blocks <Icon name="arrow" size={13} /></a><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
+      <div className="footer-top"><div className="footer-brand"><Link href="/" className="brand"><Mark /><span>skeuomorphism.</span></Link><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><Link href="/docs#components">Components <Icon name="arrow" size={13} /></Link><Link href="/docs#blocks">Blocks <Icon name="arrow" size={13} /></Link><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
       <div className="footer-bottom"><span>A work in progress by Gavin Soares.</span><a href="#top">Back to top <Icon name="up" size={13} /></a></div>
     </footer>
   </>;

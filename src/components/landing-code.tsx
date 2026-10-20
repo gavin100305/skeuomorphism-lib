@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./icons";
@@ -40,6 +41,6 @@ export function CodeExample() {
     <div className={`example-content ${code ? "show-code" : ""}`}>
       {code ? <div className="code-enter" key="code"><HighlightedCode /></div> : <div className={`save-demo ${saved ? "is-saved" : ""}`} key="preview"><div className="save-stack"><span className="save-sheet sheet-one" /><span className="save-sheet sheet-two" /><span className="save-sheet sheet-main"><Icon name={saved ? "check" : "layers"} size={31} /></span></div><Button variant="primary" onClick={save}><Icon name={saved ? "check" : "plus"} size={16} />{saved ? "Added to collection" : "Save to collection"}</Button><span className="example-hint" aria-live="polite">{saved ? "There. A satisfying little detail." : "Try it. There’s a little more to a press."}</span></div>}
     </div>
-    <div className="example-bottom"><a href="/docs/button" className="landing-doc-link">Button documentation</a><button onClick={copy}><Icon name={copied ? "check" : "copy"} size={14} />{copied ? "Copied" : "Copy example"}</button></div>
+    <div className="example-bottom"><Link href="/docs/button" className="landing-doc-link">Button documentation</Link><button onClick={copy}><Icon name={copied ? "check" : "copy"} size={14} />{copied ? "Copied" : "Copy example"}</button></div>
   </div>;
 }

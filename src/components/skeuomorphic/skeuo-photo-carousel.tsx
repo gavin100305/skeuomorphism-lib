@@ -1,13 +1,13 @@
 "use client";
 import "./styles/skeuo-photo-carousel.css";
 
-import { useEffect, useLayoutEffect, useId, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useLayoutEffect, useCallback, useId, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 export type PhotoCarouselItem = { id: string; image: string; imageAlt: string; title: string; label: string; meta?: string; eyebrow?: string; subtitle?: string; description?: string; photoPosition?: string };
 export function SkeuoPhotoCarousel({ items, label = "Photo collection", autoPlay = true }: { items: PhotoCarouselItem[]; label?: string; autoPlay?: boolean }) {
   if (!items.length) return <p>No photographs yet.</p>;
   return <CarouselContent key={items.map(item => item.id).join("|")} items={items} label={label} autoPlay={autoPlay} />;
 }
-function PhotoRecord({ item, onClose }: { item: PhotoCarouselItem; onClose: () => void }) {
+function PhotoRecord({ item, onClose, onRestoreFocus }: { item: PhotoCarouselItem; onClose: () => void; onRestoreFocus: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const closing = useRef(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -30,8 +30,9 @@ function PhotoRecord({ item, onClose }: { item: PhotoCarouselItem; onClose: () =
       node.close();
       document.body.style.overflow = previous;
       document.body.style.paddingRight = previousPadding;
+      onRestoreFocus();
     };
-  }, []);
+  }, [onRestoreFocus]);
   function dismiss() {
     if (closing.current) return;
     closing.current = true;
@@ -52,6 +53,9 @@ function CarouselContent({ items: achievements, label, autoPlay }: { items: Phot
   const readingUntil = useRef(0);
   const restart = useRef<() => void>(() => {});
   const opener = useRef<HTMLButtonElement | null>(null);
+  const restoreFocus = useCallback(() => {
+    if (opener.current?.isConnected) opener.current.focus({ preventScroll: true });
+  }, []);
   const swipe = useRef<{ x: number; y: number; pointer: number } | null>(null);
   const suppressClick = useRef(false);
   const resetClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -174,6 +178,6 @@ function CarouselContent({ items: achievements, label, autoPlay }: { items: Phot
         <button type="button" className="sk-album-arrow" aria-label="Next photo" onClick={() => move(1)}><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d="m9 5 5 5-5 5M14 10H4" /></svg></button>
       </div>
     </div>
-    {selected !== null && <PhotoRecord item={achievements[selected]} onClose={() => { setSelected(null); requestAnimationFrame(() => opener.current?.focus({ preventScroll: true })); }} />}
+    {selected !== null && <PhotoRecord item={achievements[selected]} onClose={() => setSelected(null)} onRestoreFocus={restoreFocus} />}
   </section>;
 }

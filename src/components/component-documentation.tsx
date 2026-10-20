@@ -1,15 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useSyncExternalStore } from "react";
 import { componentGuides } from "@/data/component-guides";
 import { CodeBlock } from "./code-block";
 import { findComponent } from "@/data/components";
 import { ComponentDemo } from "./component-demos";
 import "./component-documentation.css";
+const subscribeOrigin = () => () => {};
+const clientOrigin = () => window.location.origin;
+const serverOrigin = () => "";
+
 export function ComponentDocumentation({ slug }: { slug: string }) {
   const component = findComponent(slug)!;
   const guide = componentGuides[slug];
-  const [origin, setOrigin] = useState("");
-  useEffect(() => { setOrigin(window.location.origin); }, []);
+  const origin = useSyncExternalStore(subscribeOrigin, clientOrigin, serverOrigin);
   const registryName = slug === "keyboard-button" ? "skeuo-key-button" : slug === "textarea" ? "skeuo-input" : `skeuo-${slug}`;
   return <main id="docs-workspace" className="docs-workspace component-documentation">
     <header id="overview" className="doc-component-heading"><span className="docs-kicker">{component.group}</span><h1>{component.name}</h1><p>{component.description}</p><span className="doc-origin">Reused from: {component.origin}</span></header>
@@ -45,7 +49,7 @@ export function ComponentDocumentation({ slug }: { slug: string }) {
   --border: #484946;
   --input: #565752;
   --ring: #bbcec2;
-}`} /> }<p>All controls are silent by default. The optional <a href="/docs/provider">theme provider</a> applies local font and token overrides; the <a href="/docs/sound-provider">sound provider</a> connects your own click playback.</p></section>
+}`} /> }<p>All controls are silent by default. The optional <Link href="/docs/provider">theme provider</Link> applies local font and token overrides; the <Link href="/docs/sound-provider">sound provider</Link> connects your own click playback.</p></section>
     <section id="props" className="doc-section"><h2>Props</h2><div className="doc-table-scroll"><table><thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead><tbody>{component.props.map(([name,type,value]) => <tr key={name}><td><code>{name}</code></td><td><code>{type}</code></td><td>{value}</td></tr>)}</tbody></table></div></section>
     <section id="accessibility" className="doc-section"><h2>Accessibility</h2><p>{component.accessibility}</p></section>
   </main>;
