@@ -208,6 +208,34 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-tabs",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Tabs",
+      "description": "Controlled segmented or keyboard-style tabs with keyboard navigation.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-tabs.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-tabs.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tabs.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tabs.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
