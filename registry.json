@@ -388,6 +388,34 @@
           "target": "@ui/styles/skeuo-tokens.css"
         }
       ]
+    },
+    {
+      "name": "skeuo-contribution-calendar",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Contribution Calendar",
+      "description": "A keyboard-style contribution calendar driven by caller-supplied daily data.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-contribution-calendar.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-contribution-calendar.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-contribution-calendar.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-contribution-calendar.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
     }
   ]
 }
