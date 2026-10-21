@@ -49,3 +49,48 @@ export function playButtonSound(phase: SoundPhase, index = 0) {
     // Button interactions still work when browser audio is unavailable.
   });
 }
+
+let clockSample: Promise<AudioBuffer> | null = null;
+let latestTurnRequest = 0;
+function loadClockSample() {
+  if (typeof window === "undefined" || typeof AudioContext === "undefined") return null;
+  if (!audio || audio.state === "closed") audio = new AudioContext();
+  if (!clockSample) {
+    const context = audio;
+    clockSample = fetch("/sounds/clock-tick.wav")
+      .then(response => {
+        if (!response.ok) throw new Error("Clock sample unavailable");
+        return response.arrayBuffer();
+      })
+      .then(data => context.decodeAudioData(data))
+      .catch(error => { clockSample = null; throw error; });
+  }
+  return { context: audio, buffer: clockSample };
+}
+
+export function preloadRimSound() {
+  const loaded = loadClockSample();
+  if (loaded) void loaded.buffer.catch(() => {});
+}
+
+/** Real clock tick/tock recording, normalized for clear playback at a modest volume. */
+export function playRimTurnSound(_direction: "clockwise" | "anticlockwise", index = 0) {
+  const loaded = loadClockSample();
+  if (!loaded) return;
+  const request = ++latestTurnRequest;
+  const requestedAt = performance.now();
+  void Promise.all([loaded.context.resume(), loaded.buffer]).then(([, buffer]) => {
+    // Only the latest pending tick may play; never replay a loading backlog.
+    if (request !== latestTurnRequest || loaded.context.state !== "running" || performance.now() - requestedAt > 250) return;
+    const source = loaded.context.createBufferSource();
+    const gain = loaded.context.createGain();
+    source.buffer = buffer;
+    gain.gain.value = 0.75;
+    source.connect(gain);
+    gain.connect(loaded.context.destination);
+    source.start(0, (index % 2) * 0.18, 0.16);
+    source.onended = () => { source.disconnect(); gain.disconnect(); };
+  }).catch(() => {
+    // Turning remains functional when browser audio is unavailable.
+  });
+}

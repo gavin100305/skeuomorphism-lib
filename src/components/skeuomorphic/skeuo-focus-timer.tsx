@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent } from "react";
 import { SkeuoButton as Button } from "./skeuo-button";
 import { SkeuoIcon as Icon } from "./skeuo-icons";
+import { useSkeuoTurnSound } from "./skeuo-sound-provider";
 
 export type SkeuoFocusTimerProps = {
   /** Initial duration in seconds, clamped to 1–60 minutes. */
@@ -28,6 +29,8 @@ export function SkeuoFocusTimer({ duration = 1500, heading = "A MOMENT OF FOCUS"
   };
   const hintId = useId();
   const [selectedDuration, setSelectedDuration] = useState(() => initialDuration(duration));
+  const selectedRef = useRef(selectedDuration);
+  const playTurnSound = useSkeuoTurnSound();
   const [seconds, setSeconds] = useState(() => initialDuration(duration));
   const [running, setRunning] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -41,9 +44,12 @@ export function SkeuoFocusTimer({ duration = 1500, heading = "A MOMENT OF FOCUS"
 
   function selectDuration(value: number) {
     const next = clampDuration(Math.round(value / 60) * 60);
+    const previous = selectedRef.current;
+    selectedRef.current = next;
     setSelectedDuration(next);
     setSeconds(next);
     setRunning(false);
+    if (next !== previous) playTurnSound(next > previous ? "clockwise" : "anticlockwise");
   }
 
   function pointerAngle(event: PointerEvent<HTMLDivElement>) {
@@ -58,6 +64,7 @@ export function SkeuoFocusTimer({ duration = 1500, heading = "A MOMENT OF FOCUS"
     // Only the rim is draggable; the recessed clock face stays a readout.
     if (radius < Math.min(rect.width, rect.height) / 2 - 24) return;
     event.preventDefault();
+    event.currentTarget.dataset.skFocus = "pointer";
     event.currentTarget.focus({ preventScroll: true });
     event.currentTarget.setPointerCapture(event.pointerId);
     drag.current = { pointerId: event.pointerId, angle: pointerAngle(event), value: selectedDuration };
@@ -86,6 +93,7 @@ export function SkeuoFocusTimer({ duration = 1500, heading = "A MOMENT OF FOCUS"
   }
 
   function adjustWithKeyboard(event: KeyboardEvent<HTMLDivElement>) {
+    event.currentTarget.dataset.skFocus = "keyboard";
     const changes: Record<string, number> = { ArrowRight: 60, ArrowUp: 60, ArrowLeft: -60, ArrowDown: -60, PageUp: 300, PageDown: -300 };
     if (!(event.key in changes) && event.key !== "Home" && event.key !== "End") return;
     event.preventDefault();
@@ -104,6 +112,7 @@ export function SkeuoFocusTimer({ duration = 1500, heading = "A MOMENT OF FOCUS"
         onPointerDown={startDrag} onPointerMove={moveDrag}
         onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag}
         onKeyDown={adjustWithKeyboard}
+        onBlur={event => { delete event.currentTarget.dataset.skFocus; }}
       >
         <div className="sk-timer-rim" aria-hidden="true" style={{ transform: `rotate(${selectedDuration / 3600 * 360}deg)` }} />
         <div className="sk-timer-dial-face">

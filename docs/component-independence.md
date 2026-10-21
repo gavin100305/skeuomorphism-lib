@@ -60,6 +60,8 @@ Every component is silent by itself. `SkeuoSoundProvider` is also disabled by de
 </SkeuoSoundProvider>
 ```
 
+For the focus timer’s rotating rim, pass `onTurnSound(direction, index)` to the enabled provider. The direction is `"clockwise"` or `"anticlockwise"`. A tick fires when an adjustment changes the selected minute, throttled to once every 80 ms without queued playback. Mouse, touch, and keyboard use the same event. Countdown and reset do not emit ticks. Omit the callback to keep the rim silent; the timer registry includes the provider module. Playback callbacks may fail without interrupting adjustment.
+
 The host owns playback, audio assets, and preferences. No document-wide sound listeners, audio fetches, storage keys, or fixed `/sounds/` paths are installed by the portable modules. The documentation website explicitly opts into its own sound callback and settings.
 
 ## Content and media
