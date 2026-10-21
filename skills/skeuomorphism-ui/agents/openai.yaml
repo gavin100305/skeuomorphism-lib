@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skeuomorphism UI"
+  short_description: "Build and extend tactile React components"
+  default_prompt: "Use $skeuomorphism-ui to build a responsive interface with the library's tactile React components."
