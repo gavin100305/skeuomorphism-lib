@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CodeBlock } from "@/components/code-block";
 import "@/components/component-documentation.css";
+import "./skills.css";
 
 export const metadata: Metadata = {
   title: "Skills — Skeuomorphism",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function SkillsPage() {
-  return <main id="docs-workspace" className="docs-workspace component-documentation">
+  return <main id="docs-workspace" className="docs-workspace component-documentation skills-page">
     <header id="overview" className="doc-component-heading">
       <span className="docs-kicker">GETTING STARTED</span>
       <h1>Skills</h1>
@@ -17,12 +18,9 @@ export default function SkillsPage() {
     </header>
     <section id="install" className="doc-section">
       <h2>Install in Codex</h2>
-      <p>Ask the built-in skill installer to get the skill from the repository:</p>
-      <CodeBlock name="Codex prompt" code={`$skill-installer
-Install skeuomorphism-ui from
-wrestle-R/skeuomorphism-lib,
-path skills/skeuomorphism-ui.`} />
-      <p className="doc-small-note">Codex can detect installed skills automatically. If it doesn’t appear, restart Codex. <a href="https://github.com/wrestle-R/skeuomorphism-lib/tree/main/skills/skeuomorphism-ui">View the skill source ↗</a></p>
+      <p>Run this in your project, then choose Codex when the installer asks:</p>
+      <CodeBlock name="Terminal" code="npx skills add wrestle-R/skeuomorphism-lib --skill skeuomorphism-ui" />
+      <p className="doc-small-note">Add <code>-g</code> to install it for all your projects. If the skill doesn’t appear in Codex, restart the app. <a href="https://github.com/wrestle-R/skeuomorphism-lib/tree/main/skills/skeuomorphism-ui">View the skill source ↗</a></p>
     </section>
     <section id="start" className="doc-section">
       <h2>Start using it</h2>
