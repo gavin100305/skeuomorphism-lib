@@ -1,57 +1,57 @@
-# Original registry components
+# Original component map and caller contracts
 
-These are the 19 items in the repository's original `registry.json`. Recheck the current manifest or installed source if the version differs. Input and textarea share one item; the decorative astronaut is not a separate installable item. Checkbox and Progress are not part of this collection.
+This reference maps the **19 original items** in `registry.json`. Recheck the repository manifest or installed source when versions differ. `SkeuoTextarea` shares the `skeuo-input` item. The decorative `SkeuoAstronaut` and local icon module are dependency files, not independent item names. Examples from a skill review are not published items.
 
-| Item | Main export |
-| --- | --- |
-| skeuo-button | SkeuoButton |
-| skeuo-key-button | SkeuoKeyButton |
-| skeuo-theme-button | SkeuoThemeButton |
-| skeuo-switch | SkeuoSwitch |
-| skeuo-input | SkeuoInput, SkeuoTextarea |
-| skeuo-slider | SkeuoSlider |
-| skeuo-tabs | SkeuoTabs |
-| skeuo-surface | SkeuoSurface |
-| skeuo-section-dock | SkeuoSectionDock |
-| skeuo-project-card | SkeuoProjectCard |
-| skeuo-id-card | SkeuoIDCard |
-| skeuo-contribution-calendar | SkeuoContributionCalendar |
-| skeuo-contact-form | SkeuoContactForm |
-| skeuo-experience-tabs | SkeuoExperienceTabs |
-| skeuo-focus-timer | SkeuoFocusTimer |
-| skeuo-photo-carousel | SkeuoPhotoCarousel |
-| skeuo-testimonial-carousel | SkeuoTestimonialCarousel |
-| skeuo-provider | SkeuoProvider |
-| skeuo-sound-provider | SkeuoSoundProvider |
+| Need | Registry item | Export(s) | Host must supply or decide |
+| --- | --- | --- | --- |
+| Raised action | `skeuo-button` | `SkeuoButton` | Label, handler or form action; optional `variant`, `size`, `square`, `loading` |
+| Mechanical key | `skeuo-key-button` | `SkeuoKeyButton` | Children, optional icon ReactNode, `tone` and button behavior |
+| Theme control | `skeuo-theme-button` | `SkeuoThemeButton` | Current `theme` and `onThemeChange` that applies it; optional `key`/`round` variant |
+| Binary switch | `skeuo-switch` | `SkeuoSwitch` | Controlled `checked`, `onCheckedChange`, accessible name |
+| Text fields | `skeuo-input` | `SkeuoInput`, `SkeuoTextarea` | Native props, labels, helper/error association, validation |
+| Range control | `skeuo-slider` | `SkeuoSlider` | Controlled numeric `value`, `onValueChange`, accessible name and optional `min/max/step` |
+| Tabbed content | `skeuo-tabs` | `SkeuoTabs`, `TabItem` | Items, selected `value`, `onValueChange`, tablist label |
+| Raised/inset container | `skeuo-surface` | `SkeuoSurface` | Contents and `raised` or `recessed` variant |
+| Section navigation | `skeuo-section-dock` | `SkeuoSectionDock`, `DockItem` | Labeled icon items, selected value, navigation/scroll action |
+| Project preview | `skeuo-project-card` | `SkeuoProjectCard` | Title, image/alt or children, optional open callback |
+| Identity card | `skeuo-id-card` | `SkeuoIDCard` | Name, role, portrait ReactNode; optional heading and code |
+| Activity calendar | `skeuo-contribution-calendar` | `SkeuoContributionCalendar`, `ContributionDay` | Normalized day data; optional compact `mobile` rendering |
+| Contact panel | `skeuo-contact-form` | `SkeuoContactForm`, `ContactValues` | Async `onSend` connected to a real backend; optional copy labels |
+| Work history | `skeuo-experience-tabs` | `SkeuoExperienceTabs`, `Experience` | Experience records, selected value and callback |
+| Timed focus session | `skeuo-focus-timer` | `SkeuoFocusTimer` | Optional initial seconds, heading, badge and copy labels |
+| Photographic carousel | `skeuo-photo-carousel` | `SkeuoPhotoCarousel`, `PhotoCarouselItem` | Images, alt text, captions; optional autoplay preference |
+| Quote carousel | `skeuo-testimonial-carousel` | `SkeuoTestimonialCarousel`, `Testimonial` | Real quotes and attribution; no invented endorsements |
+| Scoped theme | `skeuo-provider` | `SkeuoProvider` | Optional local theme, font and token overrides |
+| Opt-in sounds | `skeuo-sound-provider` | `SkeuoSoundProvider` | Enabled preference plus caller-owned playback callbacks/assets |
 
-## Installation and imports
+## Install into a consumer
 
-From a host already configured for shadcn, use its package runner. The repository pins CLI 4.22.1; match project constraints rather than upgrading unrelated tooling:
+The original public origin is `https://skeuomorphismui.vercel.app`. The repo pins shadcn CLI 4.22.1; adapt to the host package manager and constraints. For an npm project already configured with `components.json`:
 
 ```sh
 npx shadcn@4.22.1 add https://skeuomorphismui.vercel.app/r/skeuo-switch.json
 npx shadcn@4.22.1 add https://skeuomorphismui.vercel.app/r/skeuo-slider.json
 ```
 
-Confirm the item URLs first. Imports go to the consumer's configured UI directory, not the library website source folder. Prefixed filenames coexist with a host's `button.tsx`. Each item brings its own native CSS and complete local dependency closure; Tailwind and mandatory providers are not required for the copied component. The consumer bundler must support CSS imports.
+Confirm the requested item URL before use. The CLI resolves `@ui/` through the consumer's configuration. Each item includes its local TSX/CSS dependency closure, including shared base/token CSS; do not edit generated JSON directly or import the documentation website's source paths. A CSS-import-capable React bundler is required. Prefixed filenames allow coexistence with a host's existing `button.tsx`.
 
-## Caller contracts
+When updating a copied item, inspect the consumer's existing files and preview the diff before overwrite. The consumer owns modifications to that source. Theme and sound providers remain optional.
 
-- Button: `variant="default" | "primary"`, `size="sm" | "md" | "lg"`, optional `square`, `loading`, native button props. Loading disables the button. Set `type="submit"` deliberately inside forms.
-- Switch: `checked`, `onCheckedChange`, accessible name. It uses a button with switch semantics; do not assume it submits a native form field.
-- Slider: numeric `value`, `onValueChange`, optional native `min/max/step` and accessible name.
-- Input/textarea: native props. Connect labels, helper text and validation in the host. Both are imported from `skeuo-input`.
-- Tabs: `items` with unique value, label, content and optional disabled; controlled `value` and `onValueChange`; `appearance="segmented" | "keys"` and `colorMode="same" | "alternating"`. Choose a valid enabled initial value.
-- Dock: caller supplies items with value, label and icon ReactNode. Controlled selection only reports a value; the host owns navigation/scrolling. Choose an initial value present in items.
-- Theme button: `theme`, `onThemeChange`, optional `variant="key" | "round"`. The host applies and persists theme.
-- Provider: optional local theme, font and typed token overrides. It renders with `display: contents` by default; use a separate wrapper or explicit display style when the scope needs its own background, padding or layout box.
-- Contact form: supply async `onSend`; resolve only on success, throw on failure. No email backend is bundled.
-- Cards/carousels/calendar: supply your own images, alt text and records. No account fetching or website demo assets installed.
-- Sound provider: caller supplies `enabled` and `onSound(phase, index)`. Disabled by default. Do not copy the website's fixed WAV paths or document-wide listeners into consumer code.
+## Interaction and data details that are easy to miss
+
+- **Buttons:** The default `type` is `button`; specify `type="submit"` for a form. `loading` disables the control and sets `aria-busy`. Icon-only controls need an accessible name. `SkeuoKeyButton` accepts `tone="neutral" | "accent" | "cobalt"` and a caller-supplied icon; no logo assets are installed.
+- **Switch and slider:** Both are controlled. Switch has switch semantics but is implemented with a button, so it is not a native submitted form field. Slider uses an input range; use `aria-valuetext` when units need explanation. Supply labels in the host.
+- **Tabs and dock:** Tabs items have unique `value`, `label`, `content`, optional `disabled`; `appearance="segmented" | "keys"` and `colorMode="same" | "alternating"`. Dock items have `value`, `label`, icon ReactNode; `orientation="vertical" | "horizontal"`. Start with a valid selected item. Dock reports selection; it does not navigate on its own.
+- **Cards:** Project card is an article unless `onOpen` is provided, in which case it becomes a button. Provide meaningful `imageAlt`; use children for custom artwork. ID card accepts any portrait ReactNode rather than requiring its sample astronaut.
+- **Calendar:** `ContributionDay` uses `date` as `YYYY-MM-DD`, nonnegative `count` and `level` from 0 to 4. Fetch and normalize GitHub or other data in the host; the item does not connect to an account.
+- **Contact form:** `onSend(values)` must resolve only after actual delivery and reject on failure. The component reports success/error state and clears the form on success. Server credentials and endpoint stay in the host; the sample site does not send mail.
+- **Carousels:** Supply genuine content and alt text. `SkeuoPhotoCarousel` has `autoPlay` defaulting to true; set false when the application needs manual advancement. The item does not install the website's example photos. Testimonials should come from actual users; sample quotes in docs are placeholders.
+- **Timer:** `duration` is an initial duration in seconds, clamped to 1–60 minutes, not a controlled countdown prop. Labels, heading and badge can be replaced. Sound on rim turns requires the optional sound provider and a caller callback.
+- **Providers:** `SkeuoProvider` scopes theme/fonts/tokens and renders with `display: contents` by default; use a separate box or explicit display style for background/padding/layout. `SkeuoSoundProvider` defaults to silent and only calls host playback when `enabled` is true. Never bundle a fixed website WAV path into a consumer.
 
 ## Controlled settings example
 
-After installing the switch and slider, adapt both imports to the actual host UI alias:
+After installing switch and slider, replace the example alias with the consumer's actual UI alias:
 
 ```tsx
 "use client";
@@ -81,8 +81,8 @@ export function SettingsExample() {
 }
 ```
 
-This example only manages UI state. It does not play audio or persist settings. For signatures not listed here, inspect current source or component docs rather than inventing props from names.
+This only manages local UI state. It does not play audio, persist preferences or submit a form.
 
-## Themes
+## Theme contract
 
-Defaults follow `.light`, `.dark`, `data-theme` or the browser preference when no theme is explicit. Modern semantic color values such as `--primary`, `--secondary`, `--card` and `--ring` flow through existing `--sk-*` aliases. Supply complete CSS colors, not bare HSL channels. Scope overrides to the consumer's composition; do not rewrite the library's shared tokens to create a one-off theme. Preserve readable foreground/background pairs.
+The originals use `.light`, `.dark`, `data-theme="light|dark"` or the browser preference when no theme is explicit. Modern semantic tokens such as `--primary`, `--secondary`, `--card`, `--muted`, `--border` and `--ring` feed the existing `--sk-*` aliases. Supply complete CSS colors, not bare HSL channels. Keep foreground/background pairs readable. A scoped provider can override local tokens without rewriting the consumer's global palette or the library's shared stylesheet.
