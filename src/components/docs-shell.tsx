@@ -11,7 +11,7 @@ import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger, useSidebar } fr
 import { useThemeToggle } from "./use-theme-toggle";
 
 const groupNames = ["Getting started", "Buttons", "Actions", "Forms", "Surfaces", "Navigation", "Cards", "Signature", "Utilities"];
-const groups = groupNames.map(title => ({ title, items: title === "Getting started" ? [{ name: "Introduction", slug: "" }] : components.filter(component => component.group === title) }));
+const groups = groupNames.map(title => ({ title, items: title === "Getting started" ? [{ name: "Introduction", slug: "" }, { name: "Skills", slug: "skills" }] : components.filter(component => component.group === title) }));
 
 function SidebarNavigation({ selected, query, onQueryChange }: { selected: string; query: string; onQueryChange: (query: string) => void }) {
   const { closeMobile } = useSidebar();
@@ -27,6 +27,7 @@ function SidebarNavigation({ selected, query, onQueryChange }: { selected: strin
 }
 
 const introSections = [{ id: "overview", label: "Overview" },{ id: "components", label: "Components" },{ id: "blocks", label: "Composed components" },{ id: "getting-started", label: "Installation" }];
+const skillsSections = [{ id: "overview", label: "Overview" }, { id: "install", label: "Install" }, { id: "start", label: "Start using it" }];
 function PageContents({ sections, route }: { sections: { id: string; label: string }[]; route: string }) {
   const pageSections = sections;
   const [active, setActive] = useState("overview");
@@ -68,5 +69,5 @@ export default function DocsShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const slug = pathname === "/docs" ? "" : pathname.split("/").pop() ?? "";
   const [query, setQuery] = useState("");
-  return <><a className="skip-link" href="#docs-workspace">Skip to content</a><SidebarProvider className="docs-shell docs-reference-layout" collapsible={false} width={240}><DocsHeader /><Sidebar><SidebarNavigation selected={slug} query={query} onQueryChange={setQuery} /></Sidebar><SidebarInset><div className="docs-reading-layout">{children}<PageContents sections={slug ? componentSections : introSections} route={pathname} /></div></SidebarInset></SidebarProvider></>;
+  return <><a className="skip-link" href="#docs-workspace">Skip to content</a><SidebarProvider className="docs-shell docs-reference-layout" collapsible={false} width={240}><DocsHeader /><Sidebar><SidebarNavigation selected={slug} query={query} onQueryChange={setQuery} /></Sidebar><SidebarInset><div className="docs-reading-layout">{children}<PageContents sections={slug === "skills" ? skillsSections : slug ? componentSections : introSections} route={pathname} /></div></SidebarInset></SidebarProvider></>;
 }
