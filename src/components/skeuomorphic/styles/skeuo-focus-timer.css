@@ -35,3 +35,13 @@
 
 
 .sk-tactile-object { color: var(--sk-card-ink); }
+
+/* Rotate the engraved rim independently of the recessed clock face. */
+.sk-timer-dial { position: relative; touch-action: none; user-select: none; cursor: grab; }
+.sk-timer-dial.sk-is-adjusting { cursor: grabbing; }
+.sk-timer-dial-face { position: relative; z-index: 1; cursor: default; }
+.sk-timer-dial.sk-is-adjusting .sk-timer-dial-face { cursor: grabbing; }
+.sk-focus-object .sk-timer-dial { background: var(--sk-well); }
+.sk-timer-rim { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; background: repeating-conic-gradient(from 0deg,var(--sk-edge) 0deg 1deg,transparent 1deg 12deg); transition: transform 100ms linear; }
+@media (prefers-reduced-motion: reduce) { .sk-timer-rim { transition: none; } }
+.sk-focus-object .sk-timer-hint { margin: -6px 0 15px; text-align: center; font: 9px/1.5 var(--sk-font-sans,system-ui,sans-serif); color: var(--sk-muted); }

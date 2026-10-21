@@ -62,7 +62,7 @@ export const componentGuides: Record<string, ComponentGuide> = {
   },
   "focus-timer": {
     "example": "import { SkeuoFocusTimer } from \"@/components/ui/skeuo-focus-timer\";\n\nexport function Example() {\n  return (\n    <SkeuoFocusTimer duration={25 * 60} heading=\"FOCUS SESSION\"\n      badge=\"01\" labels={{ start: \"Begin\", pause: \"Pause\", reset: \"Reset\" }} />\n  );\n}",
-    "notes": "duration is the starting time in seconds. Replace heading, badge, and labels. To apply a new starting duration after mount, remount the timer with a different React key."
+    "notes": "duration is the starting time in seconds, clamped to 1–60 minutes. Drag the rim clockwise to increase the duration or anticlockwise to decrease it in one-minute steps. Adjusting pauses the countdown; Start begins the new duration and Reset restores the last selected duration. Arrow keys adjust by one minute, Page Up/Down by five; Home/End select the limits. Replace heading, badge, and labels (including adjust and hint). To apply a new starting duration after mount, remount the timer with a different React key."
   },
   "testimonial-carousel": {
     "example": "import { SkeuoTestimonialCarousel } from \"@/components/ui/skeuo-testimonial-carousel\";\n\nexport function Example() {\n  return (\n    <SkeuoTestimonialCarousel label=\"Customer feedback\" items={[\n      { id: \"one\", quote: \"Replace this with real customer feedback.\",\n        author: \"Customer name\", role: \"Designer\", initials: \"CN\" },\n      { id: \"two\", quote: \"Another customer quote belongs here.\",\n        author: \"Another customer\", role: \"Developer\", initials: \"AC\" },\n    ]} />\n  );\n}",
