@@ -4,49 +4,35 @@
 
 **Interfaces you can almost feel.**
 
-Tactile React components with raised edges, recessed surfaces, and controls that feel physical.
-Install through the shadcn CLI, then make the source your own.
+The source code and shadcn registry behind Skeuomorphism UI.<br />
+Tactile React components with raised keys, recessed fields, layered cards, and physical feedback.
 
-[Website](https://skeuomorphismui.vercel.app/) · [Documentation](https://skeuomorphismui.vercel.app/docs) · [Components](https://skeuomorphismui.vercel.app/docs#components) · [Installation](https://skeuomorphismui.vercel.app/docs#getting-started)
+[Documentation](https://skeuomorphismui.vercel.app/docs) · [Browse components](https://skeuomorphismui.vercel.app/docs#components) · [Report a bug](https://github.com/gavin100305/skeuomorphism-lib/issues) · [Contribute](#contributing)
 
 [![MIT License](https://img.shields.io/badge/license-MIT-365e50)](LICENSE)
-[![React](https://img.shields.io/badge/React-19-202020)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-ready-202020)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-included-3178c6)](https://www.typescriptlang.org/)
 
 </div>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/landing-dark.png" />
-  <img src="docs/images/landing-light.png" alt="Skeuomorphism UI landing page with a woven circular inset, green raised controls, and the headline Interfaces you can almost feel." width="1280" />
-</picture>
+## Start building
 
-## A little depth goes a long way
+Install individual components into your React project using the shadcn CLI. You receive editable TypeScript and CSS files in your own codebase, including each component’s local dependencies.
 
-Skeuomorphism UI is a collection of React components built around familiar materials and physical feedback: mechanical keys, inset fields, layered cards, and photographic prints.
+### 1. Prepare your project
 
-- **Source you own.** The shadcn registry copies component files into your project. Edit them freely.
-- **Styles included.** Each item brings its required native CSS, local icons, and component dependencies. Portable components do not require the documentation website’s styles or Tailwind setup.
-- **Light and dark themes.** Follow your app’s theme convention or use an optional local provider.
-- **Familiar color tokens.** Use `--primary`, `--secondary`, `--card`, `--ring`, and other semantic tokens. Fine-tune materials with `--sk-*` overrides.
-- **Replaceable content.** Bring your own photos, portraits, icons, quotes, and data.
-- **Optional sound.** Components are silent by default. Connect your own click playback when you want it.
-- **Keyboard interaction.** Native controls, visible focus states, and keyboard navigation for tabs, docks, and calendars. Motion-heavy components include reduced-motion handling.
-
-## Quick start
-
-Use a React project with CSS-import support and a configured shadcn `components.json`. If you have not initialized shadcn yet:
+You need a React application that supports CSS imports and a configured shadcn `components.json`. Already using shadcn? Skip this step.
 
 ```bash
 npx shadcn@4.22.1 init
 ```
 
-Install your first component:
+### 2. Add a component
 
 ```bash
 npx shadcn@4.22.1 add https://skeuomorphismui.vercel.app/r/skeuo-button.json
 ```
 
-Then use it:
+### 3. Use it
 
 ```tsx
 import { SkeuoButton } from "@/components/ui/skeuo-button";
@@ -56,36 +42,49 @@ export function SaveButton() {
 }
 ```
 
-The CLI respects your configured UI directory. Adjust the import alias if your project uses a different one. Prefixed filenames such as `skeuo-button.tsx` coexist with an existing shadcn `button.tsx`.
+The CLI uses your configured UI directory; adjust the import path to match your aliases. In Next.js, examples with state or event handlers belong in a client component.
 
-For state and event handlers in Next.js, use a client component. No npm library package or mandatory provider is needed.
+Find the installation command, props, and examples for each component in the [documentation](https://skeuomorphismui.vercel.app/docs).
 
-**[Read the installation guide →](https://skeuomorphismui.vercel.app/docs#getting-started)**
+## What gets installed?
 
-## The collection
+For the standard button, the registry copies:
 
-There are **19 installable registry items**. Input and textarea share one item.
+```text
+components/ui/
+├── skeuo-button.tsx
+└── styles/
+    ├── skeuo-button.css
+    ├── skeuo-base.css
+    └── skeuo-tokens.css
+```
 
-| Category | Components |
+Other items include their own required controls and local icons where needed.
+
+- **Editable source.** Customize the installed files directly. There is no separate runtime library package to install.
+- **Styles included.** Components bring their own CSS and do not require the website’s global styles or Tailwind setup.
+- **Prefixed names.** Files use `skeuo-*`, classes use `sk-*`, and internal tokens use `--sk-*`. An existing shadcn `button.tsx` can coexist with `skeuo-button.tsx`.
+- **Scoped defaults.** The component baseline stays within `data-sk-root`; it does not reset ordinary host buttons or inputs.
+- **Your content.** Supply your own images, icons, text, and data. Website demo media is not part of an installation.
+
+## Components
+
+The registry contains **19 installable items**, including two optional providers. Input and textarea share one registry item.
+
+| Area | Documentation |
 | --- | --- |
-| Buttons | [Standard Button](https://skeuomorphismui.vercel.app/docs/button), [Theme Button](https://skeuomorphismui.vercel.app/docs/theme-button), [Keyboard Button](https://skeuomorphismui.vercel.app/docs/keyboard-button) |
-| Controls | [Switch](https://skeuomorphismui.vercel.app/docs/switch), [Input](https://skeuomorphismui.vercel.app/docs/input), [Textarea](https://skeuomorphismui.vercel.app/docs/textarea), [Slider](https://skeuomorphismui.vercel.app/docs/slider), [Tabs](https://skeuomorphismui.vercel.app/docs/tabs) |
-| Surfaces and navigation | [Surface](https://skeuomorphismui.vercel.app/docs/surface), [Section Dock](https://skeuomorphismui.vercel.app/docs/section-dock) |
-| Cards and compositions | [Project Card](https://skeuomorphismui.vercel.app/docs/project-card), [ID Card](https://skeuomorphismui.vercel.app/docs/id-card), [Contribution Calendar](https://skeuomorphismui.vercel.app/docs/contribution-calendar), [Contact Form](https://skeuomorphismui.vercel.app/docs/contact-form), [Experience Tabs](https://skeuomorphismui.vercel.app/docs/experience-tabs) |
-| Interactive pieces | [Focus Timer](https://skeuomorphismui.vercel.app/docs/focus-timer), [Photo Carousel](https://skeuomorphismui.vercel.app/docs/photo-carousel), [Testimonial Carousel](https://skeuomorphismui.vercel.app/docs/testimonial-carousel) |
-| Optional utilities | [Theme Provider](https://skeuomorphismui.vercel.app/docs/provider), [Sound Provider](https://skeuomorphismui.vercel.app/docs/sound-provider) |
+| Buttons | [Standard](https://skeuomorphismui.vercel.app/docs/button) · [Theme](https://skeuomorphismui.vercel.app/docs/theme-button) · [Keyboard](https://skeuomorphismui.vercel.app/docs/keyboard-button) |
+| Form controls | [Input](https://skeuomorphismui.vercel.app/docs/input) · [Textarea](https://skeuomorphismui.vercel.app/docs/textarea) · [Switch](https://skeuomorphismui.vercel.app/docs/switch) · [Slider](https://skeuomorphismui.vercel.app/docs/slider) |
+| Structure | [Surface](https://skeuomorphismui.vercel.app/docs/surface) · [Tabs](https://skeuomorphismui.vercel.app/docs/tabs) · [Section Dock](https://skeuomorphismui.vercel.app/docs/section-dock) |
+| Cards | [Project Card](https://skeuomorphismui.vercel.app/docs/project-card) · [ID Card](https://skeuomorphismui.vercel.app/docs/id-card) · [Contact Form](https://skeuomorphismui.vercel.app/docs/contact-form) · [Experience Tabs](https://skeuomorphismui.vercel.app/docs/experience-tabs) |
+| Interactive pieces | [Contribution Calendar](https://skeuomorphismui.vercel.app/docs/contribution-calendar) · [Focus Timer](https://skeuomorphismui.vercel.app/docs/focus-timer) · [Photo Carousel](https://skeuomorphismui.vercel.app/docs/photo-carousel) · [Testimonial Carousel](https://skeuomorphismui.vercel.app/docs/testimonial-carousel) |
+| Optional providers | [Theme Provider](https://skeuomorphismui.vercel.app/docs/provider) · [Sound Provider](https://skeuomorphismui.vercel.app/docs/sound-provider) |
 
-Every component page includes a live preview, installation command, usage example, props, and accessibility notes.
+## Make it fit your application
 
-### A closer look
+### Colors and themes
 
-[![Documentation and mechanical slider preview](docs/images/component-docs.png)](https://skeuomorphismui.vercel.app/docs/slider)
-
-[![Fanned photographic prints in the photo carousel](docs/images/photo-carousel.png)](https://skeuomorphismui.vercel.app/docs/photo-carousel)
-
-## Make it yours
-
-Existing modern shadcn palettes work through semantic CSS variables. Use complete CSS colors such as hex, `rgb()`, or `oklch()`:
+Components read familiar semantic CSS variables, including `--primary`, `--secondary`, `--card`, `--border`, and `--ring`. For example:
 
 ```css
 :root {
@@ -103,40 +102,36 @@ Existing modern shadcn palettes work through semantic CSS variables. Use complet
 }
 ```
 
-Highlights and shaded bases follow supplied colors. Without host tokens, the original light and dark material defaults remain in place. The library does not overwrite your host palette or apply a global reset.
+Use complete CSS colors such as hex, `rgb()`, or `oklch()`, rather than bare HSL channels. Highlights and shaded bases derive from the palette; material defaults remain available when host tokens are absent.
 
-For a local palette, install the optional provider:
+Light and dark styles recognize `.light`, `.dark`, and `data-theme`. Without an explicit root theme, defaults follow the browser’s color preference. The library does not change your document classes or save theme preferences.
 
-```bash
-npx shadcn@4.22.1 add https://skeuomorphismui.vercel.app/r/skeuo-provider.json
-```
+For local themes, fonts, or token overrides, use the optional [SkeuoProvider](https://skeuomorphismui.vercel.app/docs/provider). Detailed material customization is available through `--sk-*` tokens. See [theming and token precedence](docs/theming.md).
 
-```tsx
-import { SkeuoProvider } from "@/components/ui/skeuo-provider";
-import { SkeuoButton } from "@/components/ui/skeuo-button";
+### Sound and motion
 
-export function CustomPalette() {
-  return (
-    <SkeuoProvider
-      style={{ "--primary": "#6d3546", "--primary-foreground": "#ffffff" }}
-    >
-      <SkeuoButton variant="primary">Your finishing touch</SkeuoButton>
-    </SkeuoProvider>
-  );
-}
-```
+Installed components are **silent by default**. The optional [sound provider](https://skeuomorphismui.vercel.app/docs/sound-provider) connects your playback callback and user preference:
 
-See the [theme provider docs](https://skeuomorphismui.vercel.app/docs/provider) and [theming guide](docs/theming.md) for the full token mapping, scoped overrides, and precedence. Choose foreground/background pairs with readable contrast when creating a custom theme.
+- `onSound(phase, index)` handles button press and release sounds.
+- `onTurnSound(direction, index)` handles focus-timer rim ticks, with rapid changes throttled.
 
-## What your application supplies
+Your application owns the audio assets and mute setting. The website’s sound files and playback code are not installed. Motion-heavy components include reduced-motion handling; sound is never required to understand a control’s state.
 
-- **Contact form:** your own asynchronous submission callback and backend. Demo forms do not send email.
-- **Contribution calendar:** contribution data; no GitHub credentials or fetching are bundled.
-- **Cards and carousels:** your own images, alt text, and content. Website demo assets are not installed.
-- **Theme button:** your theme state and change handler. Your application owns persistence.
-- **Click sounds:** your playback callback, audio assets, and user preference through the optional sound provider.
+### Content and behavior
 
-## Run the website locally
+| Component | Your application supplies |
+| --- | --- |
+| Contact Form | Submission callback and delivery backend |
+| Contribution Calendar | Contribution data |
+| Cards and carousels | Images, alt text, captions, and other content |
+| Theme Button | Theme state, change handler, and persistence |
+| Sound Provider | Audio playback and the user’s sound preference |
+
+Each component’s docs describe its keyboard behavior, accessible labels, and customization points. When changing colors or content, retain readable contrast and meaningful labels.
+
+## Working on this repository
+
+This repository contains both the reusable component source and its Next.js documentation website. Installing a registry item does not install the website.
 
 ```bash
 git clone https://github.com/gavin100305/skeuomorphism-lib.git
@@ -146,36 +141,40 @@ npm run registry:build
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). To use another port, run `npm run dev -- --port 3001`.
+Open [localhost:3000](http://localhost:3000). For another port, use `npm run dev -- --port 3001`.
 
-| Command | Purpose |
+| Location | Purpose |
 | --- | --- |
-| `npm run dev` | Start the documentation website |
-| `npm run registry:build` | Generate installable JSON under `public/r/` |
-| `npm run build` | Regenerate the registry and build the production website |
-| `npm start` | Serve the production website |
-| `npm run lint` | Run ESLint |
+| `src/components/skeuomorphic/` | Canonical reusable components and scoped CSS |
+| `src/components/` | Documentation UI, previews, and website adapters |
+| `src/data/` | Component metadata and documentation examples |
+| `src/app/` | Website routes and layouts |
+| `registry.json` | Installation manifest and dependency lists |
+| `public/r/` | Generated registry JSON served by the website |
+| `docs/` | Architecture, registry, and theming guides |
 
-The website uses Next.js App Router, React, TypeScript, and Tailwind CSS. Installable components use React and their own native CSS.
+The website uses Next.js, React, TypeScript, and Tailwind CSS. Portable components use React, local modules, and native CSS, with no Next.js imports.
 
-```text
-src/components/skeuomorphic/  Reusable components and scoped styles
-src/data/                    Documentation metadata and examples
-src/app/                     Website routes
-registry.json                Registry manifest
-public/r/                    Generated registry items
-docs/                        Architecture, theming, and registry guides
-```
+## Contributing
 
-Edit the canonical components and regenerate registry files; do not edit generated JSON directly. See [component independence](docs/component-independence.md) and [registry maintenance](docs/registry.md) for details.
+Bug fixes, documentation improvements, and focused component refinements are welcome.
 
-## Feedback and contributions
+1. Open an [issue](https://github.com/gavin100305/skeuomorphism-lib/issues) for a substantial change before starting, so we can agree on scope.
+2. Edit the canonical component source and its docs/example. Keep website-only assets and behavior out of portable modules.
+3. Regenerate the registry with `npm run registry:build`. Update `registry.json` if the dependency list changes; do not edit generated JSON directly.
+4. Check light/dark appearances, keyboard and touch behavior, disabled states, and reduced motion where relevant. Run `npm run lint`, `npx tsc --noEmit`, and `npm run build` before opening a pull request.
+5. Describe what changed and include reproduction steps or before/after images for visual changes.
 
-Found a bug, an installation issue, or an idea for a component? [Open an issue](https://github.com/gavin100305/skeuomorphism-lib/issues). Include the component name, framework, browser, and a small reproduction where possible.
+For architectural details, read [component independence](docs/component-independence.md), [registry maintenance](docs/registry.md), and [theming](docs/theming.md).
 
-Built by [Gavin Soares](https://github.com/gavin100305).
+### Reporting a problem
+
+[Open an issue](https://github.com/gavin100305/skeuomorphism-lib/issues) with the component name, installation command if relevant, framework/browser versions, expected behavior, and a minimal reproduction. For appearance issues, include the active theme and any custom tokens.
 
 ## License
 
-Project code is available under the [MIT License](LICENSE). Copyright © 2026 Gavin Soares.
-Third-party images, logos, audio, and dependencies retain their respective licenses.
+Project code is licensed under [MIT](LICENSE), allowing personal and commercial use, modification, and redistribution under its terms. Keep the copyright and license notice with copies or substantial portions of the code.
+
+Third-party images, logos, audio, and dependencies retain their own licenses. Demo assets are not automatically included in the component registry; sound sources are documented in [public/sounds/README.md](public/sounds/README.md).
+
+Built by [Gavin Soares](https://github.com/gavin100305). Explore the live components at [skeuomorphismui.vercel.app](https://skeuomorphismui.vercel.app/).
