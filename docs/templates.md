@@ -13,18 +13,20 @@ The template collection has two landing pages and two dashboards. Each is a sepa
 
 Forma keeps the existing Daymark preview URL so the original local review link still works. Its brand and content are now generic. Reel, Stillroom, Signal, Ledger and Orbit were removed from the active collection.
 
-## Install locally
+## Install from this fork
 
-Start this repository on port 3113. Run one of these commands from an already configured shadcn consumer project:
+Run one of these commands from an already configured shadcn consumer project. These URLs use the generated JSON files published on this fork's `main` branch:
 
 ```sh
-npx shadcn@4.22.1 add http://localhost:3113/r/skeuo-forma-landing.json
-npx shadcn@4.22.1 add http://localhost:3113/r/skeuo-glide-landing.json
-npx shadcn@4.22.1 add http://localhost:3113/r/skeuo-activity-dashboard.json
-npx shadcn@4.22.1 add http://localhost:3113/r/skeuo-workspace-dashboard.json
+npx shadcn@4.22.1 add https://raw.githubusercontent.com/wrestle-R/skeuomorphism-lib/main/public/r/skeuo-forma-landing.json
+npx shadcn@4.22.1 add https://raw.githubusercontent.com/wrestle-R/skeuomorphism-lib/main/public/r/skeuo-glide-landing.json
+npx shadcn@4.22.1 add https://raw.githubusercontent.com/wrestle-R/skeuomorphism-lib/main/public/r/skeuo-activity-dashboard.json
+npx shadcn@4.22.1 add https://raw.githubusercontent.com/wrestle-R/skeuomorphism-lib/main/public/r/skeuo-workspace-dashboard.json
 ```
 
-The gallery copies the current site's origin into the install command, so a deployed fork will point to its own registry. These new items are local until the fork is pushed and deployed. The original `skeuomorphismui.vercel.app` URL must not be advertised for these items before that deployment serves them.
+The gallery copies these same public HTTPS commands. They do not depend on Gavin's repository or deployment. Do not advertise the original `skeuomorphismui.vercel.app` origin for these new items until that deployment actually serves them.
+
+For local registry development, start this repository and substitute `http://localhost:3113/r/` for the raw GitHub prefix.
 
 Each item includes its local TSX/CSS dependency closure and declares `framer-motion`. It copies only the original library controls used by that template. The template source has no Next.js imports, website aliases, Tailwind requirement, external image requests, backend connections, or fixed sound asset paths.
 

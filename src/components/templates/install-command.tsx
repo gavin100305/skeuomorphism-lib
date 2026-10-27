@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
+
+const templateRegistry =
+  "https://raw.githubusercontent.com/wrestle-R/skeuomorphism-lib/main/public/r";
+
 export function InstallCommand({ name }: { name: string }) {
-  const [origin, setOrigin] = useState("");
   const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    queueMicrotask(() => setOrigin(window.location.origin));
-  }, []);
-  const command = `npx shadcn@4.22.1 add ${origin}/r/${name}.json`;
+  const command = `npx shadcn@4.22.1 add ${templateRegistry}/${name}.json`;
   async function copy() {
     try {
       await navigator.clipboard.writeText(command);

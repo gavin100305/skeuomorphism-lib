@@ -78,7 +78,11 @@ function ActivityContent({
           </button>
         ))}
       </div>
-      <SkeuoButton size="sm" onClick={() => setRefresh(!refresh)}>
+      <SkeuoButton
+        aria-label={hi ? "रीफ़्रेश" : "Refresh"}
+        size="sm"
+        onClick={() => setRefresh(!refresh)}
+      >
         <Glyph name="refresh" size={16} />
         <span className="sk-t-action-label">{hi ? "रीफ़्रेश" : "Refresh"}</span>
       </SkeuoButton>
@@ -141,7 +145,13 @@ function ActivityContent({
                       "12 days",
                     ][i]}
               </strong>
-              <small>{detail}</small>
+              <small>
+                {i === 1
+                  ? `${focusedShare}% of tracked time`
+                  : i === 2
+                    ? `${appTimes[0]} across this period`
+                    : detail}
+              </small>
             </div>
           ))}
         </div>

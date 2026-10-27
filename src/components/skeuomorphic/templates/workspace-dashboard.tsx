@@ -90,6 +90,7 @@ function WorkspaceContent({
         />
       </div>
       <SkeuoButton
+        aria-label={hi ? "निर्यात" : "Export"}
         size="sm"
         onClick={() =>
           saveCsv("formwork-orders.csv", [

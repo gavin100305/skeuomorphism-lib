@@ -1,9 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { SkeuoThemeButton } from "../skeuo-theme-button";
 import { Brand, Glyph } from "./template-ui";
 import type { TemplateState } from "./template-frame";
+
+function subscribeNarrow(listener: () => void) {
+  const query = window.matchMedia("(max-width: 700px)");
+  query.addEventListener("change", listener);
+  return () => query.removeEventListener("change", listener);
+}
+const narrowSnapshot = () => window.matchMedia("(max-width: 700px)").matches;
+const serverNarrowSnapshot = () => false;
 
 const menus = {
   activity: [
@@ -55,9 +69,17 @@ export function DashboardLayout({
   soundControl?: ReactNode;
 }) {
   const [compact, setCompact] = useState(false);
+  const narrow = useSyncExternalStore(
+    subscribeNarrow,
+    narrowSnapshot,
+    serverNarrowSnapshot,
+  );
   const [active, setActive] = useState("overview");
   const [mobile, setMobile] = useState(false);
   const [profile, setProfile] = useState(false);
+  useEffect(() => {
+    if (!narrow) queueMicrotask(() => setMobile(false));
+  }, [narrow]);
   const [projects, setProjects] = useState(false);
   const sidebar = useRef<HTMLElement>(null);
   const profileButton = useRef<HTMLButtonElement>(null);
@@ -130,6 +152,8 @@ export function DashboardLayout({
       <aside
         className="sk-t-sidebar"
         ref={sidebar}
+        inert={narrow && !mobile}
+        aria-hidden={narrow && !mobile ? true : undefined}
         role={mobile ? "dialog" : undefined}
         aria-modal={mobile || undefined}
         aria-label={hi ? "कार्यस्थल नेविगेशन" : "Workspace navigation"}

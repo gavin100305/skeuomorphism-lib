@@ -3486,3 +3486,50 @@
 .sk-t-glide h2 > span {
   color: var(--tpl-muted);
 }
+
+.sk-t-segment > button {
+  white-space: nowrap;
+}
+@media (max-width: 430px) {
+  .sk-t-metric-strip > div:nth-child(3) strong {
+    font-size: clamp(19px, 5.7vw, 24px);
+    white-space: normal;
+  }
+}
+@media (max-width: 700px) {
+  .sk-template:has(.is-mobile-open) > .tpl-customizer {
+    visibility: hidden;
+  }
+}
+@media (max-width: 700px) {
+  .sk-t-tear-footer .tpf-col {
+    top: 31%;
+  }
+  .sk-t-tear-footer .tpf-foot {
+    bottom: 70px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px 18px;
+    align-items: start;
+    font-size: 10px;
+  }
+  .sk-t-tear-footer .tpf-foot > span:first-child {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 160px;
+  }
+  .sk-t-tear-footer .tpf-handle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .sk-t-tear-footer .tpf-credit {
+    position: static;
+    transform: none;
+    grid-column: 1/-1;
+    grid-row: 2;
+    text-align: left;
+    font-size: 7px;
+    white-space: normal;
+    letter-spacing: 0.04em;
+  }
+}
