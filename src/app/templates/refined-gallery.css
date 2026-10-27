@@ -1,0 +1,302 @@
+.template-index {
+  background: #f1f0e9;
+  color: #20251f;
+}
+
+.template-index-header,
+.template-index-hero,
+.template-index-section,
+.template-index-footer {
+  max-width: 1540px;
+}
+
+.template-index-hero {
+  padding-block: clamp(90px, 10vw, 160px) 130px;
+}
+
+.template-index-hero h1 {
+  max-width: 1200px;
+  font-size: clamp(68px, 8.3vw, 132px);
+  line-height: .92;
+}
+
+.template-index-section {
+  padding-bottom: 140px;
+}
+
+.template-section-heading {
+  align-items: center;
+  padding-block: 29px 15px;
+  margin-bottom: 38px;
+}
+
+.template-section-heading h2 {
+  margin-top: 10px;
+}
+
+.template-section-heading p {
+  max-width: 300px;
+}
+
+.template-grid {
+  display: grid;
+  grid-template-columns: 1.17fr 1fr;
+  grid-template-rows: repeat(2, minmax(355px, auto));
+  grid-auto-flow: dense;
+  gap: 17px;
+}
+
+.template-tile {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  padding: 8px;
+  border-color: #c4c9bd;
+  background: #e6eae1;
+  box-shadow: inset 0 1px #fff, 0 4px 0 #c6cec2, 0 17px 26px #2633291a;
+}
+
+.template-tile:first-child {
+  grid-row: span 2;
+}
+
+.template-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 1px #fff, 0 8px 0 #c6cec2, 0 25px 32px #26332926;
+}
+
+.template-tile-art {
+  position: relative;
+  flex: 1;
+  min-height: 210px;
+  height: auto;
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--tile-bg);
+  color: var(--tile-ink);
+  border-color: var(--tile-line);
+}
+
+.template-tile-art:before,
+.template-tile-art:after {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.template-tile-art:before {
+  content: "";
+  inset: 0;
+  background: radial-gradient(circle at 86% 13%, #fff9, transparent 42%), linear-gradient(155deg, transparent 45%, color-mix(in srgb, var(--tile-accent) 5%, transparent));
+}
+
+.template-tile-art:after {
+  content: "";
+  inset: 0;
+  border: 1px solid #fff8;
+  border-radius: 8px;
+}
+
+.template-tile-brand {
+  position: absolute;
+  z-index: 2;
+  top: 68px;
+  left: 23px;
+  font-size: clamp(38px, 4.5vw, 70px);
+  line-height: .94;
+  color: var(--tile-ink);
+  text-shadow: none;
+}
+
+.template-tile-brand b { color: var(--tile-accent) !important; }
+.template-tile-shape { z-index: 1; transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+.template-tile:hover .template-tile-shape { transform: translateY(-5px) rotate(-3deg); }
+
+.template-tile-caption {
+  z-index: 2;
+  left: 23px;
+  top: 152px;
+  bottom: auto;
+  color: var(--tile-muted);
+  text-transform: uppercase;
+}
+
+.template-tile-preview-label,
+.template-tile-view {
+  position: absolute;
+  z-index: 2;
+  color: var(--tile-ink);
+  text-shadow: none;
+  font-size: 11px;
+}
+
+.template-tile-preview-label {
+  top: 22px;
+  left: 22px;
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.template-tile-view {
+  bottom: 21px;
+  right: 22px;
+  font-weight: 600;
+}
+
+.template-tile-daymark,
+.template-tile-ledger { --tile-bg: #f5efe6; --tile-ink: #252019; --tile-muted: #756657; --tile-line: #cdbba7; --tile-accent: #9c4828; }
+.template-tile-reel,
+.template-tile-signal { --tile-bg: #eaf1f5; --tile-ink: #142939; --tile-muted: #536d7c; --tile-line: #aec5d4; --tile-accent: #2a5d9b; }
+.template-tile-stillroom,
+.template-tile-orbit { --tile-bg: #f0f2e9; --tile-ink: #1e3225; --tile-muted: #596f5d; --tile-line: #b9cbb8; --tile-accent: #487653; }
+
+.template-tile-daymark .template-tile-art,
+.template-tile-reel .template-tile-art,
+.template-tile-stillroom .template-tile-art,
+.template-tile-signal .template-tile-art,
+.template-tile-ledger .template-tile-art,
+.template-tile-orbit .template-tile-art { background: var(--tile-bg); color: var(--tile-ink); border-color: var(--tile-line); }
+
+.template-tile-daymark .template-tile-shape {
+  right: 7%; bottom: 12%; width: min(55%, 340px); height: auto; aspect-ratio: 1;
+  border: 22px solid transparent; border-radius: 50%;
+  background: linear-gradient(var(--tile-bg),var(--tile-bg)) padding-box, conic-gradient(#9c4828 0 95deg,#c99a71 95deg 142deg,#d6caba 142deg 210deg,#829579 210deg 286deg,#9c4828 286deg 360deg) border-box;
+  box-shadow: 0 0 0 12px #9c48281a, inset 0 0 0 12px #fff8, 0 20px 45px #4f2f1728;
+}
+.template-tile-daymark .template-tile-shape:after { content: "12:56"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--tile-ink); font-size: clamp(35px, 5vw, 75px); font-weight: 700; letter-spacing: -.07em; }
+
+.template-tile-reel .template-tile-shape {
+  right: 6%; bottom: 18%; width: 54%; height: 49%; border: 9px solid #fbfdff;
+  border-radius: 13px; background: linear-gradient(155deg,#a9c9e3,#d7e8f1 55%,#95b8dc);
+  box-shadow: 0 5px 0 #aec5d4, 0 17px 35px #17364a25;
+}
+.template-tile-reel .template-tile-shape:after { content: "▶"; position: absolute; left: 50%; top: 50%; display: grid; place-items: center; transform: translate(-50%,-50%); width: 58px; height: 58px; border-radius: 50%; background: #2a5d9b; color: #fff; font-size: 18px; padding-left: 3px; box-shadow: 0 4px 0 #17436f; }
+
+.template-tile-stillroom .template-tile-shape {
+  right: 5%; bottom: -3%; width: 44%; height: 78%; border: 9px solid #fbfcf6;
+  border-radius: 48% 48% 0 0; background: url('/templates/stillroom-hero.webp') center / cover;
+  box-shadow: 0 15px 30px #25402b30;
+}
+
+.template-tile-signal .template-tile-shape {
+  right: 6%; bottom: 13%; width: 55%; height: 49%; border: 0; border-radius: 7px;
+  background: repeating-linear-gradient(90deg,#2a5d9b 0 10px,#83aed5 10px 20px,#eaf1f5 20px 27px);
+  clip-path: polygon(0 58%,8% 47%,16% 56%,24% 37%,32% 45%,40% 27%,48% 36%,56% 20%,64% 32%,72% 13%,80% 24%,88% 7%,100% 16%,100% 100%,0 100%);
+  box-shadow: none;
+}
+
+.template-tile-ledger .template-tile-shape {
+  right: 6%; bottom: -29%; width: 60%; height: auto; aspect-ratio: 1;
+  border: 26px solid #bd805a; border-radius: 50%; background: #f5efe6;
+  box-shadow: 0 0 0 14px #bd805a1b, inset 0 0 0 16px #fff8;
+}
+
+.template-tile-orbit .template-tile-shape {
+  right: 6%; bottom: 13%; width: 58%; height: 52%; border: 8px solid #fbfcf6;
+  border-radius: 11px; background: linear-gradient(90deg,#b2cbb0 0 31%,#fbfcf6 31% 35%,#d5e2d0 35% 66%,#fbfcf6 66% 70%,#7ca481 70%);
+  box-shadow: 0 4px 0 #b9cbb8, 0 16px 30px #25402b23;
+}
+
+.template-tile-meta {
+  flex: none;
+  display: flex;
+  align-items: center;
+  min-height: 118px;
+  gap: 24px;
+  padding: 18px 16px 13px;
+}
+
+.template-tile:first-child .template-tile-meta {
+  min-height: 155px;
+  padding: 26px 22px 20px;
+}
+
+.template-tile-meta > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.template-tile-meta h3 {
+  margin: 5px 0 4px;
+  font-size: clamp(24px, 2.3vw, 36px);
+}
+
+.template-tile-meta p {
+  max-width: 470px;
+  margin: 0;
+  font-size: 12px;
+}
+
+.template-tile-arrow {
+  width: 38px;
+  height: 38px;
+  align-self: center;
+  font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .template-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .template-tile:first-child {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    height: 510px;
+  }
+
+  .template-tile:not(:first-child) {
+    height: 390px;
+  }
+}
+
+@media (max-width: 600px) {
+  .template-index-hero {
+    padding-block: 85px 90px;
+  }
+
+  .template-index-hero h1 {
+    font-size: clamp(42px, 11.5vw, 67px);
+  }
+
+  .template-index-section {
+    padding-bottom: 90px;
+  }
+
+  .template-section-heading {
+    align-items: start;
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .template-tile,
+  .template-tile:first-child,
+  .template-tile:not(:first-child) {
+    grid-column: auto;
+    height: 390px;
+  }
+
+  .template-tile-meta,
+  .template-tile:first-child .template-tile-meta {
+    min-height: 125px;
+    padding: 17px 15px 12px;
+  }
+
+  .template-tile-daymark .template-tile-shape { width: 42%; right: 5%; bottom: 10%; border-width: 12px; }
+  .template-tile-daymark .template-tile-shape:after { font-size: 29px; }
+  .template-tile-caption { top: 132px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .template-tile-shape,
+  .template-tile {
+    transition: none;
+  }
+}

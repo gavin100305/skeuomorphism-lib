@@ -63,7 +63,7 @@ export default function Landing() {
         <Link href="/" className="brand"><Mark /><span>skeuomorphism<span className="brand-period">.</span></span></Link>
         <nav id="primary-nav" className={menu ? "nav-links open" : "nav-links"} aria-label="Main navigation">
           <Link href="/docs#components" onClick={() => setMenu(false)}>Components</Link>
-          <Link href="/docs#blocks" onClick={() => setMenu(false)}>Blocks</Link>
+          <Link href="/templates" onClick={() => setMenu(false)}>Templates</Link>
           <Link href="/docs" onClick={() => setMenu(false)}>Docs</Link>
           <Link className="mobile-start" href="/docs#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></Link>
         </nav>
