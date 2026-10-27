@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { TemplateMode, TemplatePalette } from "./theme-presets";
 import { themePresets } from "./theme-presets";
-import { SkeuoThemeButton } from "@/components/skeuomorphic/skeuo-theme-button";
+import { SkeuoThemeButton } from "../skeuo-theme-button";
 
 export function TemplateCustomizer({
   palette,
@@ -12,7 +11,9 @@ export function TemplateCustomizer({
   onPaletteChange,
   onModeChange,
   onReset,
+  templatesHref = "#",
 }: {
+  templatesHref?: string;
   palette: TemplatePalette;
   mode: TemplateMode;
   onPaletteChange: (value: TemplatePalette) => void;
@@ -41,20 +42,41 @@ export function TemplateCustomizer({
         aria-controls="tpl-customizer-panel"
         onClick={() => setOpen(!open)}
       >
-        <span className="tpl-customizer-trigger-art" aria-hidden="true"><i /><i /><i /></span>
+        <span className="tpl-customizer-trigger-art" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </span>
         <span>Customize</span>
         <span aria-hidden="true">{open ? "×" : "+"}</span>
       </button>
-      <div id="tpl-customizer-panel" className="tpl-customizer-panel" hidden={!open}>
+      <div
+        id="tpl-customizer-panel"
+        className="tpl-customizer-panel"
+        hidden={!open}
+      >
         <div className="tpl-customizer-heading">
           <div>
             <span>MAKE IT YOURS</span>
             <h2>Choose a world.</h2>
           </div>
-          <button type="button" onClick={() => setOpen(false)} aria-label="Close customization">×</button>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close customization"
+          >
+            ×
+          </button>
         </div>
-        <p>Each palette changes the canvas, surfaces, wells, typography, and accents together.</p>
-        <div className="tpl-customizer-palettes" role="group" aria-label="Color palette">
+        <p>
+          Each palette changes the canvas, surfaces, wells, typography, and
+          accents together.
+        </p>
+        <div
+          className="tpl-customizer-palettes"
+          role="group"
+          aria-label="Color palette"
+        >
           {(Object.keys(themePresets) as TemplatePalette[]).map((key) => {
             const preset = themePresets[key];
             const colors = preset[mode];
@@ -68,26 +90,48 @@ export function TemplateCustomizer({
               >
                 <span
                   className="tpl-palette-specimen"
-                  style={{ background: colors.background, borderColor: colors.line }}
+                  style={{
+                    background: colors.background,
+                    borderColor: colors.line,
+                  }}
                   aria-hidden="true"
                 >
-                  <i style={{ background: colors.panel, borderColor: colors.line }} />
+                  <i
+                    style={{
+                      background: colors.panel,
+                      borderColor: colors.line,
+                    }}
+                  />
                   <i style={{ background: colors.accent }} />
                   <i style={{ background: colors.secondary }} />
                 </span>
-                <span className="tpl-palette-copy"><strong>{preset.name}</strong><small>{preset.description}</small></span>
-                <span className="tpl-palette-check" aria-hidden="true">{palette === key ? "✓" : ""}</span>
+                <span className="tpl-palette-copy">
+                  <strong>{preset.name}</strong>
+                  <small>{preset.description}</small>
+                </span>
+                <span className="tpl-palette-check" aria-hidden="true">
+                  {palette === key ? "✓" : ""}
+                </span>
               </button>
             );
           })}
         </div>
         <div className="tpl-customizer-mode">
           <span>APPEARANCE</span>
-          <div className="tpl-customizer-mode-control"><span>{mode === "light" ? "Light mode" : "Dark mode"}</span><SkeuoThemeButton theme={mode} onThemeChange={onModeChange} variant="round" /></div>
+          <div className="tpl-customizer-mode-control">
+            <span>{mode === "light" ? "Light mode" : "Dark mode"}</span>
+            <SkeuoThemeButton
+              theme={mode}
+              onThemeChange={onModeChange}
+              variant="round"
+            />
+          </div>
         </div>
         <div className="tpl-customizer-footer">
-          <button type="button" onClick={onReset}>Reset this template</button>
-          <Link href="/templates">All templates ↗</Link>
+          <button type="button" onClick={onReset}>
+            Reset this template
+          </button>
+          <a href={templatesHref}>All templates ↗</a>
         </div>
       </div>
     </div>

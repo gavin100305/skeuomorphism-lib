@@ -6,15 +6,49 @@ export type TemplateEntry = {
   category: string;
   description: string;
   accent: string;
+  registry: string;
 };
-
 export const templates: TemplateEntry[] = [
-  { kind: "landing", slug: "daymark", name: "Daymark", category: "Focus app", description: "An editorial day-planning product with a tactile circular timeline.", accent: "ember" },
-  { kind: "landing", slug: "reel", name: "Reel", category: "Screen recording", description: "A cinematic product launch with a playable demo video.", accent: "cobalt" },
-  { kind: "landing", slug: "stillroom", name: "Stillroom", category: "Wellness studio", description: "A softer, image-led landing for rituals and guided sessions.", accent: "sage" },
-  { kind: "dashboard", slug: "signal", name: "Signal", category: "Analytics", description: "A dense but legible metrics workspace with a compact rail.", accent: "cobalt" },
-  { kind: "dashboard", slug: "ledger", name: "Ledger", category: "Finance", description: "A warm financial overview with strong numerical hierarchy.", accent: "ember" },
-  { kind: "dashboard", slug: "orbit", name: "Orbit", category: "Projects", description: "A calm project workspace with a colorful task board.", accent: "sage" },
+  {
+    kind: "landing",
+    slug: "daymark",
+    name: "Forma",
+    category: "Editorial landing",
+    description:
+      "Warm paper, charcoal, a little serif, and a circular centerpiece. A considered home for a generic product.",
+    accent: "ember",
+    registry: "skeuo-forma-landing",
+  },
+  {
+    kind: "landing",
+    slug: "glide",
+    name: "Glide",
+    category: "Product landing",
+    description:
+      "A lime orbit, sculptural chrome, tactile features, and a generous wordmark. Space for your next idea.",
+    accent: "lime",
+    registry: "skeuo-glide-landing",
+  },
+  {
+    kind: "dashboard",
+    slug: "activity",
+    name: "Daymark",
+    category: "Personal dashboard",
+    description:
+      "A calm view of daily activity, with a full-width chart, useful detail, and an expandable sidebar.",
+    accent: "ember",
+    registry: "skeuo-activity-dashboard",
+  },
+  {
+    kind: "dashboard",
+    slug: "workspace",
+    name: "Formwork",
+    category: "Workspace dashboard",
+    description:
+      "An organized team workspace with projects, people, analytics, and a searchable orders table.",
+    accent: "cobalt",
+    registry: "skeuo-workspace-dashboard",
+  },
 ];
-
-export const templatePath = (item: Pick<TemplateEntry, "kind" | "slug">) => `/templates/${item.kind}/${item.slug}`;
+export const templatePath = (item: Pick<TemplateEntry, "kind" | "slug">) =>
+  `/templates/${item.kind}/${item.slug}`;

@@ -1,82 +1,164 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { templates, templatePath } from "@/data/templates";
-import type { TemplateEntry } from "@/data/templates";
-import "./templates.css";
+import { templates, templatePath, type TemplateEntry } from "@/data/templates";
+import { DemoThemeButton } from "@/components/demo-theme-button";
+import { InstallCommand } from "@/components/templates/install-command";
 import "./refined-gallery.css";
-
 export const metadata: Metadata = {
   title: "Templates — Skeuomorphism UI",
-  description: "Full-page tactile landing and dashboard templates.",
+  description:
+    "Two considered landing pages and two tactile dashboards. Preview, customize, and install.",
 };
-
-const artCaptions: Record<string, string> = {
-  daymark: "A day in motion",
-  reel: "Record / refine / share",
-  stillroom: "A softer rhythm",
-  signal: "Audience at a glance",
-  ledger: "The numbers, gently",
-  orbit: "Work, together",
-};
-
 function TemplateTile({ item }: { item: TemplateEntry }) {
   return (
-    <Link className={`template-tile template-tile-${item.slug}`} href={templatePath(item)}>
-      <div className="template-tile-art" aria-hidden="true">
-        <span className="template-tile-preview-label">{item.category}</span>
-        <span className="template-tile-brand">{item.slug}<b>.</b></span>
-        <span className="template-tile-shape" />
-        <span className="template-tile-caption">{artCaptions[item.slug]}</span>
-        <span className="template-tile-view">Open full page ↗</span>
-      </div>
-      <div className="template-tile-meta">
-        <div>
-          <span>{item.kind === "landing" ? "LANDING PAGE" : "DASHBOARD"}</span>
-          <h3>{item.name}</h3>
-          <p>{item.description}</p>
+    <article className={`template-tile template-tile-${item.slug}`}>
+      <Link
+        className="template-tile-link"
+        href={templatePath(item)}
+        aria-label={`Preview ${item.name}`}
+      >
+        <div className="template-tile-art" aria-hidden="true">
+          <div className="template-art-chrome">
+            <i />
+            <i />
+            <i />
+            <span>{item.name.toLowerCase()}.</span>
+          </div>
+          {item.kind === "landing" ? (
+            <div className="template-art-landing">
+              <div>
+                <small>
+                  {item.slug === "daymark"
+                    ? "A LITTLE PERSPECTIVE"
+                    : "ROOM FOR WHAT’S NEXT"}
+                </small>
+                <strong>
+                  {item.slug === "daymark" ? (
+                    <>
+                      Good things.
+                      <br />
+                      <em>Take shape.</em>
+                    </>
+                  ) : (
+                    <>
+                      Less friction.
+                      <br />
+                      <em>More possibility.</em>
+                    </>
+                  )}
+                </strong>
+                <i />
+              </div>
+              <div className="template-art-object">
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          ) : (
+            <div className="template-art-dashboard">
+              <aside>
+                <i />
+                <i />
+                <i />
+                <i />
+                <i />
+              </aside>
+              <div>
+                <strong>
+                  {item.slug === "activity"
+                    ? "A clearer view of your day."
+                    : "A good day to make things."}
+                </strong>
+                <div className="template-art-stats">
+                  <i />
+                  <i />
+                  <i />
+                  <i />
+                </div>
+                <div className="template-art-chart">
+                  <svg viewBox="0 0 500 100" preserveAspectRatio="none">
+                    <path
+                      d="M0 90C40 95 50 35 80 50S150 90 190 35S270 75 320 25S410 55 500 5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                    />
+                  </svg>
+                </div>
+                <div className="template-art-bottom">
+                  <i />
+                  <i />
+                </div>
+              </div>
+            </div>
+          )}
+          <span className="template-art-open">
+            Open preview <span>↗</span>
+          </span>
         </div>
-        <span className="template-tile-arrow" aria-hidden="true">↗</span>
-      </div>
-    </Link>
+        <div className="template-tile-meta">
+          <div>
+            <p>{item.category}</p>
+            <h3>{item.name}</h3>
+          </div>
+          <span className="template-tile-arrow">↗</span>
+        </div>
+        <p className="template-tile-description">{item.description}</p>
+      </Link>
+      <InstallCommand name={item.registry} />
+    </article>
   );
 }
-
 export default function TemplatesIndex() {
   return (
     <main className="template-index">
       <header className="template-index-header">
-        <Link href="/" className="template-index-brand"><span className="template-index-mark">✳</span> skeuomorphism.</Link>
+        <Link href="/" className="template-index-brand">
+          skeuomorphism<span>.</span>
+        </Link>
         <nav aria-label="Site navigation">
           <Link href="/">Home</Link>
           <Link href="/docs">Docs</Link>
           <Link href="/docs#components">Components</Link>
           <span aria-current="page">Templates</span>
         </nav>
+        <DemoThemeButton variant="round" />
       </header>
-
       <section className="template-index-hero">
-        <p className="template-kicker">THE FULL PICTURE / 001—006</p>
-        <h1>Made to <em>feel</em><br />like something.</h1>
-        <p>Six complete, hypothetical pages built with the same tactile language as the component library. Open one to explore it full-size, switch its color, and see how the details work together.</p>
+        <p>A LITTLE MORE CONSIDERED</p>
+        <h1>
+          A place to <em>start.</em>
+        </h1>
+        <div>
+          <p>
+            Two landing pages. Two dashboards. Each with its own point of view,
+            and the same tactile details that make the library feel like itself.
+          </p>
+          <span>Open a preview. Make it yours.</span>
+        </div>
       </section>
-
       {(["landing", "dashboard"] as const).map((kind) => (
         <section className="template-index-section" key={kind} id={kind}>
           <div className="template-section-heading">
-            <div>
-              <span>{kind === "landing" ? "PAGES WITH A POINT OF VIEW" : "WORKSPACES WITH CHARACTER"}</span>
-              <h2>{kind === "landing" ? "Landing pages" : "Dashboards"}</h2>
-            </div>
-            <p>{kind === "landing" ? "Three different stories, each with its own visual rhythm." : "Three workspaces, each with a top bar and an expandable sidebar."}</p>
+            <h2>{kind === "landing" ? "Landing pages" : "Dashboards"}</h2>
+            <p>
+              {kind === "landing"
+                ? "Different shapes for your next good thing."
+                : "Comfortable workspaces, down to the details."}
+            </p>
           </div>
           <div className="template-grid">
-            {templates.filter((item) => item.kind === kind).map((item) => <TemplateTile item={item} key={item.slug} />)}
+            {templates
+              .filter((x) => x.kind === kind)
+              .map((item) => (
+                <TemplateTile item={item} key={item.slug} />
+              ))}
           </div>
         </section>
       ))}
-
       <footer className="template-index-footer">
-        <span>Six starting points. Make them yours.</span>
+        <span>Four starting points. The rest is yours.</span>
         <Link href="/docs/skills">Use the skill ↗</Link>
         <Link href="/">Back home ↑</Link>
       </footer>
