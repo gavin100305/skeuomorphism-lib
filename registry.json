@@ -609,6 +609,395 @@
           "target": "@ui/skeuo-sound-provider.tsx"
         }
       ]
+    },
+    {
+      "name": "skeuo-forma-landing",
+      "type": "registry:block",
+      "title": "Forma landing",
+      "description": "A warm editorial product landing with a circular illustration and tear-reveal footer.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-surface.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-surface.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-switch.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-switch.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-theme-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-theme-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-surface.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-surface.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-switch.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-switch.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-theme-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-theme-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/forma-landing.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/forma-landing.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/landing-parts.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/landing-parts.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/pushpin-tear-footer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/pushpin-tear-footer.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-customizer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-customizer.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-frame.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-frame.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-system.css",
+          "type": "registry:file",
+          "target": "@ui/templates/template-system.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-ui.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-ui.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-presets.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-presets.ts"
+        }
+      ]
+    },
+    {
+      "name": "skeuo-glide-landing",
+      "type": "registry:block",
+      "title": "Glide landing",
+      "description": "A generic product landing with a chrome loop, tactile Bento features, and sample story marquee.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-key-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-key-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-theme-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-theme-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-key-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-key-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-theme-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-theme-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/glide-landing.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/glide-landing.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/landing-parts.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/landing-parts.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-customizer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-customizer.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-frame.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-frame.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-system.css",
+          "type": "registry:file",
+          "target": "@ui/templates/template-system.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-ui.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-ui.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-presets.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-presets.ts"
+        }
+      ]
+    },
+    {
+      "name": "skeuo-activity-dashboard",
+      "type": "registry:block",
+      "title": "Activity dashboard",
+      "description": "A personal activity dashboard with a collapsible sidebar, sample charts, and CSV export.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-theme-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-theme-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-theme-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-theme-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/activity-dashboard.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/activity-dashboard.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/dashboard-layout.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/dashboard-layout.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-customizer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-customizer.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-frame.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-frame.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-system.css",
+          "type": "registry:file",
+          "target": "@ui/templates/template-system.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-ui.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-ui.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-presets.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-presets.ts"
+        }
+      ]
+    },
+    {
+      "name": "skeuo-workspace-dashboard",
+      "type": "registry:block",
+      "title": "Workspace dashboard",
+      "description": "A team dashboard with grouped navigation, searchable orders, charts, projects, and members.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-icons.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-icons.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-input.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-input.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-theme-button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-theme-button.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-icons.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-icons.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-input.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-input.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-theme-button.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-theme-button.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/dashboard-layout.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/dashboard-layout.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-customizer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-customizer.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-frame.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-frame.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-system.css",
+          "type": "registry:file",
+          "target": "@ui/templates/template-system.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/template-ui.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/template-ui.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-presets.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-presets.ts"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/workspace-dashboard.tsx",
+          "type": "registry:ui",
+          "target": "@ui/templates/workspace-dashboard.tsx"
+        }
+      ]
     }
   ]
 }
