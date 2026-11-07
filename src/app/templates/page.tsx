@@ -115,7 +115,8 @@ export default function TemplatesIndex() {
     <main className="template-index">
       <header className="template-index-header">
         <Link href="/" className="template-index-brand">
-          skeuomorphism<span>.</span>
+          <span className="brand-mark" aria-hidden="true"><i /><i /><i /></span>
+          <span>skeuomorphism<span className="brand-period">.</span></span>
         </Link>
         <nav aria-label="Site navigation">
           <Link href="/">Home</Link>

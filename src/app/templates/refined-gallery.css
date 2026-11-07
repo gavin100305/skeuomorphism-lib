@@ -1,11 +1,11 @@
 .template-index {
-  --g-bg: #f3f1e9;
-  --g-ink: #242720;
-  --g-muted: #6e746a;
-  --g-line: #c9cfc2;
-  --g-panel: #e7ebe1;
-  --g-raised: #fbfcf6;
-  --g-accent: #42624a;
+  --g-bg: var(--bg);
+  --g-ink: var(--ink);
+  --g-muted: var(--site-muted);
+  --g-line: var(--edge);
+  --g-panel: var(--surface);
+  --g-raised: var(--surface-raised);
+  --g-accent: var(--accent);
   min-height: 100dvh;
   background: var(--g-bg);
   color: var(--g-ink);
@@ -315,7 +315,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  font-size: 8px;
+  font-size: 13px;
   background: var(--art-bg);
   padding: 5px 7px;
   border-radius: 3px;
@@ -444,7 +444,7 @@
 .template-install-command > code {
   display: block;
   font:
-    8px/1.7 var(--font-geist-mono),
+    13px/1.7 var(--font-geist-mono),
     monospace;
   word-break: break-all;
   color: var(--g-muted);
@@ -482,15 +482,6 @@
 }
 .template-index-footer > a:first-of-type {
   margin-left: auto;
-}
-:root[data-theme="dark"] .template-index {
-  --g-bg: #191c18;
-  --g-ink: #eef0e7;
-  --g-muted: #a1a99b;
-  --g-line: #3d4739;
-  --g-panel: #252c22;
-  --g-raised: #313a2d;
-  --g-accent: #b3c6a6;
 }
 :root[data-theme="dark"] .template-tile-art {
   --art-bg: #191916;
@@ -658,7 +649,7 @@
     font-size: 12px;
   }
   .template-install-command > code {
-    font-size: 8px;
+    font-size: 13px;
   }
   .template-index-section {
     padding-bottom: 55px;
@@ -701,4 +692,15 @@
   .template-index * {
     transition: none !important;
   }
+}
+
+/* Keep the collection in the same material system as Home and Docs. */
+.template-index-header nav { font-size: 13px; }
+.template-index-brand { display: flex; align-items: center; gap: 11px; font-size: 19px; letter-spacing: -.8px; }
+.template-tile { box-shadow: inset 0 1px var(--highlight), 0 3px 0 var(--base), 0 4px 0 var(--edge), 0 12px 24px var(--shadow); }
+.template-install-command { align-items: flex-start; padding-block: 18px 10px; }
+.template-install-command > code { color: var(--g-ink); overflow-wrap: anywhere; word-break: normal; }
+.template-install-command > button { font-size: 12px; min-height: 40px; min-width: 52px; flex: none; }
+@media (max-width: 430px) {
+  .template-install-command { margin-inline: 5px; gap: 10px; }
 }
