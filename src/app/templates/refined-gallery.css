@@ -365,39 +365,6 @@
   color: var(--site-muted);
   min-height: 70px;
 }
-.template-install-command {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  border-top: 1px solid var(--line);
-  margin: 14px 12px 0;
-  padding: 16px 0 8px;
-  position: relative;
-}
-.template-install-command code {
-  font:
-    13px/1.7 var(--font-geist-mono),
-    monospace;
-  overflow-wrap: anywhere;
-  flex: 1;
-  min-width: 0;
-}
-.template-install-command button {
-  border: 1px solid var(--edge);
-  background: var(--surface-raised);
-  border-radius: 6px;
-  padding: 8px;
-  min-height: 40px;
-  font-size: 12px;
-  flex: none;
-}
-.template-command-status {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  clip-path: inset(50%);
-  overflow: hidden;
-}
 .template-index-footer {
   display: flex;
   gap: 22px;
@@ -450,3 +417,4 @@
     transition: none;
   }
 }
+.template-tile > .template-install-command { margin:14px 12px 0; padding:16px 0 8px; border-top:1px solid var(--line); }

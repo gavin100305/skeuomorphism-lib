@@ -7,6 +7,8 @@ import {
   type TemplatePalette,
   type TemplateMode,
 } from "@/components/skeuomorphic/templates/theme-presets";
+import { InstallCommand } from "./install-command";
+import { SkeuoThemeButton } from "@/components/skeuomorphic/skeuo-theme-button";
 import "./template-download.css";
 
 type Props = {
@@ -223,19 +225,30 @@ export function TemplateDownload({
                 <fieldset>
                   <legend>Appearance</legend>
                   <div className="template-download-appearance">
-                    {["light", "dark"].map((v) => (
-                      <button
-                        key={v}
-                        aria-pressed={currentMode === v}
-                        onClick={() => changeMode(v as TemplateMode)}
-                      >
-                        {v === "light" ? "Light" : "Dark"}
-                      </button>
-                    ))}
+                    <span>
+                      {currentMode === "light" ? "Light mode" : "Dark mode"}
+                    </span>
+                    <SkeuoThemeButton
+                      theme={currentMode}
+                      onThemeChange={changeMode}
+                      variant="round"
+                    />
                   </div>
                 </fieldset>
               </>
             )}
+            <div className="template-dialog-cli">
+              <p>Install the component source</p>
+              <span>
+                Run in your initialized project. Astro requires React
+                integration. Theme defaults are set with component props.
+              </span>
+              <InstallCommand
+                key={active.registry}
+                name={active.registry}
+                packageManagers
+              />
+            </div>
           </div>
           <footer>
             <span>

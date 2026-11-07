@@ -41,3 +41,13 @@ Success returns a ZIP attachment with private/no-store caching. Invalid combinat
 - The browser downloaded a Next.js ZIP with Lime/light selected. The saved archive was inspected to confirm those props.
 - Repository production build, registry regeneration and lint passed (zero errors; seven existing image warnings).
 - Browser review covered desktop and narrow gallery layout, the shared mobile sidebar, theme synchronization, the modal's fit, Escape close and focus return. This is not full assistive-technology certification.
+
+## Component CLI and integrated controls
+
+The `shadcn add` command is available again in the download dialog, with npm, pnpm, yarn, and bun runners, an inline copy button, and a full-width **Copy Command** button. The same command is available beneath each gallery card. These commands add component source to an initialized project; the separate starter ZIP remains the way to download a complete new project. The CLI does not apply the dialog's selected theme automatically; configure `initialPalette` and `initialMode` in your component props.
+
+```sh
+npx shadcn@4.22.1 add https://skeuomorphismui.vercel.app/r/skeuo-forma-landing.json
+```
+
+Full-page preview theme/download controls are integrated into the landing navigation or dashboard top bar. Home and Docs use the original `SkeuoThemeButton` through the site's existing adapter. Template controls use the same library component and invoke the same View Transition path as the website. The host owns the directional transition CSS, persistence, and DOM updates; the library button's API is unchanged. Reduced-motion users receive immediate appearance changes.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { templates, templatePath, type TemplateEntry } from "@/data/templates";
+import { InstallCommand } from "@/components/templates/install-command";
 import DocsShell from "@/components/docs-shell";
 import { TemplateDownload } from "@/components/templates/template-download";
 import "./refined-gallery.css";
@@ -38,6 +39,7 @@ function TemplateTile({ item }: { item: TemplateEntry }) {
         </div>
         <p className="template-tile-description">{item.description}</p>
       </Link>
+      <InstallCommand name={item.registry} />
     </article>
   );
 }
