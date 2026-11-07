@@ -17,12 +17,14 @@ export type TemplateOptions = {
   soundControl?: ReactNode;
   syncPageBackground?: boolean;
   syncSiteTheme?: boolean;
+  topRightControl?: (state: TemplateState) => ReactNode;
 };
 
 export type TemplateState = {
   palette: TemplatePalette;
   mode: TemplateMode;
   setMode: (mode: TemplateMode) => void;
+  setPalette: (palette: TemplatePalette) => void;
   language: "en" | "hi";
   setLanguage: (language: "en" | "hi") => void;
 };
@@ -34,6 +36,7 @@ export function TemplateFrame({
   syncPageBackground = false,
   syncSiteTheme = false,
   templatesHref,
+  topRightControl,
   children,
 }: TemplateOptions & {
   id: string;
@@ -57,7 +60,11 @@ export function TemplateFrame({
           setMode(saved.mode);
         if (saved?.language === "hi") setLanguage("hi");
         if (syncSiteTheme)
-          setMode(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+          setMode(
+            document.documentElement.dataset.theme === "dark"
+              ? "dark"
+              : "light",
+          );
       } catch {
         /* Storage is optional for the preview. */
       }
@@ -81,7 +88,11 @@ export function TemplateFrame({
   useEffect(() => {
     if (!ready || !syncSiteTheme) return;
     document.documentElement.dataset.theme = mode;
-    try { localStorage.setItem("skeuomorphism-theme", mode); } catch { /* Optional storage. */ }
+    try {
+      localStorage.setItem("skeuomorphism-theme", mode);
+    } catch {
+      /* Optional storage. */
+    }
   }, [ready, mode, syncSiteTheme]);
   useEffect(() => {
     if (!syncPageBackground) return;
@@ -115,6 +126,18 @@ export function TemplateFrame({
       <a className="sk-t-skip" href="#sk-template-main">
         Skip to content
       </a>
+      {topRightControl && (
+        <div className="sk-t-preview-toolbar">
+          {topRightControl({
+            palette,
+            mode,
+            setMode,
+            setPalette,
+            language,
+            setLanguage,
+          })}
+        </div>
+      )}
       <TemplateCustomizer
         templatesHref={templatesHref}
         palette={palette}
@@ -126,7 +149,7 @@ export function TemplateFrame({
           setMode(initialMode);
         }}
       />
-      {children({ palette, mode, setMode, language, setLanguage })}
+      {children({ palette, mode, setMode, setPalette, language, setLanguage })}
     </div>
   );
 }

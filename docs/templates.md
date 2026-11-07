@@ -120,3 +120,11 @@ Dashboard sidebars are 272px when expanded on desktop. Profile preferences open 
 Forma's footer begins its tear after 420ms instead of 1140ms, runs the opening tear in 850ms instead of 1550ms, and finishes re-pinning in 1040ms instead of 1720ms. Content stagger delays are shorter; reduced-motion behavior remains available.
 
 Verification for this refinement: production build, registry regeneration, lint (zero errors, seven existing warnings), desktop/light/dark gallery review, 390px gallery and Forma/activity overflow checks, mobile profile containment, appearance persistence across routes, and footer re-pin interaction. Clean-consumer installation was verified during the original implementation and was not repeated for this refinement.
+
+## Library gallery and new project setup · 7 November 2026
+
+Templates now uses the existing documentation shell, header, sidebar search, and mobile navigation. Its sidebar entry lives under Getting started. The gallery has abstract, theme-aware artwork rather than miniature page screenshots, and its primary action is **Download template**.
+
+The new project dialog supports Next.js, React/Vite, and Astro, plus the same three palettes and light/dark appearances as Customize. Full-page previews have a top theme selector and download button; these share the preview's configuration. There is no Existing Project tab in this flow. The original registry endpoints remain available separately.
+
+See [New project template downloads](template-downloads.md) for included files, endpoint parameters, and verification details.

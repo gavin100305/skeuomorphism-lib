@@ -1,4 +1,6 @@
 "use client";
+import { TemplateDownload } from "./template-download";
+import type { TemplateState } from "@/components/skeuomorphic/templates/template-frame";
 import type { TemplateEntry } from "@/data/templates";
 import { SoundToggle } from "@/components/button-sound-effects";
 import { SkeuoFormaLanding } from "@/components/skeuomorphic/templates/forma-landing";
@@ -11,6 +13,17 @@ export function TemplatePreview({ item }: { item: TemplateEntry }) {
     soundControl: <SoundToggle />,
     syncPageBackground: true,
     syncSiteTheme: true,
+    topRightControl: (state: TemplateState) => (
+      <div className="template-preview-tools">
+        <TemplateDownload
+          item={item}
+          palette={state.palette}
+          mode={state.mode}
+          onPaletteChange={state.setPalette}
+          onModeChange={state.setMode}
+        />
+      </div>
+    ),
   };
   if (item.slug === "daymark") return <SkeuoFormaLanding {...options} />;
   if (item.slug === "glide") return <SkeuoGlideLanding {...options} />;
