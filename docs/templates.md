@@ -108,3 +108,15 @@ The original 19 library components, shared styles and original site landing rema
 - Repository production build passed.
 - Repository lint passed with zero errors and the seven existing image warnings in original files.
 - Browser verification and screenshots are recorded in the private local progress document. A build is not a claim of full accessibility certification or backend functionality.
+
+## Theme and layout refinement · 7 November 2026
+
+The gallery uses the main site's semantic background, surface, border, text and accent tokens in both appearances. Install commands remain 13px on narrow screens, wrap without horizontal overflow, and have a larger copy target.
+
+Full-page website previews opt into `syncSiteTheme`, so appearance follows the website on entry and theme changes carry back to the gallery. Portable installs remain independent by default. The existing `SkeuoThemeButton` is retained, with template palette tokens applied to its material surfaces.
+
+Dashboard sidebars are 272px when expanded on desktop. Profile preferences open upward above the bottom identity row instead of reducing navigation space, with larger labels, selectors and control targets. The [Unified user-footer reference](https://github.com/romeirofernandes/unified/blob/main/frontend/src/components/sidebar-app/user-footer.tsx) informed the shared leading/trailing alignment and upward menu placement; no source was copied.
+
+Forma's footer begins its tear after 420ms instead of 1140ms, runs the opening tear in 850ms instead of 1550ms, and finishes re-pinning in 1040ms instead of 1720ms. Content stagger delays are shorter; reduced-motion behavior remains available.
+
+Verification for this refinement: production build, registry regeneration, lint (zero errors, seven existing warnings), desktop/light/dark gallery review, 390px gallery and Forma/activity overflow checks, mobile profile containment, appearance persistence across routes, and footer re-pin interaction. Clean-consumer installation was verified during the original implementation and was not repeated for this refinement.

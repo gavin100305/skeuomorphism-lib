@@ -16,6 +16,7 @@ export type TemplateOptions = {
   templatesHref?: string;
   soundControl?: ReactNode;
   syncPageBackground?: boolean;
+  syncSiteTheme?: boolean;
 };
 
 export type TemplateState = {
@@ -31,6 +32,7 @@ export function TemplateFrame({
   initialPalette = "ember",
   initialMode = "dark",
   syncPageBackground = false,
+  syncSiteTheme = false,
   templatesHref,
   children,
 }: TemplateOptions & {
@@ -54,6 +56,8 @@ export function TemplateFrame({
         if (saved?.mode === "light" || saved?.mode === "dark")
           setMode(saved.mode);
         if (saved?.language === "hi") setLanguage("hi");
+        if (syncSiteTheme)
+          setMode(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
       } catch {
         /* Storage is optional for the preview. */
       }
@@ -62,7 +66,7 @@ export function TemplateFrame({
     return () => {
       active = false;
     };
-  }, [id]);
+  }, [id, syncSiteTheme]);
   useEffect(() => {
     if (!ready) return;
     try {
@@ -74,6 +78,11 @@ export function TemplateFrame({
       /* Private browsing can disable persistence. */
     }
   }, [id, palette, mode, language, ready]);
+  useEffect(() => {
+    if (!ready || !syncSiteTheme) return;
+    document.documentElement.dataset.theme = mode;
+    try { localStorage.setItem("skeuomorphism-theme", mode); } catch { /* Optional storage. */ }
+  }, [ready, mode, syncSiteTheme]);
   useEffect(() => {
     if (!syncPageBackground) return;
     const html = document.documentElement;

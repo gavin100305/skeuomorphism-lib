@@ -3533,3 +3533,34 @@
     letter-spacing: 0.04em;
   }
 }
+
+/* Comfortable shared control axes, independent of the selected colorway. */
+.sk-template .sk-theme-key {
+  --sk-key: var(--tpl-raised);
+  --sk-surface: var(--tpl-panel);
+  --sk-key-edge: var(--tpl-line);
+  --sk-key-base: var(--tpl-well);
+  --sk-highlight: var(--tpl-highlight);
+  --sk-shadow: var(--tpl-shadow);
+  --sk-ink: var(--tpl-ink);
+  --sk-muted: var(--tpl-muted);
+  flex: none;
+}
+.sk-t-profile-panel { position: absolute; bottom: calc(100% - 8px); left: 0; margin: 0; max-height: min(440px, 65dvh); padding: 20px; box-shadow: 0 12px 35px var(--tpl-shadow), inset 0 1px var(--tpl-highlight); }
+.sk-t-profile-panel > strong { font-size: 14px; padding-bottom: 16px; }
+.sk-t-profile-panel > label { font-size: 12px; gap: 10px; margin-top: 16px; }
+.sk-t-profile-panel > div { min-height: 44px; font-size: 12px; margin-top: 14px; }
+.sk-t-profile-panel select { width: 100%; min-height: 42px; font-size: 13px; }
+.sk-t-profile-panel .sk-theme-key, .sk-t-profile-panel .docs-theme-toggle { width: 38px; height: 38px; }
+.sk-t-profile-button { padding: 12px; gap: 12px; min-height: 72px; }
+.sk-t-profile-button > span:not(.sk-t-avatar) { min-width: 0; }
+.sk-t-profile-button strong { font-size: 13px; }
+.sk-t-profile-button small { font-size: 11px; }
+.sk-t-profile-button .sk-t-avatar { width: 36px; height: 36px; font-size: 12px; }
+.sk-t-nav-group > a { font-size: 13px; min-height: 46px; }
+@media (min-width: 901px) {
+  .sk-t-dashboard:not(.is-compact) { --sidebar-width: 272px; }
+}
+@media (max-width: 900px) {
+  .sk-t-profile-panel { padding: 16px; }
+}

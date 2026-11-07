@@ -650,7 +650,7 @@ const CSS =
   // assembly: the sheet's chrome, then the paper's print (translate, so centring transforms survive)
   ".tpf-h{transition:opacity .7s var(--ease),translate .8s var(--ease),filter .7s var(--ease);transition-delay:calc(var(--i,0)*45ms)}" +
   ".tpf:not(.s1) .tpf-h{opacity:0;translate:0 10px;filter:blur(6px)}" +
-  ".tpf-p{transition:opacity .8s var(--ease),translate .9s var(--ease),filter .8s var(--ease);transition-delay:calc(480ms + var(--i,0)*70ms)}" +
+  ".tpf-p{transition:opacity .8s var(--ease),translate .9s var(--ease),filter .8s var(--ease);transition-delay:calc(100ms + var(--i,0)*35ms)}" +
   ".tpf:not(.s3) .tpf-p{opacity:0;translate:0 18px;filter:blur(8px);transition-delay:0s}" +
   // top bar
   ".tpf-top{left:0;right:0;top:10.8%;transform:translateY(-50%);display:flex;align-items:center;justify-content:space-between;padding:0 11%;font-size:max(15px,2.6cqmin)}" +
@@ -734,8 +734,8 @@ const CSS =
   ".tpf-bub:hover,.tpf-bub:focus-visible{padding:0 .8em}" +
   ".tpf-bub:hover b,.tpf-bub:focus-visible b{max-width:8em;opacity:1}" +
   ".tpf-word{display:block;overflow:hidden;padding:0 .04em .14em;font-size:max(44px,min(12.4cqmin,16cqw));font-weight:500;letter-spacing:-.055em;line-height:.98;white-space:nowrap}" +
-  ".tpf-word span{display:block;position:relative;transition:transform 1s var(--ease) .5s}" +
-  ".tpf-word span::after{content:'';position:absolute;left:.02em;right:.04em;bottom:-.02em;height:max(2px,.045em);background:currentColor;transform-origin:0 50%;transition:transform .9s var(--ease) 1.05s,height .3s var(--ease)}" +
+  ".tpf-word span{display:block;position:relative;transition:transform .6s var(--ease) .15s}" +
+  ".tpf-word span::after{content:'';position:absolute;left:.02em;right:.04em;bottom:-.02em;height:max(2px,.045em);background:currentColor;transform-origin:0 50%;transition:transform .5s var(--ease) .4s,height .3s var(--ease)}" +
   ".tpf:not(.s3) .tpf-word span{transform:translateY(125%);transition-delay:0s}" +
   ".tpf:not(.s3) .tpf-word span::after{transform:scaleX(0);transition-delay:0s}" +
   ".tpf-word:hover span::after{height:max(4px,.075em)}" +
@@ -1048,16 +1048,16 @@ export default function PushpinTearFooter({
       return;
     }
     setStage(1);
-    later(() => setStage(2), 640);
+    later(() => setStage(2), 220);
     later(() => {
       setHit(true);
       setStage(3);
       s.mode = "intro";
       s.t0 = performance.now();
-      s.dur = 1550;
+      s.dur = 850;
       kick();
-    }, 1140);
-    later(() => setHit(false), 1480);
+    }, 420);
+    later(() => setHit(false), 720);
   }, [visible, stage, still, s, kick]);
 
   React.useEffect(
@@ -1122,15 +1122,15 @@ export default function PushpinTearFooter({
       swap();
       s.mode = "morph";
       s.t0 = performance.now();
-      s.dur = 1150;
+      s.dur = 650;
       kick();
     }, 300);
-    later(() => setPin("stab"), 1280);
+    later(() => setPin("stab"), 760);
     later(() => {
       setPin("idle");
       s.busy = false;
       onRepin?.(next);
-    }, 1720);
+    }, 1040);
   };
 
   const flash = (msg: string) => {

@@ -10,6 +10,7 @@ export function TemplatePreview({ item }: { item: TemplateEntry }) {
     templatesHref: "/templates",
     soundControl: <SoundToggle />,
     syncPageBackground: true,
+    syncSiteTheme: true,
   };
   if (item.slug === "daymark") return <SkeuoFormaLanding {...options} />;
   if (item.slug === "glide") return <SkeuoGlideLanding {...options} />;
