@@ -8,7 +8,7 @@ import { SoundToggle } from "./button-sound-effects";
 import { SkeuoSlider as Slider } from "./skeuomorphic/skeuo-slider";
 import { SkeuoInput as Input } from "./skeuomorphic/skeuo-input";
 import { SkeuoTabs as Tabs } from "./skeuomorphic/skeuo-tabs";
-import { useThemeToggle } from "./use-theme-toggle";
+import { DemoThemeButton } from "./demo-theme-button";
 import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
 import { ObjectShowcase, ComponentCarousel, ProjectPreview } from "./landing-showcase";
 import { CodeExample } from "./landing-code";
@@ -53,7 +53,6 @@ function ComponentCard({ title, number, slug, children, wide = false }: { title:
 }
 export default function Landing() {
   const [menu, setMenu] = useState(false);
-  const toggleTheme = useThemeToggle();
   const [messageSent, setMessageSent] = useState(false);
   useScrollReveal();
   return <>
@@ -71,7 +70,7 @@ export default function Landing() {
           <Link className="nav-start" href="/docs#getting-started">Get started <Icon name="arrow" size={14} /></Link>
           <a href={repo} target="_blank" rel="noreferrer" className="github-link" aria-label="GitHub repository"><Icon name="github" size={18} /></a>
           <SoundToggle />
-          <button className="theme-button" aria-label="Toggle color theme" onPointerDown={e => { if (e.button === 0) void toggleTheme(); }} onClick={e => { if (e.detail === 0) void toggleTheme(); }}><span className="theme-sun"><Icon name="sun" size={18} /></span><span className="theme-moon"><Icon name="moon" size={18} /></span></button>
+          <DemoThemeButton variant="round" />
           <button className="mobile-menu" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded={menu} onClick={() => setMenu(!menu)}><Icon name={menu ? "close" : "menu"} /></button>
         </div>
       </div>

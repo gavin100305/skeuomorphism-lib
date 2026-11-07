@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
+import { runThemeTransition } from "./theme-transition";
 import { TemplateCustomizer } from "./template-customizer";
 import {
   themePresets,
@@ -25,6 +27,7 @@ export type TemplateState = {
   mode: TemplateMode;
   setMode: (mode: TemplateMode) => void;
   setPalette: (palette: TemplatePalette) => void;
+  headerControl?: ReactNode;
   language: "en" | "hi";
   setLanguage: (language: "en" | "hi") => void;
 };
@@ -115,6 +118,22 @@ export function TemplateFrame({
     };
   }, [palette, mode, syncPageBackground]);
 
+  const changeMode = (next: TemplateMode) => {
+    if (next === mode) return;
+    void runThemeTransition(() => {
+      if (syncSiteTheme) document.documentElement.dataset.theme = next;
+      flushSync(() => setMode(next));
+    });
+  };
+  const state: TemplateState = {
+    palette,
+    mode,
+    setMode: changeMode,
+    setPalette,
+    language,
+    setLanguage,
+  };
+
   return (
     <div
       className={`sk-template sk-template-${id}`}
@@ -126,30 +145,18 @@ export function TemplateFrame({
       <a className="sk-t-skip" href="#sk-template-main">
         Skip to content
       </a>
-      {topRightControl && (
-        <div className="sk-t-preview-toolbar">
-          {topRightControl({
-            palette,
-            mode,
-            setMode,
-            setPalette,
-            language,
-            setLanguage,
-          })}
-        </div>
-      )}
       <TemplateCustomizer
         templatesHref={templatesHref}
         palette={palette}
         mode={mode}
         onPaletteChange={setPalette}
-        onModeChange={setMode}
+        onModeChange={changeMode}
         onReset={() => {
           setPalette(initialPalette);
-          setMode(initialMode);
+          changeMode(initialMode);
         }}
       />
-      {children({ palette, mode, setMode, setPalette, language, setLanguage })}
+      {children({ ...state, headerControl: topRightControl?.(state) })}
     </div>
   );
 }

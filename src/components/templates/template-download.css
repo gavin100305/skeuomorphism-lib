@@ -286,3 +286,46 @@
     padding: 18px;
   }
 }
+/* Preview actions belong to the template's navigation, not a separate page bar. */
+.sk-t-nav-actions .template-preview-tools,
+.sk-t-topbar-controls .template-preview-tools {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.sk-t-landing-nav:has(.template-preview-tools) { flex-wrap: wrap; }
+@media (max-width: 1100px) {
+  .sk-t-landing-nav:has(.template-preview-tools) { column-gap: 18px; }
+  .sk-t-landing-nav:has(.template-preview-tools) nav { gap: 16px; }
+  .sk-t-topbar:has(.template-preview-tools) { flex-wrap: wrap; }
+  .sk-t-topbar-controls:has(.template-preview-tools) { flex-wrap: wrap; justify-content: flex-end; }
+}
+@media (max-width: 700px) {
+  .sk-t-landing-nav:has(.template-preview-tools) { padding-block: 18px; row-gap: 16px; }
+  .sk-t-landing-nav:has(.template-preview-tools) .sk-t-nav-actions { flex-wrap: wrap; justify-content: flex-end; flex: 1; }
+  .sk-t-landing-nav .template-preview-tools { order: 5; width: 100%; }
+  .sk-t-topbar-controls .template-preview-tools { order: 5; width: 100%; }
+  .template-preview-tools .template-download { justify-content: flex-end; width: 100%; }
+}
+.template-install-command { position:relative; min-width:0; }
+.template-cli-code { display:flex; align-items:flex-start; gap:12px; min-width:0; }
+.template-cli-code code { display:block; min-width:0; flex:1; overflow-wrap:anywhere; font:13px/1.8 var(--font-geist-mono),monospace; color:var(--ink); }
+.template-cli-code button { flex:none; min-height:36px; padding:6px 10px; border:1px solid var(--edge); border-radius:6px; background:var(--surface-raised); color:var(--ink); font-size:12px; }
+.template-cli-managers { display:flex; gap:4px; padding-bottom:14px; }
+.template-cli-managers button { padding:5px 8px; border:1px solid transparent; background:none; color:var(--site-muted); border-radius:6px; font-size:12px; }
+.template-cli-managers button[aria-pressed=true] { border-color:var(--edge); color:var(--ink); background:var(--surface-raised); }
+.template-dialog-cli { margin-top:24px; padding-top:20px; border-top:1px solid var(--line); }
+.template-dialog-cli > p { font-size:13px; font-weight:500; margin:0 0 8px; }
+.template-dialog-cli > span { display:block; font-size:11px; color:var(--site-muted); line-height:1.7; margin-bottom:16px; }
+.with-package-managers .template-cli-code { border:1px solid var(--edge); background:var(--surface); border-radius:8px; padding:12px; }
+.template-download .template-cli-copy { display:block; margin-top:12px; width:100%; min-height:42px; border:1px solid var(--edge); border-radius:8px; background:var(--ink); color:var(--bg); font-size:13px; }
+.template-download-appearance { align-items:center; justify-content:space-between; }
+.template-download-appearance .sk-theme-key { flex:none; padding:0; }
+.template-command-status { position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden; }
+.template-cli-error {display:block;font-size:12px;margin-top:8px;}
+.with-package-managers .template-cli-code code {
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}

@@ -42,9 +42,11 @@ export function LandingNav({
           onThemeChange={state.setMode}
           variant="round"
         />
-        <a className="sk-t-nav-cta" href="#get-started">
-          Take a look <Glyph name="chevron" size={15} />
-        </a>
+        {state.headerControl ?? (
+          <a className="sk-t-nav-cta" href="#get-started">
+            Take a look <Glyph name="chevron" size={15} />
+          </a>
+        )}
         <button
           className="sk-t-mobile-trigger sk-t-icon-button"
           type="button"

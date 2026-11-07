@@ -718,6 +718,11 @@
           "path": "src/components/skeuomorphic/templates/theme-presets.ts",
           "type": "registry:ui",
           "target": "@ui/templates/theme-presets.ts"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-transition.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-transition.ts"
         }
       ]
     },
@@ -814,6 +819,11 @@
           "path": "src/components/skeuomorphic/templates/theme-presets.ts",
           "type": "registry:ui",
           "target": "@ui/templates/theme-presets.ts"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-transition.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-transition.ts"
         }
       ]
     },
@@ -900,6 +910,11 @@
           "path": "src/components/skeuomorphic/templates/theme-presets.ts",
           "type": "registry:ui",
           "target": "@ui/templates/theme-presets.ts"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-transition.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-transition.ts"
         }
       ]
     },
@@ -996,6 +1011,11 @@
           "path": "src/components/skeuomorphic/templates/workspace-dashboard.tsx",
           "type": "registry:ui",
           "target": "@ui/templates/workspace-dashboard.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/templates/theme-transition.ts",
+          "type": "registry:ui",
+          "target": "@ui/templates/theme-transition.ts"
         }
       ]
     }

@@ -335,6 +335,7 @@ export function DashboardLayout({
           </div>
           <div className="sk-t-topbar-controls">
             {controls}
+            {state.headerControl}
             <SkeuoThemeButton
               theme={mode}
               onThemeChange={setMode}
