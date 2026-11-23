@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeuo-native-slider",
+  "type": "registry:ui",
+  "title": "Slider",
+  "description": "A native fader with a recessed channel and tactile thumb.",
+  "dependencies": [
+    "nativewind"
+  ],
+  "registryDependencies": [],
+  "meta": {
+    "platform": "react-native",
+    "expoDependencies": [
+      "@react-native-community/slider",
+      "expo-haptics"
+    ],
+    "testedWith": {
+      "expo": "54",
+      "reactNative": "0.81.5",
+      "nativewind": "4.2.1"
+    }
+  },
+  "files": [
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-slider.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-slider.tsx",
+      "content": "import { View, Text } from \"react-native\";\nimport Slider from \"@react-native-community/slider\";\nimport { useFeedback, useSkeuo } from \"./theme\";\nexport function SkeuoSlider({\n  label,\n  value,\n  onValueChange,\n  minimumValue = 0,\n  maximumValue = 100,\n  step = 1,\n  disabled = false,\n}: {\n  label: string;\n  value: number;\n  onValueChange: (value: number) => void;\n  minimumValue?: number;\n  maximumValue?: number;\n  step?: number;\n  disabled?: boolean;\n}) {\n  const { colors: c } = useSkeuo();\n  const feedback = useFeedback();\n  return (\n    <View style={{ gap: 12, opacity: disabled ? 0.45 : 1 }}>\n      <View style={{ flexDirection: \"row\", justifyContent: \"space-between\" }}>\n        <Text style={{ color: c.ink, fontSize: 14 }}>{label}</Text>\n        <Text\n          style={{\n            color: c.muted,\n            fontSize: 12,\n            fontVariant: [\"tabular-nums\"],\n          }}\n        >\n          {value}\n        </Text>\n      </View>\n      <View\n        style={{\n          borderWidth: 1,\n          borderColor: c.edge,\n          borderBottomWidth: 3,\n          borderRadius: 10,\n          paddingHorizontal: 9,\n          backgroundColor: c.surface,\n        }}\n      >\n        <Slider\n          accessibilityLabel={label}\n          value={value}\n          onValueChange={onValueChange}\n          onSlidingComplete={feedback}\n          minimumValue={minimumValue}\n          maximumValue={maximumValue}\n          step={step}\n          disabled={disabled}\n          minimumTrackTintColor={c.accent}\n          maximumTrackTintColor={c.edge}\n          thumbTintColor={c.raised}\n          style={{ height: 46, width: \"100%\" }}\n        />\n        <View\n          accessible={false}\n          style={{\n            flexDirection: \"row\",\n            justifyContent: \"space-between\",\n            paddingHorizontal: 8,\n            paddingBottom: 8,\n          }}\n        >\n          {Array.from({ length: 21 }, (_, i) => (\n            <View\n              key={i}\n              style={{\n                height: i % 5 === 0 ? 7 : 4,\n                width: 1,\n                backgroundColor: c.edge,\n              }}\n            />\n          ))}\n        </View>\n      </View>\n    </View>\n  );\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/theme.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/theme.tsx",
+      "content": "import React, { createContext, useContext } from \"react\";\nimport { useColorScheme } from \"nativewind\";\nimport * as Haptics from \"expo-haptics\";\n\nexport const themes = {\n  light: {\n    background: \"#ffffff\",\n    surface: \"#f5f5f2\",\n    raised: \"#fafaf8\",\n    well: \"#e9e9e5\",\n    edge: \"#d1d1cb\",\n    base: \"#d9d9d3\",\n    ink: \"#202020\",\n    muted: \"#686863\",\n    accent: \"#365e50\",\n    accentInk: \"#ffffff\",\n  },\n  dark: {\n    background: \"#000000\",\n    surface: \"#191919\",\n    raised: \"#252525\",\n    well: \"#111111\",\n    edge: \"#3b3b39\",\n    base: \"#080808\",\n    ink: \"#efefeb\",\n    muted: \"#aaaAA5\",\n    accent: \"#9ab5a6\",\n    accentInk: \"#14251c\",\n  },\n};\ntype ThemeState = { colors: typeof themes.light; dark: boolean; haptics: boolean; onSound?: () => void };\nconst Context = createContext<ThemeState | null>(null);\nexport function SkeuoProvider({\n  children,\n  appearance = \"system\",\n  haptics = false,\n  onSound,\n  colors: overrides,\n}: {\n  children: React.ReactNode;\n  appearance?: \"light\" | \"dark\" | \"system\";\n  haptics?: boolean;\n  onSound?: () => void;\n  colors?: Partial<typeof themes.light>;\n}) {\n  const { colorScheme: system } = useColorScheme();\n  const dark = (appearance === \"system\" ? system : appearance) === \"dark\";\n  return (\n    <Context.Provider\n      value={{\n        colors: { ...(dark ? themes.dark : themes.light), ...overrides },\n        dark,\n        haptics,\n        onSound,\n      }}\n    >\n      {children}\n    </Context.Provider>\n  );\n}\nexport function useSkeuo(): ThemeState {\n  const context = useContext(Context);\n  const { colorScheme } = useColorScheme();\n  return context ?? { colors: colorScheme === \"dark\" ? themes.dark : themes.light, dark: colorScheme === \"dark\", haptics: false };\n}\nexport function useFeedback() {\n  const { haptics, onSound } = useSkeuo();\n  return () => {\n    onSound?.();\n    if (haptics) void Haptics.selectionAsync().catch(() => {});\n  };\n}\n"
+    }
+  ]
+}

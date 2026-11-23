@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "registry:build": "shadcn build",
-    "prebuild": "npm run registry:build && npm run mobile:registry",
-    "mobile:registry": "node scripts/build-mobile-registry.mjs"
+    "prebuild": "npm run registry:build && npm run mobile:registry && npm run native:preview",
+    "mobile:registry": "node scripts/build-mobile-registry.mjs",
+    "native:preview": "node scripts/build-native-preview.mjs",
+    "check:native": "node scripts/check-native.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",
@@ -25,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "playwright": "^1.65.1",
     "shadcn": "4.22.1",
     "tailwindcss": "^4",
     "typescript": "^5"

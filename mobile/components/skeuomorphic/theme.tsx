@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { useColorScheme } from "react-native";
+import { useColorScheme } from "nativewind";
 import * as Haptics from "expo-haptics";
 
 export const themes = {
@@ -28,34 +28,45 @@ export const themes = {
     accentInk: "#14251c",
   },
 };
-const Context = createContext({
-  colors: themes.light,
-  dark: false,
-  haptics: false,
-});
+type ThemeState = { colors: typeof themes.light; dark: boolean; haptics: boolean; onSound?: () => void };
+const Context = createContext<ThemeState | null>(null);
 export function SkeuoProvider({
   children,
   appearance = "system",
   haptics = false,
+  onSound,
+  colors: overrides,
 }: {
   children: React.ReactNode;
   appearance?: "light" | "dark" | "system";
   haptics?: boolean;
+  onSound?: () => void;
+  colors?: Partial<typeof themes.light>;
 }) {
-  const system = useColorScheme();
+  const { colorScheme: system } = useColorScheme();
   const dark = (appearance === "system" ? system : appearance) === "dark";
   return (
     <Context.Provider
-      value={{ colors: dark ? themes.dark : themes.light, dark, haptics }}
+      value={{
+        colors: { ...(dark ? themes.dark : themes.light), ...overrides },
+        dark,
+        haptics,
+        onSound,
+      }}
     >
       {children}
     </Context.Provider>
   );
 }
-export const useSkeuo = () => useContext(Context);
+export function useSkeuo(): ThemeState {
+  const context = useContext(Context);
+  const { colorScheme } = useColorScheme();
+  return context ?? { colors: colorScheme === "dark" ? themes.dark : themes.light, dark: colorScheme === "dark", haptics: false };
+}
 export function useFeedback() {
-  const { haptics } = useSkeuo();
+  const { haptics, onSound } = useSkeuo();
   return () => {
+    onSound?.();
     if (haptics) void Haptics.selectionAsync().catch(() => {});
   };
 }

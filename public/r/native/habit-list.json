@@ -1,0 +1,61 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeuo-native-habit-list",
+  "type": "registry:block",
+  "title": "Habit checklist",
+  "description": "A daily checklist with a live completion count.",
+  "dependencies": [
+    "@rn-primitives/checkbox",
+    "nativewind"
+  ],
+  "registryDependencies": [],
+  "meta": {
+    "platform": "react-native",
+    "expoDependencies": [
+      "expo-haptics"
+    ],
+    "testedWith": {
+      "expo": "54",
+      "reactNative": "0.81.5",
+      "nativewind": "4.2.1"
+    }
+  },
+  "files": [
+    {
+      "path": "mobile/components/skeuomorphic/blocks/habit-list.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/blocks/habit-list.tsx",
+      "content": "import React, { useState } from \"react\";\nimport { View, Text } from \"react-native\";\nimport { SkeuoCheckbox } from \"../skeuo-checkbox\";\nimport { useSkeuo } from \"../theme\";\nexport function HabitList({ value, onValueChange }: {value?:string[];onValueChange?:(value:string[])=>void}) {\n  const { colors: c } = useSkeuo();\n  const [localDone, setLocalDone] = useState<string[]>([\"A little movement\"]);\n  const done = value ?? localDone;\n  const setDone = (next:string[]) => { setLocalDone(next); onValueChange?.(next); };\n  const labels = [\n    \"A little movement\",\n    \"Read ten pages\",\n    \"Make something\",\n    \"Get outside\",\n  ];\n  return (\n    <View style={{ gap: 12 }}>\n      <Text\n        accessibilityLiveRegion=\"polite\"\n        style={{ color: c.muted, fontSize: 12 }}\n      >\n        {done.length} of {labels.length} complete today\n      </Text>\n      {labels.map((label) => (\n        <SkeuoCheckbox\n          key={label}\n          label={label}\n          checked={done.includes(label)}\n          onCheckedChange={(checked) =>\n            setDone(checked ? [...done,label] : done.filter(item=>item!==label))\n          }\n        />\n      ))}\n    </View>\n  );\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-checkbox.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-checkbox.tsx",
+      "content": "import { StyleSheet, Text, View } from \"react-native\";\nimport * as Checkbox from \"@rn-primitives/checkbox\";\nimport { useSkeuo, useFeedback } from \"./theme\";\nimport { styles } from \"./styles\";\nimport type { ToggleProps } from \"./types\";\nimport { SkeuoText } from \"./skeuo-text\";\nexport function SkeuoCheckbox({\n  label,\n  checked,\n  onCheckedChange,\n  disabled,\n}: ToggleProps) {\n  const { colors } = useSkeuo();\n  const feedback = useFeedback();\n  return (\n    <Checkbox.Root\n      accessibilityLabel={label}\n      checked={checked}\n      disabled={disabled}\n      onCheckedChange={(v) => {\n        feedback();\n        onCheckedChange(v);\n      }}\n      style={StyleSheet.flatten([\n        styles.row,\n        styles.touch,\n        { opacity: disabled ? 0.45 : 1 },\n      ])}\n    >\n      <View\n        style={[\n          styles.check,\n          {\n            backgroundColor: checked ? colors.accent : colors.well,\n            borderColor: colors.edge,\n          },\n        ]}\n      >\n        <Checkbox.Indicator>\n          <Text style={{ color: colors.accentInk, fontWeight: \"700\" }}>✓</Text>\n        </Checkbox.Indicator>\n      </View>\n      <View style={styles.label}>\n        <SkeuoText>{label}</SkeuoText>\n      </View>\n    </Checkbox.Root>\n  );\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/theme.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/theme.tsx",
+      "content": "import React, { createContext, useContext } from \"react\";\nimport { useColorScheme } from \"nativewind\";\nimport * as Haptics from \"expo-haptics\";\n\nexport const themes = {\n  light: {\n    background: \"#ffffff\",\n    surface: \"#f5f5f2\",\n    raised: \"#fafaf8\",\n    well: \"#e9e9e5\",\n    edge: \"#d1d1cb\",\n    base: \"#d9d9d3\",\n    ink: \"#202020\",\n    muted: \"#686863\",\n    accent: \"#365e50\",\n    accentInk: \"#ffffff\",\n  },\n  dark: {\n    background: \"#000000\",\n    surface: \"#191919\",\n    raised: \"#252525\",\n    well: \"#111111\",\n    edge: \"#3b3b39\",\n    base: \"#080808\",\n    ink: \"#efefeb\",\n    muted: \"#aaaAA5\",\n    accent: \"#9ab5a6\",\n    accentInk: \"#14251c\",\n  },\n};\ntype ThemeState = { colors: typeof themes.light; dark: boolean; haptics: boolean; onSound?: () => void };\nconst Context = createContext<ThemeState | null>(null);\nexport function SkeuoProvider({\n  children,\n  appearance = \"system\",\n  haptics = false,\n  onSound,\n  colors: overrides,\n}: {\n  children: React.ReactNode;\n  appearance?: \"light\" | \"dark\" | \"system\";\n  haptics?: boolean;\n  onSound?: () => void;\n  colors?: Partial<typeof themes.light>;\n}) {\n  const { colorScheme: system } = useColorScheme();\n  const dark = (appearance === \"system\" ? system : appearance) === \"dark\";\n  return (\n    <Context.Provider\n      value={{\n        colors: { ...(dark ? themes.dark : themes.light), ...overrides },\n        dark,\n        haptics,\n        onSound,\n      }}\n    >\n      {children}\n    </Context.Provider>\n  );\n}\nexport function useSkeuo(): ThemeState {\n  const context = useContext(Context);\n  const { colorScheme } = useColorScheme();\n  return context ?? { colors: colorScheme === \"dark\" ? themes.dark : themes.light, dark: colorScheme === \"dark\", haptics: false };\n}\nexport function useFeedback() {\n  const { haptics, onSound } = useSkeuo();\n  return () => {\n    onSound?.();\n    if (haptics) void Haptics.selectionAsync().catch(() => {});\n  };\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/styles.ts",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/styles.ts",
+      "content": "import { StyleSheet } from \"react-native\";\nexport const styles = StyleSheet.create({\n  stack: { gap: 12 },\n  row: { flexDirection: \"row\", alignItems: \"center\", gap: 12 },\n  label: { flex: 1 },\n  card: {\n    borderWidth: 1,\n    borderBottomWidth: 3,\n    borderRadius: 20,\n    padding: 20,\n    gap: 20,\n  },\n  button: {\n    borderWidth: 1,\n    borderRadius: 12,\n    overflow: \"hidden\",\n    minHeight: 48,\n  },\n  face: {\n    minHeight: 44,\n    paddingHorizontal: 18,\n    paddingVertical: 12,\n    alignItems: \"center\",\n    justifyContent: \"center\",\n  },\n  input: {\n    borderWidth: 2,\n    borderRadius: 10,\n    padding: 14,\n    minHeight: 52,\n    fontSize: 16,\n  },\n  track: {\n    width: 56,\n    height: 36,\n    borderWidth: 1,\n    borderRadius: 20,\n    padding: 3,\n    marginVertical: 6,\n  },\n  thumb: {\n    width: 28,\n    height: 28,\n    borderRadius: 14,\n    borderWidth: 1,\n    borderColor: \"#88888855\",\n  },\n  touch: { minHeight: 48 },\n  check: {\n    width: 26,\n    height: 26,\n    borderRadius: 6,\n    borderWidth: 2,\n    alignItems: \"center\",\n    justifyContent: \"center\",\n  },\n  tab: {\n    minHeight: 48,\n    borderWidth: 1,\n    borderBottomWidth: 3,\n    borderRadius: 10,\n    padding: 12,\n  },\n  badge: {\n    alignSelf: \"flex-start\",\n    paddingHorizontal: 10,\n    paddingVertical: 5,\n    borderWidth: 1,\n    borderRadius: 8,\n  },\n  overlay: { flex: 1, backgroundColor: \"#00000088\", padding: 20 },\n  panel: {\n    borderWidth: 1,\n    borderRadius: 20,\n    padding: 24,\n    maxHeight: \"85%\",\n    width: \"100%\",\n    maxWidth: 560,\n    alignSelf: \"center\",\n  },\n});\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/types.ts",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/types.ts",
+      "content": "import React from \"react\";\nexport type ButtonProps = {\n  children: React.ReactNode;\n  onPress: () => void;\n  disabled?: boolean;\n  variant?: \"default\" | \"accent\";\n  accessibilityLabel?: string;\n};\nexport type ToggleProps = {\n  label: string;\n  checked: boolean;\n  onCheckedChange: (checked: boolean) => void;\n  disabled?: boolean;\n};\nexport type OptionsProps = {\n  label: string;\n  value: string;\n  onValueChange: (value: string) => void;\n  options: { label: string; value: string; disabled?: boolean }[];\n};\nexport type OverlayProps = {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n  title: string;\n  children: React.ReactNode;\n};\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-text.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-text.tsx",
+      "content": "import React from \"react\";\nimport { Text } from \"react-native\";\nimport { useSkeuo } from \"./theme\";\nexport function SkeuoText({\n  children,\n  muted = false,\n}: {\n  children: React.ReactNode;\n  muted?: boolean;\n}) {\n  const { colors } = useSkeuo();\n  return (\n    <Text\n      style={{\n        color: muted ? colors.muted : colors.ink,\n        fontSize: 16,\n        lineHeight: 24,\n      }}\n    >\n      {children}\n    </Text>\n  );\n}\n"
+    }
+  ]
+}

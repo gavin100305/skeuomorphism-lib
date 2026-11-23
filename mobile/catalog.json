@@ -1,0 +1,236 @@
+[
+  {
+    "slug": "button",
+    "name": "Standard buttons",
+    "group": "Buttons",
+    "description": "Layered faces with a darker shelf and a physical press.",
+    "file": "skeuo-button.tsx",
+    "export": "SkeuoButton",
+    "example": "<SkeuoButton variant=\"accent\" onPress={() => {}}>Save changes</SkeuoButton>"
+  },
+  {
+    "slug": "keyboard-button",
+    "name": "Keyboard buttons",
+    "group": "Buttons",
+    "description": "Raised keys with a recessed symbol and a solid lower edge.",
+    "file": "skeuo-key-button.tsx",
+    "export": "SkeuoKeyButton",
+    "example": "<SkeuoKeyButton label=\"Command\" symbol=\"\u2318\" onPress={() => {}} />"
+  },
+  {
+    "slug": "icon-button",
+    "name": "Icon buttons",
+    "group": "Buttons",
+    "description": "A compact tactile action with a required accessible name.",
+    "file": "skeuo-icon-button.tsx",
+    "export": "SkeuoIconButton",
+    "example": "<SkeuoIconButton label=\"Add item\" icon={<Text>+</Text>} onPress={() => {}} />"
+  },
+  {
+    "slug": "input",
+    "name": "Input",
+    "group": "Forms",
+    "description": "A recessed field with a highlighted edge and visible focus.",
+    "file": "skeuo-input.tsx",
+    "export": "SkeuoInput",
+    "example": "<SkeuoInput label=\"Display name\" placeholder=\"Alex Morgan\" />"
+  },
+  {
+    "slug": "switch",
+    "name": "Switch",
+    "group": "Forms",
+    "description": "A raised sliding thumb inside a recessed track.",
+    "file": "skeuo-switch.tsx",
+    "export": "SkeuoSwitch",
+    "example": "<SkeuoSwitch label=\"Notifications\" checked={enabled} onCheckedChange={setEnabled} />"
+  },
+  {
+    "slug": "checkbox",
+    "name": "Checkbox",
+    "group": "Forms",
+    "description": "A pressed selection well with clear checked and disabled states.",
+    "file": "skeuo-checkbox.tsx",
+    "export": "SkeuoCheckbox",
+    "example": "<SkeuoCheckbox label=\"Remember this\" checked={enabled} onCheckedChange={setEnabled} />"
+  },
+  {
+    "slug": "radio-group",
+    "name": "Radio group",
+    "group": "Forms",
+    "description": "Small inset selectors with a single controlled choice.",
+    "file": "skeuo-radio-group.tsx",
+    "export": "SkeuoRadioGroup",
+    "example": "<SkeuoRadioGroup label=\"Appearance\" value={value} onValueChange={setValue} options={[{value:\"light\",label:\"Light\"},{value:\"dark\",label:\"Dark\"}]} />"
+  },
+  {
+    "slug": "slider",
+    "name": "Slider",
+    "group": "Forms",
+    "description": "A native fader with a recessed channel and tactile thumb.",
+    "file": "skeuo-slider.tsx",
+    "export": "SkeuoSlider",
+    "example": "<SkeuoSlider label=\"Volume\" value={volume} onValueChange={setVolume} />"
+  },
+  {
+    "slug": "tabs",
+    "name": "Tabs",
+    "group": "Navigation",
+    "description": "Inset segments with a raised selected face.",
+    "file": "skeuo-tabs.tsx",
+    "export": "SkeuoTabs",
+    "example": "<SkeuoTabs label=\"Period\" value={value} onValueChange={setValue} options={[{value:\"week\",label:\"Week\"},{value:\"month\",label:\"Month\"}]} />"
+  },
+  {
+    "slug": "card",
+    "name": "Surface",
+    "group": "Surfaces",
+    "description": "Quiet raised surfaces for your own compositions.",
+    "file": "skeuo-card.tsx",
+    "export": "SkeuoCard",
+    "example": "<SkeuoCard >Your content</SkeuoCard>"
+  },
+  {
+    "slug": "badge",
+    "name": "Badge",
+    "group": "Surfaces",
+    "description": "A small inset label for a little context.",
+    "file": "skeuo-badge.tsx",
+    "export": "SkeuoBadge",
+    "example": "<SkeuoBadge >In progress</SkeuoBadge>"
+  },
+  {
+    "slug": "dialog",
+    "name": "Dialog",
+    "group": "Surfaces",
+    "description": "A theme-matched panel with explicit dismissal.",
+    "file": "skeuo-dialog.tsx",
+    "export": "SkeuoDialog",
+    "example": "<SkeuoDialog open={open} onOpenChange={setOpen} title=\"A little confirmation\">Your content</SkeuoDialog>"
+  },
+  {
+    "slug": "bottom-sheet",
+    "name": "Bottom sheet",
+    "group": "Surfaces",
+    "description": "A bottom-aligned panel for focused actions and details.",
+    "file": "skeuo-bottom-sheet.tsx",
+    "export": "SkeuoBottomSheet",
+    "example": "<SkeuoBottomSheet open={open} onOpenChange={setOpen} title=\"Your options\">Your content</SkeuoBottomSheet>"
+  },
+  {
+    "slug": "photo-carousel",
+    "name": "Photo carousel",
+    "group": "Signature",
+    "description": "Fanned photographic prints, with paper frames and previous/next controls.",
+    "file": "skeuo-photo-carousel.tsx",
+    "export": "SkeuoPhotoCarousel",
+    "example": "<SkeuoPhotoCarousel items={[{uri:\"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=640\",title:\"Somewhere quiet\"}]} />"
+  },
+  {
+    "slug": "timer",
+    "name": "Focus timer",
+    "group": "Signature",
+    "description": "A recessed dial, tabular clock and physical start key.",
+    "file": "skeuo-timer.tsx",
+    "export": "SkeuoTimer",
+    "example": "<SkeuoTimer minutes={25} />"
+  },
+  {
+    "slug": "bottom-bar-dock",
+    "name": "Recessed dock",
+    "group": "Bottom bars",
+    "description": "A sunken tray with a raised active key.",
+    "file": "skeuo-dock-bar.tsx",
+    "export": "SkeuoDockBar",
+    "example": "<SkeuoDockBar value={tab} onValueChange={setTab} items={[{value:\"home\",label:\"Home\"},{value:\"transactions\",label:\"Transactions\"},{value:\"analysis\",label:\"Analysis\"},{value:\"profile\",label:\"Profile\"}]} />"
+  },
+  {
+    "slug": "bottom-bar-keys",
+    "name": "Individual keys",
+    "group": "Bottom bars",
+    "description": "Four separate mechanical keys with deeper bases.",
+    "file": "skeuo-keys-bar.tsx",
+    "export": "SkeuoKeysBar",
+    "example": "<SkeuoKeysBar value={tab} onValueChange={setTab} items={[{value:\"home\",label:\"Home\"},{value:\"transactions\",label:\"Transactions\"},{value:\"analysis\",label:\"Analysis\"},{value:\"profile\",label:\"Profile\"}]} />"
+  },
+  {
+    "slug": "bottom-bar-rail",
+    "name": "Underline rail",
+    "group": "Bottom bars",
+    "description": "An edge-to-edge rail with a clear active marker.",
+    "file": "skeuo-rail-bar.tsx",
+    "export": "SkeuoRailBar",
+    "example": "<SkeuoRailBar value={tab} onValueChange={setTab} items={[{value:\"home\",label:\"Home\"},{value:\"transactions\",label:\"Transactions\"},{value:\"analysis\",label:\"Analysis\"},{value:\"profile\",label:\"Profile\"}]} />"
+  },
+  {
+    "slug": "bottom-bar-pill",
+    "name": "Floating pill",
+    "group": "Bottom bars",
+    "description": "A compact pill with a softly raised selected segment.",
+    "file": "skeuo-pill-bar.tsx",
+    "export": "SkeuoPillBar",
+    "example": "<SkeuoPillBar value={tab} onValueChange={setTab} items={[{value:\"home\",label:\"Home\"},{value:\"transactions\",label:\"Transactions\"},{value:\"analysis\",label:\"Analysis\"},{value:\"profile\",label:\"Profile\"}]} />"
+  },
+  {
+    "slug": "summary-card",
+    "name": "Balance summary",
+    "group": "Blocks",
+    "description": "A large figure, a quiet label and a small change indicator.",
+    "file": "blocks/summary-card.tsx",
+    "export": "SummaryCard",
+    "example": "<SummaryCard />"
+  },
+  {
+    "slug": "transaction-list",
+    "name": "Transaction list",
+    "group": "Blocks",
+    "description": "Recessed category tiles with grouped activity rows.",
+    "file": "blocks/transaction-list.tsx",
+    "export": "TransactionList",
+    "example": "<TransactionList />"
+  },
+  {
+    "slug": "habit-list",
+    "name": "Habit checklist",
+    "group": "Blocks",
+    "description": "A daily checklist with a live completion count.",
+    "file": "blocks/habit-list.tsx",
+    "export": "HabitList",
+    "example": "<HabitList />"
+  },
+  {
+    "slug": "activity-chart",
+    "name": "Activity chart",
+    "group": "Blocks",
+    "description": "A compact weekly rhythm, drawn with native views.",
+    "file": "blocks/activity-chart.tsx",
+    "export": "ActivityChart",
+    "example": "<ActivityChart />"
+  },
+  {
+    "slug": "pocket",
+    "name": "Pocket",
+    "group": "Templates",
+    "description": "A clearer view of your money. Four screens inspired by Expenser.",
+    "file": "templates/pocket.tsx",
+    "export": "PocketTemplate",
+    "example": "<PocketTemplate />"
+  },
+  {
+    "slug": "still",
+    "name": "Still",
+    "group": "Templates",
+    "description": "A little less rush. Focus sessions, habits and a quiet journal.",
+    "file": "templates/still.tsx",
+    "export": "StillTemplate",
+    "example": "<StillTemplate />"
+  },
+  {
+    "slug": "daybook",
+    "name": "Daybook",
+    "group": "Templates",
+    "description": "A personal record of activity, small goals and places worth remembering.",
+    "file": "templates/daybook.tsx",
+    "export": "DaybookTemplate",
+    "example": "<DaybookTemplate />"
+  }
+]

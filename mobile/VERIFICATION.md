@@ -1,24 +1,36 @@
 # Verification
 
-Run with a Node version supported by Expo SDK 58:
+The showcase and clean-consumer baseline is Expo 54 / React Native 0.81.5 / React 19.1 / NativeWind 4.2.1, matching Expenser. It does not require Expo 58.
 
 ```sh
-cd mobile
+# Repository root
 npm ci
+npm run build
+npm run lint
+npm run start -- --port 3201
+
+# Another terminal, after installing Playwright Chromium
+npx playwright install chromium
+NATIVE_TEST_URL=http://localhost:3201 npm run check:native
+
+# Native source / Metro exports
+cd mobile
 npm run typecheck
 npm run export:check
 ```
 
-From the repository root, `npm run lint` includes the mobile TypeScript source and `npm run build` rebuilds both registries and the Next.js website.
+The root build installs the locked mobile dependencies, exports the actual React Native source to isolated web previews, builds the optional CLI tarball, generates all web/native registry items and builds Next.js. Generated preview JS and tarballs are ignored and recreated during builds. Run the native build task before using `next dev` for previews.
 
-Before shipping an app, repeat these checks on actual target devices:
+24 Nov 2026 validation:
 
-- Empty the display name. Save must be disabled. Enter a name, save, and dismiss the confirmation.
-- Disable notifications. The checkbox, frequency radios and volume slider must disable. Re-enable and change each value.
-- Switch to Appearance. Select Light, Dark and Match device. Toggle touch feedback on real hardware.
-- Open the information panel. Dismiss via Close, backdrop and Android back. Check large text and screen-reader containment.
-- Check safe-area layout and keyboard behavior on small and tablet displays.
+- Root lint passed with seven existing web image warnings. Native TypeScript passed. Native iOS/Android/web Metro exports passed.
+- Installed all 26 registry items into a separate Expo 54 consumer using the pinned shadcn engine supported by React Native Reusables. That consumer passed TypeScript and iOS/Android/web Metro exports. Existing RNR Button/Text files were reused without an overwrite flag.
+- The optional installer selected SDK 54 native dependencies with `expo install`, then successfully invoked the pinned registry engine. Re-running it skipped unchanged source files.
+- Chromium smoke checks cover every native preview, Web/Mobile switching, four bar selection states, expense add/balance updates, theme synchronization, habit state across tabs, focus timer retention across tabs, activity period changes and carousel bounds. Native and original web routes were checked for document overflow at 320/390/768/1280px.
+- Light/dark and narrow layouts were visually inspected. The browser preview uses the portable source, not HTML replicas. Website sounds reuse the existing sound setting and playback path; hardware sound/haptics were not independently listened to on a native device.
 
-23 Nov 2026 checks: TypeScript passed; Metro exported iOS, Android and web bundles. The exported web showcase was exercised in Chromium for profile validation/save/dialog, notification-dependent disabling, appearance selection, bottom sheet dismissal and overflow at 320, 768 and 1280 pixels. Both themes were visually inspected. The Next.js production build and lint passed with seven existing web image warnings. Mobile docs rendered at 390px without horizontal overflow. The download endpoint produced a ZIP containing component source, exact dependency versions and the MIT license.
+RNR CLI 0.7.1 failed in this environment while invoking its nested `npx shadcn@latest` command, so displayed commands use the explicitly pinned, documented shadcn-compatible registry engine directly. The npm configuration here rejects remote npm tarball packages; the optional CLI was tested from the locally packed artifact, while its HTTP registry and source installation were tested end to end. Standard per-item commands do not need remote npm tarball packages.
 
-No simulator or physical device was available. Native keyboard, hardware haptics, VoiceOver/TalkBack and native modal focus behavior remain unverified. Web rendering is not native device proof. The existing Next.js version emits a security upgrade advisory during builds; this change does not upgrade the web framework.
+No simulator or physical device was available. iOS requires macOS/Xcode; the Android SDK is absent. Native keyboard, hardware haptics, VoiceOver/TalkBack and native modal focus remain unverified. Test those on target devices before shipping an app. Demo data and edits are in memory only.
+
+The existing Next.js 16.4.2 installation reports a security-upgrade advisory. Its retry path allows a production build; the web framework was not upgraded as part of this collection.
