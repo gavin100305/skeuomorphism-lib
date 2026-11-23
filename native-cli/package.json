@@ -1,0 +1,3 @@
+{
+ "name":"skeuo-native-cli","version":"0.1.0","description":"Install Skeuomorphism native registry items with Expo-compatible dependencies","type":"module","bin":{"skeuo-native":"add.mjs"},"files":["add.mjs"],"engines":{"node":">=20"},"license":"MIT"
+}

@@ -23,3 +23,20 @@ Import the named components from `./components/skeuomorphic`. All state is calle
 Keep slider values within the configured minimum/maximum. Use stable, unique option values. Give all icon actions meaningful labels. Native modals own presentation and Android back dismissal. Put keyboard-heavy forms on a keyboard-aware screen, as in the showcase, and test modal forms with your app's keyboard handling.
 
 The component source has relative imports and does not depend on Expo Router, website CSS or a path alias. It requires React Native and the five runtime dependencies documented in the README. Native app consumers own safe-area layout, navigation, persistence, localization and backend actions.
+
+## Added native pieces
+
+- `SkeuoKeyButton`: `label`, optional `symbol`, `onPress`, `disabled?`.
+- `SkeuoPhotoCarousel`: `items: { uri, title, caption? }[]`, optional `label`. Previous/next controls stop at the ends. Hosts own image availability.
+- `SkeuoTimer`: initial `minutes` defaults to 25, optional `onComplete`. Start, pause and reset are local. Changing minutes after mounting does not reset the current session.
+- `SkeuoBottomBar`: `items: { value, label, icon?, disabled? }[]`, `value`, `onValueChange`, `variant` dock/keys/rail/pill, `bottomInset?`. Use your actual safe-area bottom inset.
+- `SkeuoDockBar`, `SkeuoKeysBar`, `SkeuoRailBar`, `SkeuoPillBar`: the same bar contract with a fixed design.
+- `SummaryCard`: optional `label`, `value`, `detail` strings.
+- `TransactionList`: optional `items: { id, name, category, amount, income? }[]`; empty arrays render an empty state.
+- `HabitList`: self-contained sample checklist with session state.
+- `ActivityChart`: optional `values: number[]`, `label`; visual values are clamped to 0–100.
+- `PocketTemplate`, `StillTemplate`, `DaybookTemplate`: self-contained sample compositions. Your app owns production routing, persistence and data integration.
+
+The registry installs each component from a specific file rather than the showcase's barrel export. Imports resolve through your Reusables `components.json` aliases. For example, `SkeuoButton` is in `@/components/ui/skeuo-native/skeuo-button`; Pocket is in `@/components/ui/skeuo-native/templates/pocket`.
+
+Provider additions: `colors?: Partial<typeof themes.light>` and `onSound?: () => void`. Sound playback is supplied by the host. Website previews reuse the existing library sound preference and sample.

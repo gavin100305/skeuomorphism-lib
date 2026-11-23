@@ -1,0 +1,98 @@
+{
+  "button": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "keyboard-button": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "icon-button": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "input": [
+    "expo-haptics"
+  ],
+  "switch": [
+    "expo-haptics"
+  ],
+  "checkbox": [
+    "expo-haptics"
+  ],
+  "radio-group": [
+    "expo-haptics"
+  ],
+  "slider": [
+    "@react-native-community/slider",
+    "expo-haptics"
+  ],
+  "tabs": [
+    "expo-haptics"
+  ],
+  "card": [
+    "expo-haptics"
+  ],
+  "badge": [
+    "expo-haptics"
+  ],
+  "dialog": [
+    "expo-haptics",
+    "expo-linear-gradient"
+  ],
+  "bottom-sheet": [
+    "expo-haptics",
+    "expo-linear-gradient"
+  ],
+  "photo-carousel": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "timer": [
+    "expo-haptics",
+    "expo-linear-gradient"
+  ],
+  "bottom-bar-dock": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "bottom-bar-keys": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "bottom-bar-rail": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "bottom-bar-pill": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
+  "summary-card": [
+    "expo-haptics"
+  ],
+  "transaction-list": [
+    "expo-haptics"
+  ],
+  "habit-list": [
+    "expo-haptics"
+  ],
+  "activity-chart": [
+    "expo-haptics"
+  ],
+  "pocket": [
+    "react-native-safe-area-context",
+    "expo-haptics",
+    "expo-linear-gradient"
+  ],
+  "still": [
+    "react-native-safe-area-context",
+    "expo-haptics",
+    "expo-linear-gradient"
+  ],
+  "daybook": [
+    "react-native-safe-area-context",
+    "expo-haptics",
+    "expo-linear-gradient"
+  ]
+}

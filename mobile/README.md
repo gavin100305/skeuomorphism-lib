@@ -1,8 +1,8 @@
 # Skeuomorphism for React Native
 
-The web library's raised controls and recessed fields, translated into native components. This folder is an independent Expo app and a copyable component collection. It does not change the web components.
+The web library's keys, recessed fields and paper cards, made for touch. The collection includes individual controls, four bottom bars, reusable blocks and three complete sample templates.
 
-Use Node 22.22.2+ supported by Expo SDK 58.
+Preview everything through the website's Web / Mobile switch. Every preview renders the same React Native source distributed by the registry.
 
 ```sh
 cd mobile
@@ -10,19 +10,18 @@ npm ci
 npm start
 ```
 
-Open in a compatible Expo Go client or development build. iOS builds require macOS and Xcode; Android builds require the Android SDK. Haptics depend on hardware and default to off. Showcase settings are in memory only.
+The showcase uses Expo 54, React Native 0.81.5, React 19.1 and NativeWind 4.2.1, matching the Expenser reference app. Use a compatible Expo Go client or development build. A current Expo Go client may no longer support SDK 54, so use an SDK 54 development build when needed. No SDK upgrade is required to consume this collection in an existing Expo 54 / React Native Reusables app.
 
-To use the library, copy `components/skeuomorphic/` into your Expo app. Install the dependencies listed in this folder's package.json for `expo-linear-gradient`, `expo-haptics`, `@react-native-community/slider`, `@rn-primitives/checkbox`, and `@rn-primitives/switch`. Use `npx expo install` for the Expo/native packages. RN Primitives are the same foundations used by React Native Reusables; no NativeWind setup is required here.
+## Add a component
 
-Wrap the app in `SkeuoProvider`. Its `appearance` is `system`, `light`, or `dark`; `haptics` defaults to false. `useSkeuo()` exposes `colors` and `dark` for matching screen backgrounds. The showcase uses `react-native-safe-area-context` for screen insets.
+Start with an Expo app configured for React Native Reusables and NativeWind. Open a component preview on the website and copy its install commands. Expo selects its own native dependency versions; the Reusables-compatible registry adds source under `components/ui/skeuo-native/`. Existing `button` and `text` components are reused through official Reusables registry dependencies. Do not pass an overwrite flag for customized host controls.
 
-See [the settings example](App.tsx) for every component and [the prop guide](API.md) for contracts. The website has a Mobile entry under Docs and a downloadable source archive at `/api/mobile/download`.
+The optional `skeuo-native` installer does both dependency and source installation steps. It is served as a small npm tarball by the website; npm configurations that reject URL packages can use the normal commands shown first.
 
-```sh
-npm run typecheck
-npm run export:check
-```
+Wrap your app in `SkeuoProvider` from `skeuo-native/theme` for explicit light/dark/system appearance, color overrides, optional `onSound` and opt-in `haptics`. Without a provider, components follow NativeWind's color scheme and remain silent. Templates expect your existing `SafeAreaProvider`.
 
-Metro exports verify bundling, not native interaction. Test on your target devices with large text, VoiceOver/TalkBack, the keyboard, Android back, and your own navigation. Bottom sheets are modal panels with explicit dismissal, without drag gestures. No account, notification scheduling, persistence, or sound playback is bundled.
+Pocket uses Expenser's four-tab arrangement with fictional money data. Still has a focus clock, habit checklist and journal. Daybook combines personal activity and a photo collection. Demo changes stay in memory. No authentication, bank connection, SMS import or background notification service is bundled.
 
-MIT, see [LICENSE](LICENSE). Original web library by Gavin. React Native Primitives remain under their respective licenses.
+See [the component contracts](API.md) and [verification](VERIFICATION.md). Native haptics, keyboard and screen readers need real-device checks. The focus timer uses elapsed wall time while active; it does not schedule background notifications. The bottom sheet is an explicitly dismissed modal panel, without dragging.
+
+MIT. Original library by Gavin. React Native Reusables and RN Primitives retain their respective licenses.

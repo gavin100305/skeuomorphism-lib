@@ -1,0 +1,58 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeuo-native-photo-carousel",
+  "type": "registry:ui",
+  "title": "Photo carousel",
+  "description": "Fanned photographic prints, with paper frames and previous/next controls.",
+  "dependencies": [
+    "nativewind"
+  ],
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/nativewind/button.json",
+    "https://reactnativereusables.com/r/nativewind/text.json"
+  ],
+  "meta": {
+    "platform": "react-native",
+    "expoDependencies": [
+      "expo-linear-gradient",
+      "expo-haptics"
+    ],
+    "testedWith": {
+      "expo": "54",
+      "reactNative": "0.81.5",
+      "nativewind": "4.2.1"
+    }
+  },
+  "files": [
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-photo-carousel.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-photo-carousel.tsx",
+      "content": "import React, { useState, useRef } from \"react\";\nimport { Image, Text, View } from \"react-native\";\nimport { SkeuoButton } from \"./skeuo-button\";\nimport { useSkeuo } from \"./theme\";\nexport type PhotoItem = { uri: string; title: string; caption?: string };\nexport function SkeuoPhotoCarousel({\n  items,\n  label = \"Photo collection\",\n}: {\n  items: PhotoItem[];\n  label?: string;\n}) {\n  const { colors: c } = useSkeuo();\n  const [position, setPosition] = useState(0);\n  const touch = useRef({x:0,y:0});\n  const index = Math.min(position, Math.max(0, items.length - 1));\n  const item = items[index];\n  if (!item) return <Text style={{ color: c.muted }}>No photos yet.</Text>;\n  return (\n    <View accessibilityLabel={label} style={{ gap: 20, paddingTop: 16 }}>\n      <View onTouchStart={event => { touch.current = {x:event.nativeEvent.pageX,y:event.nativeEvent.pageY}; }} onTouchEnd={event => { const dx=event.nativeEvent.pageX-touch.current.x; const dy=event.nativeEvent.pageY-touch.current.y; if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)) setPosition(Math.max(0,Math.min(items.length-1,index+(dx<0?1:-1)))); }} style={{ height: 244, marginHorizontal: 20 }}>\n        {[-7, 5].map((rotation, i) => (\n          <View\n            key={rotation}\n            style={{\n              position: \"absolute\",\n              inset: 0,\n              backgroundColor: c.surface,\n              borderWidth: 1,\n              borderColor: c.edge,\n              borderRadius: 3,\n              transform: [{ rotate: `${rotation}deg` }],\n              margin: 6 + i * 2,\n            }}\n          />\n        ))}\n        <View\n          style={{\n            flex: 1,\n            padding: 10,\n            paddingBottom: 16,\n            backgroundColor: c.raised,\n            borderWidth: 1,\n            borderColor: c.edge,\n            borderBottomWidth: 3,\n            gap: 8,\n          }}\n        >\n          <Image\n            source={{ uri: item.uri }}\n            accessibilityLabel={item.title}\n            alt={item.title}\n            resizeMode=\"cover\"\n            style={{ flex: 1, backgroundColor: c.well }}\n          />\n          <Text style={{ color: c.ink, fontSize: 15, fontWeight: \"600\" }}>\n            {item.title}\n          </Text>\n        </View>\n      </View>\n      <View\n        style={{\n          flexDirection: \"row\",\n          justifyContent: \"space-between\",\n          alignItems: \"center\",\n          gap: 12,\n        }}\n      >\n        <SkeuoButton\n          accessibilityLabel=\"Previous photo\"\n          disabled={index === 0}\n          onPress={() => setPosition(index - 1)}\n        >\n          ‹\n        </SkeuoButton>\n        <Text\n          accessibilityLiveRegion=\"polite\"\n          style={{ color: c.muted, fontSize: 12 }}\n        >\n          {index + 1} / {items.length}\n        </Text>\n        <SkeuoButton\n          accessibilityLabel=\"Next photo\"\n          disabled={index === items.length - 1}\n          onPress={() => setPosition(index + 1)}\n        >\n          ›\n        </SkeuoButton>\n      </View>\n      {item.caption && (\n        <Text style={{ color: c.muted, fontSize: 13, lineHeight: 20 }}>\n          {item.caption}\n        </Text>\n      )}\n    </View>\n  );\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-button.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-button.tsx",
+      "content": "import { StyleSheet } from \"react-native\";\nimport React from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Text } from \"@/components/ui/text\";\nimport { LinearGradient } from \"expo-linear-gradient\";\nimport { useSkeuo, useFeedback } from \"./theme\";\nimport { styles } from \"./styles\";\nimport type { ButtonProps } from \"./types\";\nexport function SkeuoButton({\n  children,\n  onPress,\n  disabled = false,\n  variant = \"default\",\n  accessibilityLabel,\n}: ButtonProps) {\n  const { colors } = useSkeuo();\n  const feedback = useFeedback();\n  const accent = variant === \"accent\";\n  const [focused, setFocused] = React.useState(false);\n  const [pressed, setPressed] = React.useState(false);\n  return (\n    <Button\n      variant=\"ghost\"\n      className=\"p-0 h-auto\"\n      onPressIn={() => setPressed(true)}\n      onPressOut={() => setPressed(false)}\n      onFocus={() => setFocused(true)}\n      onBlur={() => setFocused(false)}\n      accessibilityRole=\"button\"\n      accessibilityLabel={accessibilityLabel}\n      accessibilityState={{ disabled }}\n      disabled={disabled}\n      onPress={() => {\n        feedback();\n        onPress();\n      }}\n      style={StyleSheet.flatten([\n        styles.button,\n        {\n          opacity: disabled ? 0.45 : 1,\n          borderColor: focused ? colors.accent : colors.edge,\n          backgroundColor: colors.base,\n          borderBottomWidth: pressed ? 1 : 4,\n          transform: [{ translateY: pressed ? 3 : 0 }],\n        },\n      ])}\n    >\n      <LinearGradient\n        colors={\n          accent\n            ? [colors.accent, colors.accent]\n            : [colors.raised, colors.surface]\n        }\n        style={[styles.face, { alignSelf: \"stretch\" }]}\n      >\n        {typeof children === \"string\" ? (\n          <Text\n            style={{\n              color: accent ? colors.accentInk : colors.ink,\n              fontSize: 16,\n              fontWeight: \"600\",\n              textAlign: \"center\",\n            }}\n          >\n            {children}\n          </Text>\n        ) : (\n          children\n        )}\n      </LinearGradient>\n    </Button>\n  );\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/theme.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/theme.tsx",
+      "content": "import React, { createContext, useContext } from \"react\";\nimport { useColorScheme } from \"nativewind\";\nimport * as Haptics from \"expo-haptics\";\n\nexport const themes = {\n  light: {\n    background: \"#ffffff\",\n    surface: \"#f5f5f2\",\n    raised: \"#fafaf8\",\n    well: \"#e9e9e5\",\n    edge: \"#d1d1cb\",\n    base: \"#d9d9d3\",\n    ink: \"#202020\",\n    muted: \"#686863\",\n    accent: \"#365e50\",\n    accentInk: \"#ffffff\",\n  },\n  dark: {\n    background: \"#000000\",\n    surface: \"#191919\",\n    raised: \"#252525\",\n    well: \"#111111\",\n    edge: \"#3b3b39\",\n    base: \"#080808\",\n    ink: \"#efefeb\",\n    muted: \"#aaaAA5\",\n    accent: \"#9ab5a6\",\n    accentInk: \"#14251c\",\n  },\n};\ntype ThemeState = { colors: typeof themes.light; dark: boolean; haptics: boolean; onSound?: () => void };\nconst Context = createContext<ThemeState | null>(null);\nexport function SkeuoProvider({\n  children,\n  appearance = \"system\",\n  haptics = false,\n  onSound,\n  colors: overrides,\n}: {\n  children: React.ReactNode;\n  appearance?: \"light\" | \"dark\" | \"system\";\n  haptics?: boolean;\n  onSound?: () => void;\n  colors?: Partial<typeof themes.light>;\n}) {\n  const { colorScheme: system } = useColorScheme();\n  const dark = (appearance === \"system\" ? system : appearance) === \"dark\";\n  return (\n    <Context.Provider\n      value={{\n        colors: { ...(dark ? themes.dark : themes.light), ...overrides },\n        dark,\n        haptics,\n        onSound,\n      }}\n    >\n      {children}\n    </Context.Provider>\n  );\n}\nexport function useSkeuo(): ThemeState {\n  const context = useContext(Context);\n  const { colorScheme } = useColorScheme();\n  return context ?? { colors: colorScheme === \"dark\" ? themes.dark : themes.light, dark: colorScheme === \"dark\", haptics: false };\n}\nexport function useFeedback() {\n  const { haptics, onSound } = useSkeuo();\n  return () => {\n    onSound?.();\n    if (haptics) void Haptics.selectionAsync().catch(() => {});\n  };\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/styles.ts",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/styles.ts",
+      "content": "import { StyleSheet } from \"react-native\";\nexport const styles = StyleSheet.create({\n  stack: { gap: 12 },\n  row: { flexDirection: \"row\", alignItems: \"center\", gap: 12 },\n  label: { flex: 1 },\n  card: {\n    borderWidth: 1,\n    borderBottomWidth: 3,\n    borderRadius: 20,\n    padding: 20,\n    gap: 20,\n  },\n  button: {\n    borderWidth: 1,\n    borderRadius: 12,\n    overflow: \"hidden\",\n    minHeight: 48,\n  },\n  face: {\n    minHeight: 44,\n    paddingHorizontal: 18,\n    paddingVertical: 12,\n    alignItems: \"center\",\n    justifyContent: \"center\",\n  },\n  input: {\n    borderWidth: 2,\n    borderRadius: 10,\n    padding: 14,\n    minHeight: 52,\n    fontSize: 16,\n  },\n  track: {\n    width: 56,\n    height: 36,\n    borderWidth: 1,\n    borderRadius: 20,\n    padding: 3,\n    marginVertical: 6,\n  },\n  thumb: {\n    width: 28,\n    height: 28,\n    borderRadius: 14,\n    borderWidth: 1,\n    borderColor: \"#88888855\",\n  },\n  touch: { minHeight: 48 },\n  check: {\n    width: 26,\n    height: 26,\n    borderRadius: 6,\n    borderWidth: 2,\n    alignItems: \"center\",\n    justifyContent: \"center\",\n  },\n  tab: {\n    minHeight: 48,\n    borderWidth: 1,\n    borderBottomWidth: 3,\n    borderRadius: 10,\n    padding: 12,\n  },\n  badge: {\n    alignSelf: \"flex-start\",\n    paddingHorizontal: 10,\n    paddingVertical: 5,\n    borderWidth: 1,\n    borderRadius: 8,\n  },\n  overlay: { flex: 1, backgroundColor: \"#00000088\", padding: 20 },\n  panel: {\n    borderWidth: 1,\n    borderRadius: 20,\n    padding: 24,\n    maxHeight: \"85%\",\n    width: \"100%\",\n    maxWidth: 560,\n    alignSelf: \"center\",\n  },\n});\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/types.ts",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/types.ts",
+      "content": "import React from \"react\";\nexport type ButtonProps = {\n  children: React.ReactNode;\n  onPress: () => void;\n  disabled?: boolean;\n  variant?: \"default\" | \"accent\";\n  accessibilityLabel?: string;\n};\nexport type ToggleProps = {\n  label: string;\n  checked: boolean;\n  onCheckedChange: (checked: boolean) => void;\n  disabled?: boolean;\n};\nexport type OptionsProps = {\n  label: string;\n  value: string;\n  onValueChange: (value: string) => void;\n  options: { label: string; value: string; disabled?: boolean }[];\n};\nexport type OverlayProps = {\n  open: boolean;\n  onOpenChange: (open: boolean) => void;\n  title: string;\n  children: React.ReactNode;\n};\n"
+    }
+  ]
+}

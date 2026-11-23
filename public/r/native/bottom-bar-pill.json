@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeuo-native-bottom-bar-pill",
+  "type": "registry:ui",
+  "title": "Floating pill",
+  "description": "A compact pill with a softly raised selected segment.",
+  "dependencies": [
+    "nativewind"
+  ],
+  "registryDependencies": [],
+  "meta": {
+    "platform": "react-native",
+    "expoDependencies": [
+      "expo-linear-gradient",
+      "expo-haptics"
+    ],
+    "testedWith": {
+      "expo": "54",
+      "reactNative": "0.81.5",
+      "nativewind": "4.2.1"
+    }
+  },
+  "files": [
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-pill-bar.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-pill-bar.tsx",
+      "content": "import { SkeuoBottomBar } from \"./skeuo-bottom-bar\";\nimport type { ComponentProps } from \"react\";\nexport function SkeuoPillBar(\n  props: Omit<ComponentProps<typeof SkeuoBottomBar>, \"variant\">,\n) {\n  return <SkeuoBottomBar {...props} variant=\"pill\" />;\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-bottom-bar.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-bottom-bar.tsx",
+      "content": "import React from \"react\";\nimport { Pressable, Text, View } from \"react-native\";\nimport { LinearGradient } from \"expo-linear-gradient\";\nimport { useFeedback, useSkeuo } from \"./theme\";\nimport { SkeuoGlyph } from \"./icons\";\nexport type BottomBarVariant = \"dock\" | \"keys\" | \"rail\" | \"pill\";\nexport type BottomBarItem = {\n  value: string;\n  label: string;\n  icon?: React.ReactNode;\n  disabled?: boolean;\n};\nexport function SkeuoBottomBar({\n  items,\n  value,\n  onValueChange,\n  variant = \"dock\",\n  bottomInset = 0,\n}: {\n  items: BottomBarItem[];\n  value: string;\n  onValueChange: (value: string) => void;\n  variant?: BottomBarVariant;\n  bottomInset?: number;\n}) {\n  const { colors: c } = useSkeuo();\n  const feedback = useFeedback();\n  return (\n    <View\n      accessibilityRole=\"tablist\"\n      accessibilityLabel=\"Bottom navigation\"\n      style={{\n        paddingBottom: Math.max(8, bottomInset),\n        paddingTop: 12,\n        paddingHorizontal: variant === \"rail\" ? 0 : 12,\n        backgroundColor: c.background,\n      }}\n    >\n      <View\n        style={{\n          flexDirection: \"row\",\n          gap: variant === \"keys\" ? 8 : 2,\n          padding: variant === \"dock\" ? 6 : variant === \"pill\" ? 5 : 0,\n          borderWidth: variant === \"dock\" || variant === \"pill\" ? 1 : 0,\n          borderColor: c.edge,\n          borderRadius: variant === \"pill\" ? 32 : 16,\n          backgroundColor: variant === \"keys\" ? c.background : c.well,\n        }}\n      >\n        {items.map((item) => {\n          const active = item.value === value;\n          return (\n            <Pressable\n              key={item.value}\n              accessibilityRole=\"tab\"\n              aria-selected={active}\n              aria-disabled={!!item.disabled}\n              accessibilityLabel={item.label}\n              accessibilityState={{\n                selected: active,\n                disabled: !!item.disabled,\n              }}\n              disabled={item.disabled}\n              onPress={() => {\n                feedback();\n                onValueChange(item.value);\n              }}\n              style={({ pressed }) => ({\n                flex: 1,\n                minHeight: 60,\n                borderRadius: variant === \"pill\" ? 26 : 10,\n                borderWidth:\n                  variant === \"keys\" || (active && variant === \"dock\") ? 1 : 0,\n                borderBottomWidth:\n                  variant === \"keys\"\n                    ? pressed\n                      ? 1\n                      : 4\n                    : active && variant === \"rail\"\n                      ? 3\n                      : 1,\n                borderColor: active && variant === \"rail\" ? c.accent : c.edge,\n                backgroundColor: active\n                  ? c.raised\n                  : variant === \"keys\"\n                    ? c.surface\n                    : \"transparent\",\n                opacity: item.disabled ? 0.4 : 1,\n                transform: [{ translateY: pressed ? 2 : 0 }],\n                overflow: \"hidden\",\n              })}\n            >\n              <LinearGradient\n                colors={active ? [c.raised, c.surface] : [c.well, c.well]}\n                style={{\n                  flex: 1,\n                  alignItems: \"center\",\n                  justifyContent: \"center\",\n                  paddingVertical: 8,\n                  gap: 3,\n                }}\n              >\n                {item.icon ?? (\n                  <SkeuoGlyph\n                    name={item.value}\n                    color={active ? c.accent : c.muted}\n                  />\n                )}\n                <Text\n                  numberOfLines={1}\n                  style={{\n                    fontSize: 10,\n                    fontWeight: active ? \"700\" : \"500\",\n                    color: active ? c.ink : c.muted,\n                  }}\n                >\n                  {item.label}\n                </Text>\n              </LinearGradient>\n            </Pressable>\n          );\n        })}\n      </View>\n    </View>\n  );\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/theme.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/theme.tsx",
+      "content": "import React, { createContext, useContext } from \"react\";\nimport { useColorScheme } from \"nativewind\";\nimport * as Haptics from \"expo-haptics\";\n\nexport const themes = {\n  light: {\n    background: \"#ffffff\",\n    surface: \"#f5f5f2\",\n    raised: \"#fafaf8\",\n    well: \"#e9e9e5\",\n    edge: \"#d1d1cb\",\n    base: \"#d9d9d3\",\n    ink: \"#202020\",\n    muted: \"#686863\",\n    accent: \"#365e50\",\n    accentInk: \"#ffffff\",\n  },\n  dark: {\n    background: \"#000000\",\n    surface: \"#191919\",\n    raised: \"#252525\",\n    well: \"#111111\",\n    edge: \"#3b3b39\",\n    base: \"#080808\",\n    ink: \"#efefeb\",\n    muted: \"#aaaAA5\",\n    accent: \"#9ab5a6\",\n    accentInk: \"#14251c\",\n  },\n};\ntype ThemeState = { colors: typeof themes.light; dark: boolean; haptics: boolean; onSound?: () => void };\nconst Context = createContext<ThemeState | null>(null);\nexport function SkeuoProvider({\n  children,\n  appearance = \"system\",\n  haptics = false,\n  onSound,\n  colors: overrides,\n}: {\n  children: React.ReactNode;\n  appearance?: \"light\" | \"dark\" | \"system\";\n  haptics?: boolean;\n  onSound?: () => void;\n  colors?: Partial<typeof themes.light>;\n}) {\n  const { colorScheme: system } = useColorScheme();\n  const dark = (appearance === \"system\" ? system : appearance) === \"dark\";\n  return (\n    <Context.Provider\n      value={{\n        colors: { ...(dark ? themes.dark : themes.light), ...overrides },\n        dark,\n        haptics,\n        onSound,\n      }}\n    >\n      {children}\n    </Context.Provider>\n  );\n}\nexport function useSkeuo(): ThemeState {\n  const context = useContext(Context);\n  const { colorScheme } = useColorScheme();\n  return context ?? { colors: colorScheme === \"dark\" ? themes.dark : themes.light, dark: colorScheme === \"dark\", haptics: false };\n}\nexport function useFeedback() {\n  const { haptics, onSound } = useSkeuo();\n  return () => {\n    onSound?.();\n    if (haptics) void Haptics.selectionAsync().catch(() => {});\n  };\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/icons.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/icons.tsx",
+      "content": "import { Text } from \"react-native\";\n/** Simple line symbols keep the portable controls independent of an icon package. Hosts may pass their own icons. */\nexport function SkeuoGlyph({\n  name,\n  color = \"#686863\",\n  size = 21,\n}: {\n  name: string;\n  color?: string;\n  size?: number;\n}) {\n  const symbols: Record<string, string> = {\n    home: \"⌂\",\n    transactions: \"⇄\",\n    analysis: \"▥\",\n    profile: \"○\",\n    focus: \"◷\",\n    habits: \"✓\",\n    journal: \"≡\",\n    settings: \"⚙\",\n    activity: \"↗\",\n    goals: \"◎\",\n    saved: \"▱\",\n    add: \"+\",\n    arrow: \"↗\",\n    back: \"‹\",\n    next: \"›\",\n    play: \"▶\",\n    pause: \"Ⅱ\",\n    sound: \"♪\",\n  };\n  return (\n    <Text\n      accessible={false}\n      style={{\n        color,\n        fontSize: size,\n        lineHeight: size + 4,\n        textAlign: \"center\",\n      }}\n    >\n      {symbols[name] ?? \"◇\"}\n    </Text>\n  );\n}\n"
+    }
+  ]
+}
