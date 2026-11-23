@@ -51,7 +51,7 @@ export function SkeuoButton({
             ? [colors.accent, colors.accent]
             : [colors.raised, colors.surface]
         }
-        style={[styles.face, { alignSelf: "stretch" }]}
+        style={[styles.face, { alignSelf: "stretch", flex: 1 }]}
       >
         {typeof children === "string" ? (
           <Text

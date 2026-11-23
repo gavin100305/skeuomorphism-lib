@@ -1,4 +1,5 @@
 "use client";
+import { LibraryModeToggle } from "./native/library-mode-toggle";
 
 import { useState } from "react";
 import type { CSSProperties } from "react";
@@ -66,7 +67,7 @@ export default function Landing() {
           <Link href="/docs" onClick={() => setMenu(false)}>Docs</Link>
           <Link className="mobile-start" href="/docs#getting-started" onClick={() => setMenu(false)}>Get started <Icon name="arrow" size={14} /></Link>
         </nav>
-        <div className="header-actions">
+        <div className="header-actions"><LibraryModeToggle />
           <Link className="nav-start" href="/docs#getting-started">Get started <Icon name="arrow" size={14} /></Link>
           <a href={repo} target="_blank" rel="noreferrer" className="github-link" aria-label="GitHub repository"><Icon name="github" size={18} /></a>
           <SoundToggle />
