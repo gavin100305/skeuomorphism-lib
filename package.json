@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "registry:build": "shadcn build",
-    "prebuild": "npm run registry:build"
+    "prebuild": "npm run registry:build && npm run mobile:registry",
+    "mobile:registry": "node scripts/build-mobile-registry.mjs"
   },
   "dependencies": {
     "fflate": "0.8.2",

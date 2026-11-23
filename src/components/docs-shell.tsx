@@ -11,7 +11,7 @@ import { Sidebar, SidebarInset, SidebarProvider, SidebarTrigger, useSidebar } fr
 import { DemoThemeButton } from "./demo-theme-button";
 
 const groupNames = ["Getting started", "Buttons", "Actions", "Forms", "Surfaces", "Navigation", "Cards", "Signature", "Utilities"];
-const groups = groupNames.map(title => ({ title, items: title === "Getting started" ? [{ name: "Introduction", slug: "" }, { name: "Skills", slug: "skills" }, { name: "Templates", slug: "templates" }] : components.filter(component => component.group === title) }));
+const groups = groupNames.map(title => ({ title, items: title === "Getting started" ? [{ name: "Introduction", slug: "" }, { name: "Skills", slug: "skills" }, { name: "Mobile", slug: "mobile" }, { name: "Templates", slug: "templates" }] : components.filter(component => component.group === title) }));
 
 function SidebarNavigation({ selected, query, onQueryChange }: { selected: string; query: string; onQueryChange: (query: string) => void }) {
   const { closeMobile } = useSidebar();
@@ -27,6 +27,7 @@ function SidebarNavigation({ selected, query, onQueryChange }: { selected: strin
 }
 
 const introSections = [{ id: "overview", label: "Overview" },{ id: "components", label: "Components" },{ id: "blocks", label: "Composed components" },{ id: "getting-started", label: "Installation" }];
+const mobileSections = [{ id: "overview", label: "Overview" }, { id: "installation", label: "Showcase" }, { id: "source", label: "Installation" }, { id: "components", label: "Components" }, { id: "accessibility", label: "Platform behavior" }];
 const skillsSections = [{ id: "overview", label: "Overview" }, { id: "install", label: "Install" }, { id: "start", label: "Start using it" }];
 function PageContents({ sections, route }: { sections: { id: string; label: string }[]; route: string }) {
   const pageSections = sections;
@@ -69,5 +70,5 @@ export default function DocsShell({ children, wide = false }: { children: ReactN
   const pathname = usePathname();
   const slug = pathname === "/docs" ? "" : pathname.split("/").pop() ?? "";
   const [query, setQuery] = useState("");
-  return <><a className="skip-link" href="#docs-workspace">Skip to content</a><SidebarProvider className="docs-shell docs-reference-layout" collapsible={false} width={240}><DocsHeader /><Sidebar><SidebarNavigation selected={slug} query={query} onQueryChange={setQuery} /></Sidebar><SidebarInset><div className={`docs-reading-layout ${wide ? "docs-reading-wide" : ""}`}>{children}{!wide && <PageContents sections={slug === "skills" ? skillsSections : slug ? componentSections : introSections} route={pathname} />}</div></SidebarInset></SidebarProvider></>;
+  return <><a className="skip-link" href="#docs-workspace">Skip to content</a><SidebarProvider className="docs-shell docs-reference-layout" collapsible={false} width={240}><DocsHeader /><Sidebar><SidebarNavigation selected={slug} query={query} onQueryChange={setQuery} /></Sidebar><SidebarInset><div className={`docs-reading-layout ${wide ? "docs-reading-wide" : ""}`}>{children}{!wide && <PageContents sections={slug === "mobile" ? mobileSections : slug === "skills" ? skillsSections : slug ? componentSections : introSections} route={pathname} />}</div></SidebarInset></SidebarProvider></>;
 }
