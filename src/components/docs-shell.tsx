@@ -44,12 +44,8 @@ const groups = groupNames.map((title) => ({
 
 function SidebarNavigation({
   selected,
-  query,
-  onQueryChange,
 }: {
   selected: string;
-  query: string;
-  onQueryChange: (query: string) => void;
 }) {
   const { closeMobile } = useSidebar();
   const mobile = usePathname().includes("/mobile");
@@ -77,6 +73,7 @@ function SidebarNavigation({
     })),
   ];
   const activeGroups = mobile ? nativeGroups : groups;
+  const [query, onQueryChange] = useState("");
   const normalized = query.trim().toLowerCase();
   const filtered = activeGroups
     .map((group) => ({
@@ -336,7 +333,6 @@ export default function DocsShell({
     pathname === "/docs" || pathname === "/docs/mobile"
       ? ""
       : (pathname.split("/").pop() ?? "");
-  const [query, setQuery] = useState("");
   return (
     <>
       <a className="skip-link" href="#docs-workspace">
@@ -351,8 +347,7 @@ export default function DocsShell({
         <Sidebar>
           <SidebarNavigation
             selected={slug}
-            query={query}
-            onQueryChange={setQuery}
+            key={pathname.includes("/mobile") ? "mobile" : "web"}
           />
         </Sidebar>
         <SidebarInset>
