@@ -82,39 +82,25 @@ export function NativeCatalog({
   return (
     <main id="docs-workspace" className="native-catalog">
       <header className="native-catalog-heading">
-        <div className="native-heading-meta">
-          <span>THE NATIVE COLLECTION</span>
-          <span>EXPO + REACT NATIVE REUSABLES</span>
-        </div>
-        <h1>
-          {category === "Templates" ? (
-            <>
-              Mobile <em>templates.</em>
-            </>
-          ) : category === "Blocks" ? (
-            <>
-              Good things, <em>together.</em>
-            </>
-          ) : (
-            <>
-              Made for <em>touch.</em>
-            </>
-          )}
-        </h1>
+        <h1>Mobile {category?.toLowerCase() ?? "components"}</h1>
         <p>
           {category === "Templates"
-            ? "Pocket is an expense tracker with four working screens."
+            ? "A working expense tracker for Expo."
             : category === "Blocks"
-              ? "A balance, a rhythm, a daily ritual. Compose your next screen from pieces that already belong together."
-              : "The keys, the paper, the little bit of depth. Your favorite web materials, made native."}
+              ? "Ready-to-use layouts for balance, activity, and transactions."
+              : "Tactile controls for Expo and React Native Reusables."}
         </p>
-        <div className="native-catalog-links">
-          <Link href="/docs/mobile">Components</Link>
-          <Link href="/docs/mobile/blocks">Blocks</Link>
-          <Link href="/templates/mobile">
+        <nav aria-label="Mobile collection" className="native-catalog-links">
+          <Link href="/docs/mobile" aria-current={!category ? "page" : undefined}>
+            Components
+          </Link>
+          <Link href="/docs/mobile/blocks" aria-current={category === "Blocks" ? "page" : undefined}>
+            Blocks
+          </Link>
+          <Link href="/templates/mobile" aria-current={category === "Templates" ? "page" : undefined}>
             Templates
           </Link>
-        </div>
+        </nav>
       </header>
       {!category && (
         <div className="native-catalog-toolbar">
@@ -168,10 +154,6 @@ export function NativeCatalog({
         ))}
       </div>
       {items.length === 0 && <p role="status">No pieces match your search.</p>}
-      <footer className="native-catalog-footer">
-        Source you own. Preview it. Press it. Make it yours.
-        <Link href="/docs/mobile/button">Try the first key ↗</Link>
-      </footer>
     </main>
   );
 }

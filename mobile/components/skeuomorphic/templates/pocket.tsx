@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { TemplateShell, SectionHeading } from "./template-shell";
 import { useSkeuo } from "../theme";
 import { SkeuoCard } from "../skeuo-card";
@@ -34,63 +35,87 @@ export function PocketTemplate() {
   return (
     <TemplateShell
       name="pocket"
-      subtitle="YOUR MONEY, A LITTLE CLEARER"
       items={items}
       value={tab}
       onValueChange={setTab}
     >
       {tab === "home" ? (
         <>
-          <SectionHeading
-            title={`Good morning, ${name.split(" ")[0]}.`}
-            detail="A quiet look at where things stand."
-          />
-          <SummaryCard value={privateBalance ? "••••••" : `₹${(38600 + cash).toLocaleString("en-IN")}`} />
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            {[
-              ["Bank", "₹32,400"],
-              ["Cash", `₹${cash.toLocaleString("en-IN")}`],
-              ["Shared", "₹6,200"],
-            ].map(([label, value]) => (
-              <View
-                key={label}
+          <SectionHeading title={`Good morning, ${name.trim().split(/\s+/)[0] || "there"}.`} />
+          <LinearGradient
+            colors={["#31584b", "#182f28"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              borderRadius: 18,
+              borderWidth: 1,
+              borderColor: "#577365",
+              padding: 18,
+              gap: 15,
+            }}
+          >
+            <View style={{ gap: 6 }}>
+              <Text style={{ color: "#d6e3d9", fontSize: 13 }}>Total balance</Text>
+              <Text
+                adjustsFontSizeToFit
+                numberOfLines={1}
                 style={{
-                  flex: 1,
-                  gap: 7,
-                  paddingVertical: 10,
-                  borderBottomWidth: 1,
-                  borderColor: c.edge,
+                  color: "#fcf9ef",
+                  fontSize: 44,
+                  fontWeight: "500",
+                  letterSpacing: -2,
+                  fontVariant: ["tabular-nums"],
                 }}
               >
-                <Text style={{ color: c.muted, fontSize: 11 }}>{label}</Text>
-                <Text style={{ color: c.ink, fontSize: 16, fontWeight: "500" }}>
-                  {privateBalance ? "••••" : value}
-                </Text>
-              </View>
-            ))}
-          </View>
+                {privateBalance ? "••••••" : `₹${(38600 + cash).toLocaleString("en-IN")}`}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: 8,
+                borderTopWidth: 1,
+                borderColor: "#648073",
+                paddingTop: 12,
+              }}
+            >
+              {[
+                ["Bank", "₹32,400"],
+                ["Cash", `₹${cash.toLocaleString("en-IN")}`],
+                ["Shared", "₹6,200"],
+              ].map(([label, value]) => (
+                <View key={label} style={{ flex: 1, gap: 4 }}>
+                  <Text style={{ color: "#d6e3d9", fontSize: 11 }}>{label}</Text>
+                  <Text
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                    style={{ color: "#fcf9ef", fontSize: 15, fontWeight: "600" }}
+                  >
+                    {privateBalance ? "••••" : value}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </LinearGradient>
           <SkeuoButton variant="accent" onPress={() => setAdding(true)}>
             + Add a transaction
           </SkeuoButton>
           <View>
-            <Text
-              style={{
-                color: c.ink,
-                fontWeight: "600",
-                fontSize: 16,
-                marginBottom: 4,
-              }}
-            >
-              Recent activity
-            </Text>
-            <TransactionList items={transactions.slice(0, 3)} />
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+              <Text style={{ color: c.ink, fontWeight: "600", fontSize: 16 }}>
+                Recent activity
+              </Text>
+              <Pressable accessibilityRole="button" hitSlop={10} onPress={() => setTab("transactions")}>
+                <Text style={{ color: c.accent, fontWeight: "600", fontSize: 13 }}>View all</Text>
+              </Pressable>
+            </View>
+            <TransactionList items={transactions.slice(0, 2)} />
           </View>
         </>
       ) : tab === "transactions" ? (
         <>
           <SectionHeading
-            title="Every little thing."
-            detail="Your income and expenses, together."
+            title="Transactions"
           />
           <SkeuoInput
             label="Search transactions"
@@ -110,8 +135,8 @@ export function PocketTemplate() {
       ) : tab === "analysis" ? (
         <>
           <SectionHeading
-            title="See the bigger picture."
-            detail="A sample month in review."
+            title="Spending overview"
+            detail="Sample month"
           />
           <SummaryCard
             label="Spent this month"
@@ -144,8 +169,7 @@ export function PocketTemplate() {
       ) : (
         <>
           <SectionHeading
-            title="Your corner."
-            detail="Make pocket feel like you."
+            title="Profile"
           />
           <SkeuoCard>
             <SkeuoInput

@@ -57,6 +57,9 @@ try {
     );
   }
   let f = await preview("pocket");
+  await f.getByRole("button", { name: "View all", exact: true }).click();
+  await f.getByRole("heading", { name: "Transactions", exact: true }).waitFor();
+  await f.getByRole("tab", { name: "Home", exact: true }).click();
   await f
     .getByRole("button", { name: "+ Add a transaction", exact: true })
     .click();
@@ -78,9 +81,9 @@ try {
   await page.waitForTimeout(200);
   assert.equal(
     await f
-      .getByText("Total balance", { exact: true })
+      .getByRole("heading", { name: "Good morning, Alex." })
       .evaluate((e) => getComputedStyle(e).color),
-    "rgb(170, 170, 165)",
+    "rgb(239, 239, 235)",
   );
   await screenshot("pocket-dark");
   f = await preview("still");

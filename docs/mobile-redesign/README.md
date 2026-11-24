@@ -21,3 +21,15 @@ The mobile catalog and Expo showcase also hide the three alternate bottom bars a
 ## Browser checks
 
 The production Next.js build and Expo web export passed. The browser suite checked all 26 direct previews, Pocket’s transaction and balance updates, the dark-mode bridge, and horizontal overflow at 320, 390, 768 and 1280 pixels. The 390-pixel check also measured the handset ratio.
+
+## Pocket spacing and color pass
+
+Pocket’s home screen groups the total and account balances on one green surface. Two recent transactions sit above the dock, with **View all** opening the full history. A narrower desktop preview keeps the phone and its controls together. The mobile catalog uses shorter headings and marks the current section.
+
+| Previous desktop preview | Refined desktop preview |
+| --- | --- |
+| ![Previous Pocket layout](pocket-after.png) | ![Refined Pocket layout](polish-desktop.png) |
+
+| Pocket light mode | Pocket dark mode | Mobile templates |
+| --- | --- | --- |
+| ![Pocket in light mode at 390px](polish-narrow.png) | ![Pocket in dark mode at 390px](polish-dark.png) | ![Mobile templates at 390px](polish-gallery.png) |
