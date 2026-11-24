@@ -161,7 +161,7 @@
   font-size: 14px;
   color: var(--site-muted);
 }
-.native-tile > p {
+.native-tile-copy > p {
   color: var(--site-muted);
   font-size: 11px;
   line-height: 1.7;
@@ -423,17 +423,64 @@
   font-size: 11px;
   color: var(--site-muted);
   display: inline-block;
-  margin-bottom: 28px;
+  margin-bottom: 14px;
 }
 .native-detail .doc-component-heading h1 {
   font-size: 44px;
   letter-spacing: -1.8px;
 }
 .native-detail .doc-component-heading {
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
-.native-detail #preview {
-  max-width: 700px;
+.native-detail {
+  container-type: inline-size;
+}
+.native-detail-grid {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.native-detail-grid > .doc-section,
+.native-detail-guide > .doc-section:first-child {
+  margin-top: 0;
+}
+.native-detail-guide {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.native-detail-guide > .doc-section + .doc-section {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.native-detail-guide .doc-section h2 {
+  margin-bottom: 10px;
+}
+.native-inline-preview {
+  width: 100%;
+  max-width: 510px;
+}
+.native-inline-preview .native-phone-screen {
+  height: clamp(240px, 33cqw, 320px);
+}
+.native-inline-preview iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  background: var(--bg);
+}
+.native-preview-stage.native-preview-inline {
+  padding: 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+@container (min-width: 730px) {
+  .native-detail-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
 }
 .native-preview-toolbar {
   display: flex;
@@ -569,7 +616,7 @@
   .native-tile h3 {
     font-size: 12px;
   }
-  .native-tile > p {
+  .native-tile-copy > p {
     font-size: 10px;
   }
   .native-tile-templates .native-tile-art {
@@ -577,6 +624,12 @@
   }
   .native-preview-stage {
     padding: 24px 8px;
+  }
+  .native-preview-stage.native-preview-inline {
+    padding: 0;
+  }
+  .native-detail-guide {
+    padding: 16px;
   }
   .native-phone {
     border-width: 4px;
@@ -799,15 +852,139 @@
 .docs-shell .docs-reading-layout.docs-native-reading{display:block;padding:0;max-width:1280px;width:100%}
 
 .native-catalog .native-template-grid {
-  grid-template-columns: minmax(0, 560px);
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 24px;
+}
+.native-template-grid .native-tile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.native-template-grid .native-tile-copy {
+  align-self: center;
+  padding: clamp(20px, 4vw, 48px);
+}
+.native-template-grid .native-tile-title {
+  margin-top: 0;
+}
+.native-template-grid .native-tile-title h3 {
+  font-size: clamp(27px, 4vw, 50px);
+  letter-spacing: -.05em;
+}
+.native-template-grid .native-tile-copy p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.native-feature-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
 }
 .native-template-grid .native-tile-art {
-  height: 270px;
-  background: radial-gradient(ellipse at center, var(--surface), var(--well));
+  height: 250px;
+  border: 0;
+  border-radius: 0;
+  background: radial-gradient(ellipse at 50% 25%, #406554, #172c24 80%);
 }
 .native-template-grid .native-miniature {
-  transform: none;
-  height: 216px;
+  transform: rotate(-7deg);
+  height: 208px;
   width: 100px;
   overflow: hidden;
+}
+.native-template-grid .native-miniature > span:first-child {
+  background: #365e50;
+}
+.native-pocket-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+.native-pocket-layout .native-preview-stage {
+  background: radial-gradient(ellipse at 76% 25%, #3a5b4c, #192b23 72%);
+  gap: 24px;
+  padding: clamp(18px, 3vw, 28px) 16px;
+}
+.native-pocket-intro {
+  width: min(100%, 344px);
+  align-self: center;
+  color: #f7f5ed;
+}
+.native-pocket-layout .native-pocket-intro h2 {
+  font-size: clamp(30px, 5cqw, 54px);
+  line-height: 1.03;
+  letter-spacing: -.055em;
+  margin: 0 0 14px;
+}
+.native-pocket-intro p {
+  max-width: 29ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d2dfd5;
+}
+.native-pocket-intro a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 7px;
+  background: #f2f0e6;
+  color: #202f27;
+  font-size: 13px;
+  font-weight: 600;
+}
+.native-detail-guide .doc-code pre,
+.native-detail-guide .doc-code pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+@container (min-width: 730px) {
+  .native-pocket-layout .native-preview-stage {
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1fr);
+    padding-inline: clamp(28px, 7cqw, 90px);
+  }
+  .native-pocket-layout .native-phone {
+    width: min(316px, 100%);
+  }
+  .native-pocket-layout .native-detail-guide {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .native-pocket-layout .native-detail-guide #usage {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .native-pocket-layout #compatibility {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+  .native-detail-grid:not(.native-pocket-layout) .native-detail-guide {
+    display: contents;
+  }
+  .native-detail-grid:not(.native-pocket-layout) .native-detail-guide > .doc-section {
+    margin-top: 0;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    min-width: 0;
+  }
+}
+@media (min-width: 900px) {
+  .native-template-grid .native-tile {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+  .native-template-grid .native-tile-art {
+    height: 300px;
+  }
+}
+
+.native-detail .doc-component-heading .native-heading-meta {
+  justify-content: flex-start;
+  gap: 16px;
 }

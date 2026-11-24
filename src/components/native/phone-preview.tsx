@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { playButtonSound } from "@/lib/button-sound";
 import { SOUND_KEY } from "@/components/button-sound-effects";
-export function PhonePreview({ slug }: { slug: string }) {
+export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -53,10 +53,8 @@ export function PhonePreview({ slug }: { slug: string }) {
     };
   }, [slug]);
   return (
-    <div className="native-phone">
-      <div className="native-phone-top" aria-hidden="true">
-        <i />
-      </div>
+    <div className={framed ? "native-phone" : "native-inline-preview"}>
+      {framed && <div className="native-phone-top" aria-hidden="true"><i /></div>}
       <div className="native-phone-screen">
         {!ready && (
           <div className="native-preview-loading" role="status">
@@ -80,9 +78,7 @@ export function PhonePreview({ slug }: { slug: string }) {
           }
         />
       </div>
-      <div className="native-phone-home" aria-hidden="true">
-        <i />
-      </div>
+      {framed && <div className="native-phone-home" aria-hidden="true"><i /></div>}
     </div>
   );
 }
