@@ -23,7 +23,7 @@ const screenshot = async (name) => {
 const preview = async (slug) => {
   console.log("Checking", slug);
   await page.goto(`${base}/docs/mobile/${slug}`);
-  const f = page.frameLocator("#preview iframe");
+  const f = page.frameLocator("main#docs-workspace:visible #preview iframe");
   await f.locator("#root").waitFor();
   await page.getByText("Loading native preview…").waitFor({ state: "hidden" });
   return f;
@@ -64,9 +64,9 @@ try {
   assert.equal(await page.locator("#preview .native-phone").count(), 0);
   assert(await page.locator("#preview .native-inline-preview").isVisible());
   await page.getByRole("button", { name: "Code", exact: true }).click();
-  assert.equal(await page.locator("#preview iframe").count(), 0);
+  assert.equal(await page.locator("main#docs-workspace:visible #preview iframe").count(), 0);
   await page.getByRole("button", { name: "Preview", exact: true }).click();
-  await page.frameLocator("#preview iframe").getByText("In progress", { exact: true }).waitFor();
+  await page.frameLocator("main#docs-workspace:visible #preview iframe").getByText("In progress", { exact: true }).waitFor();
   for (const item of catalog) {
     const f = await preview(item.slug);
     const text = await f.locator("body").innerText();
