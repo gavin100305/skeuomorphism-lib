@@ -5,6 +5,7 @@ const base = process.env.NATIVE_TEST_URL ?? "http://localhost:3199";
 const catalog = JSON.parse(await readFile("mobile/catalog.json", "utf8"));
 const browser = await chromium.launch({
   headless: true,
+  executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE,
   args: ["--no-sandbox"],
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
@@ -22,7 +23,7 @@ const screenshot = async (name) => {
 const preview = async (slug) => {
   console.log("Checking", slug);
   await page.goto(`${base}/docs/mobile/${slug}`);
-  const f = page.frameLocator("iframe");
+  const f = page.frameLocator("#preview .native-phone iframe");
   await f.locator("#root").waitFor();
   await page.getByText("Loading native preview…").waitFor({ state: "hidden" });
   return f;
@@ -30,7 +31,11 @@ const preview = async (slug) => {
 try {
   await page.goto(`${base}/docs/mobile`);
   await page.getByRole("button", { name: "Bottom bars", exact: true }).click();
-  assert.equal(await page.locator(".native-tile").count(), 4);
+  assert.equal(await page.locator(".native-tile").count(), 1);
+  await page.goto(`${base}/templates/mobile`);
+  assert.equal(await page.locator(".native-tile").count(), 1);
+  await page.locator(".native-tile").getByRole("heading", { name: "Pocket" }).waitFor();
+  await page.goto(`${base}/docs/mobile`);
   await page.getByRole("button", { name: "All", exact: true }).click();
   await screenshot("catalog-desktop");
   await page
@@ -134,6 +139,9 @@ try {
     }
     if (width === 390) {
       await page.goto(base + "/docs/mobile/pocket");
+      await page.getByText("Loading native preview…").waitFor({ state: "hidden" });
+      const phone = await page.locator(".native-phone").boundingBox();
+      assert(Math.abs(phone.width / phone.height - 9 / 19.5) < 0.01);
       await screenshot("pocket-mobile-site");
     }
   }

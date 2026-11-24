@@ -71,11 +71,12 @@ export function NativeCatalog({
 }) {
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
+  const group = category ?? filter;
   const items = catalog.filter(
     (x) =>
-      (category
-        ? x.group === category
-        : filter === "All" ? !["Blocks", "Templates"].includes(x.group) : x.group === filter) &&
+      (group === "All"
+        ? x.group !== "Blocks" && x.group !== "Templates"
+        : x.group === group) &&
       `${x.name} ${x.description}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
@@ -151,9 +152,17 @@ export function NativeCatalog({
         <span>
           {category ?? (filter === "All" ? "The collection" : filter)}
         </span>
-        <span>{items.length} {items.length === 1 ? "item" : "items"}</span>
+        <span>
+          {items.length} {items.length === 1 ? "item" : "items"}
+        </span>
       </div>
-      <div className={category === "Templates" ? "native-catalog-grid native-template-grid" : "native-catalog-grid"}>
+      <div
+        className={
+          category === "Templates"
+            ? "native-catalog-grid native-template-grid"
+            : "native-catalog-grid"
+        }
+      >
         {items.map((item) => (
           <NativeTile key={item.slug} item={item} />
         ))}
@@ -231,26 +240,7 @@ export function NativeDocumentation({ slug }: { slug: string }) {
           <span>Interactive native source</span>
         </div>
         {panel === "preview" ? (
-          <div
-            className={`native-preview-stage ${item.group === "Templates" ? "native-preview-template" : ""}`}
-          >
-            <div className="native-preview-caption">
-              <span>
-                {item.group === "Templates"
-                  ? "A COMPLETE LITTLE WORLD"
-                  : "A LITTLE DEPTH GOES A LONG WAY"}
-              </span>
-              <p>
-                {item.group === "Templates"
-                  ? "Four tabs. Your own pace."
-                  : "Go on. Give it a touch."}
-              </p>
-              <small>
-                Light and dark follow the library theme.
-                <br />
-                Sound follows the toolbar control.
-              </small>
-            </div>
+          <div className="native-preview-stage">
             <PhonePreview slug={slug} />
           </div>
         ) : (
