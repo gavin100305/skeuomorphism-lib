@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { LibraryModeToggle } from "./native/library-mode-toggle";
-import nativeCatalog from "../../mobile/catalog.json";
+import allNativeItems from "../../mobile/catalog.json";
+import unlisted from "../../mobile/unlisted.json";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { components, componentSections } from "@/data/components";
@@ -72,7 +73,7 @@ function SidebarNavigation({
       "Templates",
     ].map((title) => ({
       title,
-      items: nativeCatalog.filter((item) => item.group === title),
+      items: allNativeItems.filter((item) => item.group === title && !unlisted.includes(item.slug)),
     })),
   ];
   const activeGroups = mobile ? nativeGroups : groups;

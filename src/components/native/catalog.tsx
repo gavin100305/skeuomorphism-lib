@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
-import catalog from "../../../mobile/catalog.json";
+import allNativeItems from "../../../mobile/catalog.json";
+import unlisted from "../../../mobile/unlisted.json";
 import runtimeDependencies from "../../../mobile/runtime-dependencies.json";
 import { PhonePreview } from "./phone-preview";
 import { CodeBlock } from "../code-block";
 import "../component-documentation.css";
 import "./native.css";
-export const nativeCatalog = catalog;
+const catalog = allNativeItems.filter((item) => !unlisted.includes(item.slug));
 const noop = () => () => {};
 const origin = () => window.location.origin;
 const serverOrigin = () => "";
@@ -74,7 +75,7 @@ export function NativeCatalog({
     (x) =>
       (category
         ? x.group === category
-        : filter === "All" || x.group === filter) &&
+        : filter === "All" ? !["Blocks", "Templates"].includes(x.group) : x.group === filter) &&
       `${x.name} ${x.description}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
@@ -87,7 +88,7 @@ export function NativeCatalog({
         <h1>
           {category === "Templates" ? (
             <>
-              A place to <em>begin.</em>
+              Mobile <em>templates.</em>
             </>
           ) : category === "Blocks" ? (
             <>
@@ -101,7 +102,7 @@ export function NativeCatalog({
         </h1>
         <p>
           {category === "Templates"
-            ? "Three small worlds. Real screens, working navigation, and the same familiar feel."
+            ? "Pocket is an expense tracker with four working screens."
             : category === "Blocks"
               ? "A balance, a rhythm, a daily ritual. Compose your next screen from pieces that already belong together."
               : "The keys, the paper, the little bit of depth. Your favorite web materials, made native."}
@@ -110,7 +111,7 @@ export function NativeCatalog({
           <Link href="/docs/mobile">Components</Link>
           <Link href="/docs/mobile/blocks">Blocks</Link>
           <Link href="/templates/mobile">
-            Templates <span>03</span>
+            Templates
           </Link>
         </div>
       </header>
@@ -150,9 +151,9 @@ export function NativeCatalog({
         <span>
           {category ?? (filter === "All" ? "The collection" : filter)}
         </span>
-        <span>{items.length.toString().padStart(2, "0")} pieces</span>
+        <span>{items.length} {items.length === 1 ? "item" : "items"}</span>
       </div>
-      <div className="native-catalog-grid">
+      <div className={category === "Templates" ? "native-catalog-grid native-template-grid" : "native-catalog-grid"}>
         {items.map((item) => (
           <NativeTile key={item.slug} item={item} />
         ))}
@@ -166,7 +167,7 @@ export function NativeCatalog({
   );
 }
 export function NativeDocumentation({ slug }: { slug: string }) {
-  const item = catalog.find((x) => x.slug === slug)!;
+  const item = allNativeItems.find((x) => x.slug === slug)!;
   const [panel, setPanel] = useState("preview");
   const file = item.file.replace(/\.tsx$/, "");
   const stateful =
