@@ -81,9 +81,9 @@
     "expo-haptics"
   ],
   "pocket": [
+    "expo-linear-gradient",
     "react-native-safe-area-context",
-    "expo-haptics",
-    "expo-linear-gradient"
+    "expo-haptics"
   ],
   "still": [
     "react-native-safe-area-context",

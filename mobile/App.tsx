@@ -12,7 +12,10 @@ import { NativeDemo } from "./preview/demos";
 import { PocketTemplate } from "./components/skeuomorphic/templates/pocket";
 import { StillTemplate } from "./components/skeuomorphic/templates/still";
 import { DaybookTemplate } from "./components/skeuomorphic/templates/daybook";
-import catalog from "./catalog.json";
+import allNativeItems from "./catalog.json";
+import unlisted from "./unlisted.json";
+const catalog = allNativeItems.filter((item) => !unlisted.includes(item.slug));
+
 export default function App() {
   const initial =
     Platform.OS === "web" ? new URLSearchParams(window.location.search) : null;

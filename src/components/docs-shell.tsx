@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { LibraryModeToggle } from "./native/library-mode-toggle";
-import nativeCatalog from "../../mobile/catalog.json";
+import allNativeItems from "../../mobile/catalog.json";
+import unlisted from "../../mobile/unlisted.json";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { components, componentSections } from "@/data/components";
@@ -43,12 +44,8 @@ const groups = groupNames.map((title) => ({
 
 function SidebarNavigation({
   selected,
-  query,
-  onQueryChange,
 }: {
   selected: string;
-  query: string;
-  onQueryChange: (query: string) => void;
 }) {
   const { closeMobile } = useSidebar();
   const mobile = usePathname().includes("/mobile");
@@ -72,10 +69,11 @@ function SidebarNavigation({
       "Templates",
     ].map((title) => ({
       title,
-      items: nativeCatalog.filter((item) => item.group === title),
+      items: allNativeItems.filter((item) => item.group === title && !unlisted.includes(item.slug)),
     })),
   ];
   const activeGroups = mobile ? nativeGroups : groups;
+  const [query, onQueryChange] = useState("");
   const normalized = query.trim().toLowerCase();
   const filtered = activeGroups
     .map((group) => ({
@@ -335,7 +333,6 @@ export default function DocsShell({
     pathname === "/docs" || pathname === "/docs/mobile"
       ? ""
       : (pathname.split("/").pop() ?? "");
-  const [query, setQuery] = useState("");
   return (
     <>
       <a className="skip-link" href="#docs-workspace">
@@ -350,8 +347,7 @@ export default function DocsShell({
         <Sidebar>
           <SidebarNavigation
             selected={slug}
-            query={query}
-            onQueryChange={setQuery}
+            key={pathname.includes("/mobile") ? "mobile" : "web"}
           />
         </Sidebar>
         <SidebarInset>

@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
-import catalog from "../../../mobile/catalog.json";
+import allNativeItems from "../../../mobile/catalog.json";
+import unlisted from "../../../mobile/unlisted.json";
 import runtimeDependencies from "../../../mobile/runtime-dependencies.json";
 import { PhonePreview } from "./phone-preview";
 import { CodeBlock } from "../code-block";
 import "../component-documentation.css";
 import "./native.css";
-export const nativeCatalog = catalog;
+const catalog = allNativeItems.filter((item) => !unlisted.includes(item.slug));
 const noop = () => () => {};
 const origin = () => window.location.origin;
 const serverOrigin = () => "";
@@ -53,13 +54,16 @@ function NativeTile({ item }: { item: (typeof catalog)[number] }) {
           <span />
           {item.group === "Templates" && <b>{item.name.toLowerCase()}.</b>}
         </div>
-        <span className="native-tile-open">Preview ↗</span>
+        {item.group !== "Templates" && <span className="native-tile-open">Preview ↗</span>}
       </div>
-      <div className="native-tile-title">
-        <h3>{item.name}</h3>
-        <span>↗</span>
+      <div className="native-tile-copy">
+        <div className="native-tile-title">
+          <h3>{item.name}</h3>
+          {item.group !== "Templates" && <span aria-hidden="true">↗</span>}
+        </div>
+        <p>{item.description}</p>
+        {item.group === "Templates" && <span className="native-feature-link">Open live preview ↗</span>}
       </div>
-      <p>{item.description}</p>
     </Link>
   );
 }
@@ -70,49 +74,36 @@ export function NativeCatalog({
 }) {
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
+  const group = category ?? filter;
   const items = catalog.filter(
     (x) =>
-      (category
-        ? x.group === category
-        : filter === "All" || x.group === filter) &&
+      (group === "All"
+        ? x.group !== "Blocks" && x.group !== "Templates"
+        : x.group === group) &&
       `${x.name} ${x.description}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
     <main id="docs-workspace" className="native-catalog">
       <header className="native-catalog-heading">
-        <div className="native-heading-meta">
-          <span>THE NATIVE COLLECTION</span>
-          <span>EXPO + REACT NATIVE REUSABLES</span>
-        </div>
-        <h1>
-          {category === "Templates" ? (
-            <>
-              A place to <em>begin.</em>
-            </>
-          ) : category === "Blocks" ? (
-            <>
-              Good things, <em>together.</em>
-            </>
-          ) : (
-            <>
-              Made for <em>touch.</em>
-            </>
-          )}
-        </h1>
+        <h1>Mobile {category?.toLowerCase() ?? "components"}</h1>
         <p>
           {category === "Templates"
-            ? "Three small worlds. Real screens, working navigation, and the same familiar feel."
+            ? "A working expense tracker for Expo."
             : category === "Blocks"
-              ? "A balance, a rhythm, a daily ritual. Compose your next screen from pieces that already belong together."
-              : "The keys, the paper, the little bit of depth. Your favorite web materials, made native."}
+              ? "Ready-to-use layouts for balance, activity, and transactions."
+              : "Tactile controls for Expo and React Native Reusables."}
         </p>
-        <div className="native-catalog-links">
-          <Link href="/docs/mobile">Components</Link>
-          <Link href="/docs/mobile/blocks">Blocks</Link>
-          <Link href="/templates/mobile">
-            Templates <span>03</span>
+        <nav aria-label="Mobile collection" className="native-catalog-links">
+          <Link href="/docs/mobile" aria-current={!category ? "page" : undefined}>
+            Components
           </Link>
-        </div>
+          <Link href="/docs/mobile/blocks" aria-current={category === "Blocks" ? "page" : undefined}>
+            Blocks
+          </Link>
+          <Link href="/templates/mobile" aria-current={category === "Templates" ? "page" : undefined}>
+            Templates
+          </Link>
+        </nav>
       </header>
       {!category && (
         <div className="native-catalog-toolbar">
@@ -146,27 +137,32 @@ export function NativeCatalog({
           </label>
         </div>
       )}
-      <div className="native-catalog-count">
+      {category !== "Templates" && <div className="native-catalog-count">
         <span>
           {category ?? (filter === "All" ? "The collection" : filter)}
         </span>
-        <span>{items.length.toString().padStart(2, "0")} pieces</span>
-      </div>
-      <div className="native-catalog-grid">
+        <span>
+          {items.length} {items.length === 1 ? "item" : "items"}
+        </span>
+      </div>}
+      <div
+        className={
+          category === "Templates"
+            ? "native-catalog-grid native-template-grid"
+            : "native-catalog-grid"
+        }
+      >
         {items.map((item) => (
           <NativeTile key={item.slug} item={item} />
         ))}
       </div>
       {items.length === 0 && <p role="status">No pieces match your search.</p>}
-      <footer className="native-catalog-footer">
-        Source you own. Preview it. Press it. Make it yours.
-        <Link href="/docs/mobile/button">Try the first key ↗</Link>
-      </footer>
     </main>
   );
 }
 export function NativeDocumentation({ slug }: { slug: string }) {
-  const item = catalog.find((x) => x.slug === slug)!;
+  const item = allNativeItems.find((x) => x.slug === slug)!;
+  const showPhone = item.group === "Templates" || item.group === "Bottom bars";
   const [panel, setPanel] = useState("preview");
   const file = item.file.replace(/\.tsx$/, "");
   const stateful =
@@ -189,6 +185,19 @@ export function NativeDocumentation({ slug }: { slug: string }) {
           : ["switch", "checkbox"].includes(slug)
             ? "const [enabled, setEnabled] = useState(true);"
             : 'const [value, setValue] = useState("week");';
+  const pocketUsage = `import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SkeuoProvider } from "@/components/ui/skeuo-native/theme";
+import { PocketTemplate } from "@/components/ui/skeuo-native/templates/pocket";
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <SkeuoProvider>
+        <PocketTemplate />
+      </SkeuoProvider>
+    </SafeAreaProvider>
+  );
+}`;
   return (
     <main id="docs-workspace" className="native-detail component-documentation">
       <header id="overview" className="doc-component-heading">
@@ -211,102 +220,92 @@ export function NativeDocumentation({ slug }: { slug: string }) {
         <h1>{item.name}</h1>
         <p>{item.description}</p>
       </header>
-      <section id="preview" className="doc-section">
-        <div className="native-preview-toolbar">
-          <div role="group" aria-label="Example view">
-            <button
-              aria-pressed={panel === "preview"}
-              onClick={() => setPanel("preview")}
-            >
-              Preview
-            </button>
-            <button
-              aria-pressed={panel === "code"}
-              onClick={() => setPanel("code")}
-            >
-              Code
-            </button>
-          </div>
-          <span>Interactive native source</span>
-        </div>
-        {panel === "preview" ? (
-          <div
-            className={`native-preview-stage ${item.group === "Templates" ? "native-preview-template" : ""}`}
-          >
-            <div className="native-preview-caption">
-              <span>
-                {item.group === "Templates"
-                  ? "A COMPLETE LITTLE WORLD"
-                  : "A LITTLE DEPTH GOES A LONG WAY"}
-              </span>
-              <p>
-                {item.group === "Templates"
-                  ? "Four tabs. Your own pace."
-                  : "Go on. Give it a touch."}
-              </p>
-              <small>
-                Light and dark follow the library theme.
-                <br />
-                Sound follows the toolbar control.
-              </small>
+      <div className={slug === "pocket" ? "native-detail-grid native-pocket-layout" : "native-detail-grid"}>
+        <section id="preview" className="doc-section">
+          <div className="native-preview-toolbar">
+            <div role="group" aria-label="Example view">
+              <button
+                aria-pressed={panel === "preview"}
+                onClick={() => setPanel("preview")}
+              >
+                Preview
+              </button>
+              <button
+                aria-pressed={panel === "code"}
+                onClick={() => setPanel("code")}
+              >
+                Code
+              </button>
             </div>
-            <PhonePreview slug={slug} />
+            <span>React Native Web</span>
           </div>
-        ) : (
-          <CodeBlock
-            name={`${file.split("/").pop()}.tsx`}
-            code={item.example}
-          />
-        )}
-      </section>
-      <section id="installation" className="doc-section">
-        <h2>Make it yours.</h2>
-        <p>
-          Run inside an Expo project configured for React Native Reusables with
-          NativeWind. The command selects native dependencies for your Expo SDK,
-          then adds this item through the registry engine used by React Native Reusables.
-        </p>
-        <NativeInstall slug={slug} />
-        <p className="doc-small-note">
-          Tested baseline: Expo 54, React Native 0.81, React 19.1, NativeWind 4.
-          Existing Reusables controls are reused; the tactile source is added
-          under <code>components/ui/skeuo-native/</code>. No overwrite flag is
-          used.
-        </p>
-      </section>
-      <section id="usage" className="doc-section">
-        <h2>Usage</h2>
-        <CodeBlock
-          name="example.tsx"
-          code={`${stateful ? 'import { useState } from "react";\n' : ""}${slug === "icon-button" ? 'import { Text } from "react-native";\n' : ""}import { ${item.export} } from "@/components/ui/skeuo-native/${file}";\n${stateful ? "\n// Inside your component:\n" + states + "\n" : ""}\n${item.example}`}
-        />
-        <p className="doc-small-note">
-          Wrap your app in <code>SkeuoProvider</code> from{" "}
-          <code>skeuo-native/theme</code> to set appearance, color overrides and
-          optional sound or haptic feedback. Templates use your app&apos;s
-          existing <code>SafeAreaProvider</code>. Sample data stays in memory.
-        </p>
-      </section>
-      <section id="compatibility" className="doc-section">
-        <h2>Fits your app.</h2>
-        <p>
-          The registry follows React Native Reusables&apos; source-owned
-          conventions. Your existing buttons, aliases and app navigation remain
-          yours. Use the copied source as a starting point, including your own
-          icons and data.
-        </p>
-        <CodeBlock
-          name="Theme and feedback"
-          code={
-            '<SkeuoProvider appearance="system" haptics={false}\n  onSound={() => playYourClickSound()}>\n  {children}\n</SkeuoProvider>'
-          }
-        />
-        <p>
-          Previews render the actual native source through React Native Web.
-          Device keyboard, screen-reader and hardware haptics still need checks
-          on your target devices.
-        </p>
-      </section>
+          {panel === "preview" ? (
+            <div className={showPhone ? "native-preview-stage" : "native-preview-stage native-preview-inline"}>
+              {slug === "pocket" && (
+                <div className="native-pocket-intro">
+                  <h2>Take Pocket for a spin.</h2>
+                  <p>Add an expense and see the balance update, or use the dock to explore spending and account settings.</p>
+                  <a href="#installation">Install Pocket <span aria-hidden="true">↓</span></a>
+                </div>
+              )}
+              <PhonePreview slug={slug} framed={showPhone} />
+            </div>
+          ) : (
+            <CodeBlock
+              name={`${file.split("/").pop()}.tsx`}
+              code={item.example}
+            />
+          )}
+        </section>
+        <div className="native-detail-guide">
+          <section id="installation" className="doc-section">
+            <h2>Installation</h2>
+            <p>
+              Run these commands in an Expo project configured for React Native Reusables and NativeWind.
+            </p>
+            <NativeInstall slug={slug} />
+            <p className="doc-small-note">
+              Tested baseline: Expo 54, React Native 0.81, React 19.1, NativeWind 4.
+              Existing Reusables controls are reused; the tactile source is added
+              under <code>components/ui/skeuo-native/</code>. No overwrite flag is
+              used.
+            </p>
+          </section>
+          <section id="usage" className="doc-section">
+            <h2>Usage</h2>
+            <CodeBlock
+              name="example.tsx"
+              code={slug === "pocket" ? pocketUsage : `${stateful ? 'import { useState } from "react";\n' : ""}${slug === "icon-button" ? 'import { Text } from "react-native";\n' : ""}import { ${item.export} } from "@/components/ui/skeuo-native/${file}";\n${stateful ? "\n// Inside your component:\n" + states + "\n" : ""}\n${item.example}`}
+            />
+            {slug !== "pocket" && <p className="doc-small-note">
+              Wrap your app in <code>SkeuoProvider</code> from{" "}
+              <code>skeuo-native/theme</code> to set appearance, color overrides and
+              optional sound or haptic feedback. Templates use your app&apos;s
+              existing <code>SafeAreaProvider</code>. Sample data stays in memory.
+            </p>}
+          </section>
+          <section id="compatibility" className="doc-section">
+            <h2>Compatibility</h2>
+            <p>
+              The registry follows React Native Reusables&apos; source-owned
+              conventions. Your existing buttons, aliases and app navigation remain
+              yours. Use the copied source as a starting point, including your own
+              icons and data.
+            </p>
+            {slug !== "pocket" && <CodeBlock
+              name="Theme and feedback"
+              code={
+                '<SkeuoProvider appearance="system" haptics={false}\n  onSound={() => playYourClickSound()}>\n  {children}\n</SkeuoProvider>'
+              }
+            />}
+            <p>
+              Previews render the actual native source through React Native Web.
+              Device keyboard, screen-reader and hardware haptics still need checks
+              on your target devices.
+            </p>
+          </section>
+        </div>
+      </div>
     </main>
   );
 }

@@ -18,7 +18,7 @@ export function TemplateShell({
   action,
 }: {
   name: string;
-  subtitle: string;
+  subtitle?: string;
   children: React.ReactNode;
   items: BottomBarItem[];
   value: string;
@@ -38,8 +38,8 @@ export function TemplateShell({
           justifyContent: "space-between",
           alignItems: "center",
           paddingHorizontal: 22,
-          paddingTop: 18,
-          paddingBottom: 18,
+          paddingTop: subtitle ? 18 : 12,
+          paddingBottom: subtitle ? 18 : 16,
         }}
       >
         <View style={{ gap: 3 }}>
@@ -54,7 +54,9 @@ export function TemplateShell({
             {name}
             <Text style={{ color: c.accent }}>.</Text>
           </Text>
-          <Text style={{ color: c.muted, fontSize: 10 }}>{subtitle}</Text>
+          {subtitle && (
+            <Text style={{ color: c.muted, fontSize: 10 }}>{subtitle}</Text>
+          )}
         </View>
         {action ?? (
           <View
@@ -78,7 +80,7 @@ export function TemplateShell({
         contentContainerStyle={{
           paddingHorizontal: 22,
           paddingBottom: 24,
-          gap: 24,
+          gap: subtitle ? 24 : 18,
         }}
       >
         {children}

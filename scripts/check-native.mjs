@@ -5,6 +5,7 @@ const base = process.env.NATIVE_TEST_URL ?? "http://localhost:3199";
 const catalog = JSON.parse(await readFile("mobile/catalog.json", "utf8"));
 const browser = await chromium.launch({
   headless: true,
+  executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE,
   args: ["--no-sandbox"],
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
@@ -22,7 +23,7 @@ const screenshot = async (name) => {
 const preview = async (slug) => {
   console.log("Checking", slug);
   await page.goto(`${base}/docs/mobile/${slug}`);
-  const f = page.frameLocator("iframe");
+  const f = page.frameLocator("main#docs-workspace:visible #preview iframe");
   await f.locator("#root").waitFor();
   await page.getByText("Loading native preview…").waitFor({ state: "hidden" });
   return f;
@@ -30,7 +31,11 @@ const preview = async (slug) => {
 try {
   await page.goto(`${base}/docs/mobile`);
   await page.getByRole("button", { name: "Bottom bars", exact: true }).click();
-  assert.equal(await page.locator(".native-tile").count(), 4);
+  assert.equal(await page.locator(".native-tile").count(), 1);
+  await page.goto(`${base}/templates/mobile`);
+  assert.equal(await page.locator(".native-tile").count(), 1);
+  await page.locator(".native-tile").getByRole("heading", { name: "Pocket" }).waitFor();
+  await page.goto(`${base}/docs/mobile`);
   await page.getByRole("button", { name: "All", exact: true }).click();
   await screenshot("catalog-desktop");
   await page
@@ -43,6 +48,25 @@ try {
     .getByRole("link", { name: "Mobile", exact: true })
     .click();
   await page.waitForURL("**/docs/mobile");
+  for (const width of [390, 1366]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(`${base}/`);
+    assert.equal(await page.getByRole("group", { name: "Library platform" }).count(), 0);
+    await page.goto(`${base}/templates/mobile`);
+    const platform = page.getByRole("group", { name: "Library platform" });
+    await platform.getByRole("link", { name: "Web", exact: true }).click();
+    await page.waitForURL("**/templates");
+    await platform.getByRole("link", { name: "Mobile", exact: true }).click();
+    await page.waitForURL("**/templates/mobile");
+    assert.equal(await platform.getByRole("link", { name: "Mobile", exact: true }).getAttribute("aria-current"), "page");
+  }
+  await preview("badge");
+  assert.equal(await page.locator("#preview .native-phone").count(), 0);
+  assert(await page.locator("#preview .native-inline-preview").isVisible());
+  await page.getByRole("button", { name: "Code", exact: true }).click();
+  assert.equal(await page.locator("main#docs-workspace:visible #preview iframe").count(), 0);
+  await page.getByRole("button", { name: "Preview", exact: true }).click();
+  await page.frameLocator("main#docs-workspace:visible #preview iframe").getByText("In progress", { exact: true }).waitFor();
   for (const item of catalog) {
     const f = await preview(item.slug);
     const text = await f.locator("body").innerText();
@@ -52,6 +76,9 @@ try {
     );
   }
   let f = await preview("pocket");
+  await f.getByRole("button", { name: "View all", exact: true }).click();
+  await f.getByRole("heading", { name: "Transactions", exact: true }).waitFor();
+  await f.getByRole("tab", { name: "Home", exact: true }).click();
   await f
     .getByRole("button", { name: "+ Add a transaction", exact: true })
     .click();
@@ -73,9 +100,9 @@ try {
   await page.waitForTimeout(200);
   assert.equal(
     await f
-      .getByText("Total balance", { exact: true })
+      .getByRole("heading", { name: "Good morning, Alex." })
       .evaluate((e) => getComputedStyle(e).color),
-    "rgb(170, 170, 165)",
+    "rgb(239, 239, 235)",
   );
   await screenshot("pocket-dark");
   f = await preview("still");
@@ -118,7 +145,10 @@ try {
   for (const width of [320, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of [
+      "/",
       "/docs/mobile",
+      "/docs/mobile/blocks",
+      "/docs/mobile/badge",
       "/templates/mobile",
       "/docs/mobile/pocket",
       "/docs/button",
@@ -134,6 +164,9 @@ try {
     }
     if (width === 390) {
       await page.goto(base + "/docs/mobile/pocket");
+      await page.getByText("Loading native preview…").waitFor({ state: "hidden" });
+      const phone = await page.locator(".native-phone").boundingBox();
+      assert(Math.abs(phone.width / phone.height - 9 / 19.5) < 0.01);
       await screenshot("pocket-mobile-site");
     }
   }
