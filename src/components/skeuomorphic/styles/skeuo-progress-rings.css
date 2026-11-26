@@ -29,6 +29,8 @@
 }
 
 .sk-rings-dial {
+  --sk-groove-wall: color-mix(in srgb, var(--sk-base) 68%, black);
+  --sk-arc-shadow: color-mix(in srgb, var(--sk-bg) 54%, black);
   position: relative;
   display: grid;
   width: 100%;
@@ -48,8 +50,9 @@
   transform-origin: 120px 120px;
 }
 
-.sk-ring-material {
-  filter: drop-shadow(0 2px 1px #0003);
+.sk-ring-shadow {
+  opacity: .52;
+  filter: blur(.95px);
 }
 
 .sk-ring-target {

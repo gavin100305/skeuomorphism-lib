@@ -45,13 +45,24 @@ export function SkeuoProgressRings({
           <svg viewBox="0 0 240 240" aria-hidden="true">
             <defs>
               <linearGradient id={`${id}-groove`} x2="0%" y2="100%">
-                <stop stopColor="var(--sk-base)" />
-                <stop offset="100%" stopColor="var(--sk-well)" />
+                <stop stopColor="var(--sk-groove-wall)" />
+                <stop offset=".55" stopColor="var(--sk-base)" />
+                <stop offset="1" stopColor="var(--sk-well)" />
               </linearGradient>
-              <linearGradient id={`${id}-fill`} x2="0%" y2="100%">
-                <stop stopColor="white" stopOpacity=".2" />
-                <stop offset=".45" stopColor="white" stopOpacity="0" />
-                <stop offset="1" stopColor="black" stopOpacity=".16" />
+              <linearGradient id={`${id}-floor`} x2="0%" y2="100%">
+                <stop stopColor="var(--sk-base)" />
+                <stop offset="1" stopColor="var(--sk-well)" />
+              </linearGradient>
+              <linearGradient id={`${id}-bevel`}>
+                <stop stopColor="black" stopOpacity=".42" />
+                <stop offset=".52" stopColor="black" stopOpacity=".22" />
+                <stop offset="1" stopColor="white" stopOpacity=".24" />
+              </linearGradient>
+              <linearGradient id={`${id}-fill`}>
+                <stop stopColor="black" stopOpacity=".16" />
+                <stop offset=".48" stopColor="white" stopOpacity=".05" />
+                <stop offset=".83" stopColor="white" stopOpacity=".32" />
+                <stop offset="1" stopColor="white" stopOpacity=".44" />
               </linearGradient>
             </defs>
             {rings.map((ring, index) => {
@@ -63,12 +74,15 @@ export function SkeuoProgressRings({
               } as CSSProperties;
               return (
                 <g key={ring.id} className="sk-ring-series" data-tone={index % 3} style={style} fill="none">
-                  <circle cx="120" cy="121" r={radius} stroke="var(--sk-highlight)" strokeWidth={thickness + 2} />
-                  <circle cx="120" cy="120" r={radius} stroke={`url(#${id}-groove)`} strokeWidth={thickness + 1} />
+                  <circle cx="120" cy="121.2" r={radius} stroke="var(--sk-highlight)" strokeWidth={thickness * 1.4} />
+                  <circle cx="120" cy="120" r={radius} stroke={`url(#${id}-groove)`} strokeWidth={thickness * 1.3} />
+                  <circle cx="120" cy="121.1" r={radius} stroke={`url(#${id}-floor)`} strokeWidth={thickness * .94} />
                   {ring.percent > 0 && (
                     <g className="sk-ring-arc" strokeDasharray={`${ring.percent} 100`} strokeLinecap="round">
-                      <circle className="sk-ring-material" cx="120" cy="120" r={radius} pathLength="100" stroke="var(--sk-ring-ink)" strokeWidth={thickness} />
-                      <circle cx="120" cy="120" r={radius} pathLength="100" stroke={`url(#${id}-fill)`} strokeWidth={thickness} />
+                      <circle className="sk-ring-shadow" cx="118.4" cy="120" r={radius} pathLength="100" stroke="var(--sk-arc-shadow)" strokeWidth={thickness} />
+                      <circle cx="120" cy="120" r={radius} pathLength="100" stroke="var(--sk-ring-ink)" strokeWidth={thickness} />
+                      <circle cx="120" cy="120" r={radius} pathLength="100" stroke={`url(#${id}-bevel)`} strokeWidth={thickness} />
+                      <circle cx="120.7" cy="120" r={radius} pathLength="100" stroke={`url(#${id}-fill)`} strokeWidth={thickness * .76} />
                     </g>
                   )}
                   <circle className="sk-ring-target" cx="120" cy="120" r={radius} stroke="transparent" strokeWidth={spacing} onClick={() => setSelectedId(ring.id)} />
