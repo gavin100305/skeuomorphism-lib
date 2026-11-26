@@ -66,7 +66,7 @@
     "slug": "slider",
     "name": "Slider",
     "group": "Forms",
-    "description": "A native fader with a recessed channel and tactile thumb.",
+    "description": "A mechanical fader with a recessed channel, ridged thumb and engraved scale.",
     "file": "skeuo-slider.tsx",
     "export": "SkeuoSlider",
     "example": "<SkeuoSlider label=\"Volume\" value={volume} onValueChange={setVolume} />"

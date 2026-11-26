@@ -75,7 +75,16 @@ try {
       `Missing preview ${item.slug}`,
     );
   }
-  let f = await preview("pocket");
+  let f = await preview("slider");
+  const fader = f.getByRole("slider", { name: "Depth" });
+  await fader.press("ArrowRight");
+  assert.equal(await fader.inputValue(), "66");
+  await fader.press("Home");
+  assert.equal(await fader.inputValue(), "0");
+  await fader.press("End");
+  assert.equal(await fader.inputValue(), "100");
+
+  f = await preview("pocket");
   await f.getByRole("button", { name: "View all", exact: true }).click();
   await f.getByRole("heading", { name: "Transactions", exact: true }).waitFor();
   await f.getByRole("tab", { name: "Home", exact: true }).click();
@@ -172,7 +181,7 @@ try {
   }
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: 26 live previews; platform switch; four bars; expense add/balance; theme bridge; persistent focus/habits; activity period; carousel bounds; native/web routes at 320/390/768/1280px.",
+    "PASS: 26 live previews; platform switch; four bars; fader keyboard controls; expense add/balance; theme bridge; persistent focus/habits; activity period; carousel bounds; native/web routes at 320/390/768/1280px.",
   );
 } catch (error) {
   console.error("Browser errors:", errors);

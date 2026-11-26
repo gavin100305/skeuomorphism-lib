@@ -25,6 +25,7 @@
   ],
   "slider": [
     "@react-native-community/slider",
+    "expo-linear-gradient",
     "expo-haptics"
   ],
   "tabs": [
