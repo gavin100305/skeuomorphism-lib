@@ -3,26 +3,30 @@ import { Pressable, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFeedback, useSkeuo } from "./theme";
 import { SkeuoGlyph } from "./icons";
+import { SkeuoDockBar, type DockBarProps } from "./skeuo-dock-bar";
+
+export type { BottomBarItem } from "./skeuo-dock-bar";
 export type BottomBarVariant = "dock" | "keys" | "rail" | "pill";
-export type BottomBarItem = {
-  value: string;
-  label: string;
-  icon?: React.ReactNode;
-  disabled?: boolean;
-};
 export function SkeuoBottomBar({
   items,
   value,
   onValueChange,
   variant = "dock",
   bottomInset = 0,
-}: {
-  items: BottomBarItem[];
-  value: string;
-  onValueChange: (value: string) => void;
-  variant?: BottomBarVariant;
-  bottomInset?: number;
-}) {
+}: DockBarProps & { variant?: BottomBarVariant }) {
+  if (variant === "dock") {
+    return <SkeuoDockBar {...{ items, value, onValueChange, bottomInset }} />;
+  }
+  return <LabeledBottomBar {...{ items, value, onValueChange, variant, bottomInset }} />;
+}
+
+function LabeledBottomBar({
+  items,
+  value,
+  onValueChange,
+  variant,
+  bottomInset = 0,
+}: DockBarProps & { variant: Exclude<BottomBarVariant, "dock"> }) {
   const { colors: c } = useSkeuo();
   const feedback = useFeedback();
   return (
@@ -40,8 +44,8 @@ export function SkeuoBottomBar({
         style={{
           flexDirection: "row",
           gap: variant === "keys" ? 8 : 2,
-          padding: variant === "dock" ? 6 : variant === "pill" ? 5 : 0,
-          borderWidth: variant === "dock" || variant === "pill" ? 1 : 0,
+          padding: variant === "pill" ? 5 : 0,
+          borderWidth: variant === "pill" ? 1 : 0,
           borderColor: c.edge,
           borderRadius: variant === "pill" ? 32 : 16,
           backgroundColor: variant === "keys" ? c.background : c.well,
@@ -69,8 +73,7 @@ export function SkeuoBottomBar({
                 flex: 1,
                 minHeight: 60,
                 borderRadius: variant === "pill" ? 26 : 10,
-                borderWidth:
-                  variant === "keys" || (active && variant === "dock") ? 1 : 0,
+                borderWidth: variant === "keys" ? 1 : 0,
                 borderBottomWidth:
                   variant === "keys"
                     ? pressed

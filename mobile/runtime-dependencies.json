@@ -54,19 +54,23 @@
   ],
   "bottom-bar-dock": [
     "expo-linear-gradient",
+    "react-native-svg",
     "expo-haptics"
   ],
   "bottom-bar-keys": [
     "expo-linear-gradient",
-    "expo-haptics"
+    "expo-haptics",
+    "react-native-svg"
   ],
   "bottom-bar-rail": [
     "expo-linear-gradient",
-    "expo-haptics"
+    "expo-haptics",
+    "react-native-svg"
   ],
   "bottom-bar-pill": [
     "expo-linear-gradient",
-    "expo-haptics"
+    "expo-haptics",
+    "react-native-svg"
   ],
   "summary-card": [
     "expo-haptics"
@@ -83,16 +87,19 @@
   "pocket": [
     "expo-linear-gradient",
     "react-native-safe-area-context",
-    "expo-haptics"
+    "expo-haptics",
+    "react-native-svg"
   ],
   "still": [
     "react-native-safe-area-context",
     "expo-haptics",
-    "expo-linear-gradient"
+    "expo-linear-gradient",
+    "react-native-svg"
   ],
   "daybook": [
     "react-native-safe-area-context",
     "expo-haptics",
-    "expo-linear-gradient"
+    "expo-linear-gradient",
+    "react-native-svg"
   ]
 }

@@ -37,7 +37,8 @@ for (const item of catalog) {
       else if (
         dep.startsWith("expo-") ||
         dep === "@react-native-community/slider" ||
-        dep === "react-native-safe-area-context"
+        dep === "react-native-safe-area-context" ||
+        dep === "react-native-svg"
       )
         expo.add(dep);
       else if (!["react", "react-native"].includes(dep)) packages.add(dep);

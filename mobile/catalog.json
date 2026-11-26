@@ -138,7 +138,7 @@
     "slug": "bottom-bar-dock",
     "name": "Recessed dock",
     "group": "Bottom bars",
-    "description": "A sunken tray with a raised active key.",
+    "description": "A recessed tray with raised icon keys and a green selection.",
     "file": "skeuo-dock-bar.tsx",
     "export": "SkeuoDockBar",
     "example": "<SkeuoDockBar value={tab} onValueChange={setTab} items={[{value:\"home\",label:\"Home\"},{value:\"transactions\",label:\"Transactions\"},{value:\"analysis\",label:\"Analysis\"},{value:\"profile\",label:\"Profile\"}]} />"

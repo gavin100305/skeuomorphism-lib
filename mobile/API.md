@@ -30,7 +30,7 @@ The component source has relative imports and does not depend on Expo Router, we
 - `SkeuoPhotoCarousel`: `items: { uri, title, caption? }[]`, optional `label`. Previous/next controls stop at the ends. Hosts own image availability.
 - `SkeuoTimer`: initial `minutes` defaults to 25, optional `onComplete`. Start, pause and reset are local. Changing minutes after mounting does not reset the current session.
 - `SkeuoBottomBar`: `items: { value, label, icon?, disabled? }[]`, `value`, `onValueChange`, `variant` dock/keys/rail/pill, `bottomInset?`. Use your actual safe-area bottom inset.
-- `SkeuoDockBar`, `SkeuoKeysBar`, `SkeuoRailBar`, `SkeuoPillBar`: the same bar contract with a fixed design.
+- `SkeuoDockBar`, `SkeuoKeysBar`, `SkeuoRailBar`, `SkeuoPillBar`: the same bar contract with a fixed design. The dock uses icon-only keys and keeps each item’s label for accessibility. Supply an icon for custom destinations.
 - `SummaryCard`: optional `label`, `value`, `detail` strings.
 - `TransactionList`: optional `items: { id, name, category, amount, income? }[]`; empty arrays render an empty state.
 - `HabitList`: self-contained sample checklist with session state.
