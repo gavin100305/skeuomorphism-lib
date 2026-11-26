@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Platform,Text,View} from 'react-native';
-import {SkeuoButton,SkeuoIconButton,SkeuoInput,SkeuoSwitch,SkeuoCheckbox,SkeuoRadioGroup,SkeuoSlider,SkeuoTabs,SkeuoCard,SkeuoBadge,SkeuoDialog,SkeuoBottomSheet,SkeuoKeyButton,SkeuoPhotoCarousel,SkeuoTimer,useSkeuo} from '../components/skeuomorphic';
+import {SkeuoButton,SkeuoIconButton,SkeuoInput,SkeuoSwitch,SkeuoCheckbox,SkeuoRadioGroup,SkeuoSlider,SkeuoTabs,SkeuoCard,SkeuoBadge,SkeuoDialog,SkeuoBottomSheet,SkeuoKeyButton,SkeuoPhotoCarousel,SkeuoProgressRings,SkeuoTimer,useSkeuo} from '../components/skeuomorphic';
 import {SkeuoBottomBar} from '../components/skeuomorphic/skeuo-bottom-bar';
 import {SummaryCard} from '../components/skeuomorphic/blocks/summary-card';
 import {TransactionList} from '../components/skeuomorphic/blocks/transaction-list';
@@ -29,6 +29,11 @@ case 'photo-carousel': {
   ]}/>;
   break;
 }
+case 'progress-rings':content=<SkeuoProgressRings items={[
+  {id:'focus',label:'Focus time',value:45,max:60,unit:'min'},
+  {id:'movement',label:'Movement',value:4,max:8,unit:'km'},
+  {id:'reading',label:'Reading',value:18,max:30,unit:'pages'},
+]}/>;break;
 case 'timer':content=<SkeuoTimer/>;break;
 case 'summary-card':content=<SummaryCard/>;break;case 'transaction-list':content=<TransactionList/>;break;case 'habit-list':content=<HabitList/>;break;case 'activity-chart':content=<ActivityChart/>;break;
 default:content=<Text style={{color:c.muted}}>Choose a component.</Text>;

@@ -50,6 +50,11 @@
     "expo-linear-gradient",
     "expo-haptics"
   ],
+  "progress-rings": [
+    "expo-linear-gradient",
+    "react-native-svg",
+    "expo-haptics"
+  ],
   "timer": [
     "expo-linear-gradient",
     "react-native-svg",

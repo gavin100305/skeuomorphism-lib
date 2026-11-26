@@ -318,6 +318,35 @@
 .native-miniature-photo-carousel > span:nth-child(3) {
   transform: rotate(-14deg);
 }
+.native-miniature-progress-rings {
+  position: relative;
+  display: grid;
+  width: 110px;
+  aspect-ratio: 1;
+  place-items: center;
+}
+.native-miniature-progress-rings > span {
+  position: absolute;
+  width: var(--ring-size, 108px);
+  height: var(--ring-size, 108px);
+  border: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring-color, var(--accent)) var(--ring-fill, 75%), var(--base) 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  transform: none;
+}
+.native-miniature-progress-rings > span:nth-child(2) {
+  --ring-size: 84px;
+  --ring-color: #7f9b8c;
+  --ring-fill: 50%;
+  transform: none;
+}
+.native-miniature-progress-rings > span:nth-child(3) {
+  --ring-size: 60px;
+  --ring-color: #a67749;
+  --ring-fill: 60%;
+  transform: none;
+}
 .native-miniature-timer > span {
   width: 100px;
   height: 100px;

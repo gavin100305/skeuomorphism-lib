@@ -126,6 +126,15 @@
     "example": "<SkeuoPhotoCarousel items={[{uri:\"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=640\",title:\"Somewhere quiet\"}]} />"
   },
   {
+    "slug": "progress-rings",
+    "name": "Progress Rings",
+    "group": "Signature",
+    "description": "Recessed goal rings with a staggered sweep and a selectable center readout.",
+    "file": "skeuo-progress-rings.tsx",
+    "export": "SkeuoProgressRings",
+    "example": "<SkeuoProgressRings items={[{ id: \"focus\", label: \"Focus time\", value: 45, max: 60, unit: \"min\" }, { id: \"movement\", label: \"Movement\", value: 4, max: 8, unit: \"km\" }, { id: \"reading\", label: \"Reading\", value: 18, max: 30, unit: \"pages\" }]} />"
+  },
+  {
     "slug": "timer",
     "name": "Focus timer",
     "group": "Signature",

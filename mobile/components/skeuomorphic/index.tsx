@@ -15,4 +15,5 @@ export { SkeuoBottomSheet } from "./skeuo-bottom-sheet";
 export { SkeuoBottomBar } from "./skeuo-bottom-bar";
 export { SkeuoKeyButton } from "./skeuo-key-button";
 export { SkeuoPhotoCarousel } from "./skeuo-photo-carousel";
+export { SkeuoProgressRings, type ProgressRing } from "./skeuo-progress-rings";
 export { SkeuoTimer } from "./skeuo-timer";

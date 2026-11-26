@@ -28,6 +28,7 @@ The component source has relative imports and does not depend on Expo Router, we
 
 - `SkeuoKeyButton`: `label`, optional `symbol`, `onPress`, `disabled?`.
 - `SkeuoPhotoCarousel`: `items: { uri, title, caption?, imageAlt?, label?, meta?, description? }[]`, optional `label`. Swipe or use the previous/next controls, which stop at the ends. Tap the active print or More info for the photo record. Hosts own image availability.
+- `SkeuoProgressRings`: `items: { id, label, value, max, unit?, color? }[]`, optional `title` and `animate`. Tap a ring or legend row to select a goal. The entry sweep respects Reduce Motion.
 - `SkeuoTimer`: initial `minutes` defaults to 25 and is clamped to 1–60 minutes. Drag the rim to set a new duration in one-minute steps. Turning the rim pauses the countdown, and reset restores the selected duration. The optional `onComplete` runs when the countdown finishes. Changing minutes after mounting does not reset the current session.
 - `SkeuoBottomBar`: `items: { value, label, icon?, disabled? }[]`, `value`, `onValueChange`, `variant` dock/keys/rail/pill, `bottomInset?`. Use your actual safe-area bottom inset.
 - `SkeuoDockBar`, `SkeuoKeysBar`, `SkeuoRailBar`, `SkeuoPillBar`: the same bar contract with a fixed design. The dock uses icon-only keys and keeps each item’s label for accessibility. Supply an icon for custom destinations.
