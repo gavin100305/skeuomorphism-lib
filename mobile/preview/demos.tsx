@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {Text,View} from 'react-native';
+import {Platform,Text,View} from 'react-native';
 import {SkeuoButton,SkeuoIconButton,SkeuoInput,SkeuoSwitch,SkeuoCheckbox,SkeuoRadioGroup,SkeuoSlider,SkeuoTabs,SkeuoCard,SkeuoBadge,SkeuoDialog,SkeuoBottomSheet,SkeuoKeyButton,SkeuoPhotoCarousel,SkeuoTimer,useSkeuo} from '../components/skeuomorphic';
 import {SkeuoBottomBar} from '../components/skeuomorphic/skeuo-bottom-bar';
 import {SummaryCard} from '../components/skeuomorphic/blocks/summary-card';
@@ -20,7 +20,15 @@ case 'tabs':content=<><SkeuoTabs label="Period" value={value} onValueChange={set
 case 'card':content=<SkeuoCard><Text style={{color:c.ink,fontSize:23,fontWeight:'500'}}>A place for your ideas.</Text><Text style={{color:c.muted,lineHeight:22}}>A fine edge. A little depth. Enough room for what matters.</Text><SkeuoButton onPress={()=>setCount(count+1)}>Make something</SkeuoButton></SkeuoCard>;break;
 case 'badge':content=<View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'center',gap:10}}><SkeuoBadge>In progress</SkeuoBadge><SkeuoBadge>Made with care</SkeuoBadge></View>;break;
 case 'dialog':case 'bottom-sheet':{const Panel=slug==='dialog'?SkeuoDialog:SkeuoBottomSheet;content=<><SkeuoButton onPress={()=>setOpen(true)}>{slug==='dialog'?'Open dialog':'Open bottom sheet'}</SkeuoButton><Panel open={open} onOpenChange={setOpen} title="A little moment."><Text style={{color:c.muted,lineHeight:22}}>A quiet place for the next decision. The same materials, all the way through.</Text></Panel></>;break;}
-case 'photo-carousel':content=<SkeuoPhotoCarousel items={[{uri:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=640&q=80',title:'Somewhere quiet',caption:'A few places worth remembering.'},{uri:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=640&q=80',title:'The longer way home'}]}/>;break;
+case 'photo-carousel': {
+  const hostedPreview = Platform.OS === 'web' && window.location.pathname.startsWith('/native-preview/');
+  content = <SkeuoPhotoCarousel items={[
+    {uri:hostedPreview ? '/examples/lake.jpg' : 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=640&q=80',title:'Somewhere quiet',label:'Field notes',meta:'01',caption:'Early light on still water.',description:'A quiet morning at the lake before the trail fills up.'},
+    {uri:hostedPreview ? '/examples/architecture-light.jpg' : 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=640&q=80',title:'The longer way home',label:'Looking up',meta:'02',caption:'A change of perspective on the way back.'},
+    {uri:hostedPreview ? '/examples/geometry.jpg' : 'https://images.pexels.com/photos/13926760/pexels-photo-13926760.jpeg?auto=compress&w=640',title:'Lines and light',label:'Geometry',meta:'03',caption:'A study in angles and afternoon light.'},
+  ]}/>;
+  break;
+}
 case 'timer':content=<SkeuoTimer/>;break;
 case 'summary-card':content=<SummaryCard/>;break;case 'transaction-list':content=<TransactionList/>;break;case 'habit-list':content=<HabitList/>;break;case 'activity-chart':content=<ActivityChart/>;break;
 default:content=<Text style={{color:c.muted}}>Choose a component.</Text>;

@@ -120,7 +120,7 @@
     "slug": "photo-carousel",
     "name": "Photo carousel",
     "group": "Signature",
-    "description": "Fanned photographic prints, with paper frames and previous/next controls.",
+    "description": "Fanned paper prints with swipe navigation and a photo detail view.",
     "file": "skeuo-photo-carousel.tsx",
     "export": "SkeuoPhotoCarousel",
     "example": "<SkeuoPhotoCarousel items={[{uri:\"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=640\",title:\"Somewhere quiet\"}]} />"

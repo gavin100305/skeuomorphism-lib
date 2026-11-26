@@ -173,7 +173,25 @@ try {
   assert(await f.getByRole("button", { name: "Previous photo" }).isDisabled());
   await f.getByRole("button", { name: "Next photo" }).click();
   await f.getByText("The longer way home", { exact: true }).waitFor();
+  await f.getByRole("button", { name: "Show Lines and light" }).click();
+  await f.getByText("Lines and light", { exact: true }).waitFor();
   assert(await f.getByRole("button", { name: "Next photo" }).isDisabled());
+  await f.getByRole("button", { name: "Previous photo" }).press("ArrowLeft");
+  await f.getByRole("button", { name: "Previous photo" }).press("ArrowLeft");
+  const print = f.getByRole("button", { name: "View Somewhere quiet photo details" });
+  assert(await f.getByRole("button", { name: "Previous photo" }).isDisabled());
+  await print.click();
+  await f.getByText("A quiet morning at the lake before the trail fills up.", { exact: true }).waitFor();
+  await f.getByRole("button", { name: "Close photo details" }).click();
+  await f.getByRole("button", { name: "Close photo details" }).waitFor({ state: "hidden" });
+  const photo = await print.boundingBox();
+  assert(photo);
+  await page.mouse.move(photo.x + photo.width * 0.75, photo.y + photo.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(photo.x + photo.width * 0.2, photo.y + photo.height / 2, { steps: 8 });
+  await page.mouse.up();
+  await f.getByText("The longer way home", { exact: true }).waitFor();
+  assert.equal(await f.getByRole("button", { name: "Close photo details" }).count(), 0);
   for (const width of [320, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of [
@@ -204,7 +222,7 @@ try {
   }
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: 26 live previews; platform switch; four bars; fader keyboard controls; timer rim and reset; expense add/balance; theme bridge; persistent focus/habits; activity period; carousel bounds; native/web routes at 320/390/768/1280px.",
+    "PASS: 26 live previews; platform switch; four bars; fader keyboard controls; timer rim and reset; expense add/balance; theme bridge; persistent focus/habits; activity period; carousel bounds, details, and swipe; native/web routes at 320/390/768/1280px.",
   );
 } catch (error) {
   console.error("Browser errors:", errors);

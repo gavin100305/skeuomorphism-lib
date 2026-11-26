@@ -46,6 +46,7 @@
     "expo-linear-gradient"
   ],
   "photo-carousel": [
+    "react-native-svg",
     "expo-linear-gradient",
     "expo-haptics"
   ],
