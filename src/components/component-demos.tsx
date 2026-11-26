@@ -21,6 +21,7 @@ import { SkeuoExperienceTabs as ExperienceTabs } from "./skeuomorphic/skeuo-expe
 import { SkeuoFocusTimer as FocusTimer } from "./skeuomorphic/skeuo-focus-timer";
 import { SkeuoTestimonialCarousel as TestimonialCarousel } from "./skeuomorphic/skeuo-testimonial-carousel";
 import { Icon } from "./icons";
+import { SkeuoProgressRings } from "./skeuomorphic/skeuo-progress-rings";
 
 const contributionDays: ContributionDay[] = Array.from({ length: 730 }, (_, index) => {
   const seed = (index * 17 + Math.floor(index / 7) * 3) % 29;
@@ -42,6 +43,11 @@ export function ComponentDemo({ slug }: { slug: string }) {
   const [value, setValue] = useState(65);
   const [tab, setTab] = useState("design");
   const [experience, setExperience] = useState("studio");
+  if (slug === "progress-rings") return <SkeuoProgressRings items={[
+    { id: "focus", label: "Focus time", value: 45, max: 60, unit: "min" },
+    { id: "movement", label: "Movement", value: 4, max: 8, unit: "km" },
+    { id: "reading", label: "Reading", value: 18, max: 30, unit: "pages" },
+  ]} />;
   if (slug === "photo-carousel") return <div className="demo-full"><PhotoCarousel label="Collected moments" items={[
     {id:"lake",image:"/examples/lake.jpg",imageAlt:"Mountain peaks reflected in a still lake",title:"A moment of stillness",label:"Quiet mornings",meta:"01",eyebrow:"FIELD NOTES",subtitle:"A small collection of places and perspectives.",description:"A stock photograph used to demonstrate the original portfolio’s printed photo frame and details view."},
     {id:"architecture",image:"/examples/architecture-light.jpg",imageAlt:"Pale geometric architecture viewed from below",title:"Looking up",label:"Architecture",meta:"02",eyebrow:"BUILT FORMS",subtitle:"Light, structure, and a different point of view."},

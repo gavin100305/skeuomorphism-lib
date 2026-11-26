@@ -1,0 +1,191 @@
+@import "./skeuo-base.css";
+
+.sk-progress-rings {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding: clamp(16px, 4vw, 30px);
+  border: 1px solid var(--sk-edge);
+  border-radius: 15px;
+  background: linear-gradient(145deg, var(--sk-surface-raised), var(--sk-surface));
+  color: var(--sk-card-ink);
+  box-shadow: inset 0 2px var(--sk-highlight), 0 4px var(--sk-base),
+    0 5px var(--sk-edge), 0 13px 23px var(--sk-shadow);
+  container-type: inline-size;
+}
+
+.sk-progress-rings > h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.sk-rings-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(12px, 4vw, 30px);
+}
+
+.sk-rings-dial {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 270px;
+  margin-inline: auto;
+  place-items: center;
+}
+
+.sk-rings-dial svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.sk-ring-arc {
+  transform: rotate(-90deg);
+  transform-origin: 120px 120px;
+}
+
+.sk-ring-material {
+  filter: drop-shadow(0 2px 1px #0003);
+}
+
+.sk-ring-target {
+  cursor: pointer;
+}
+
+.sk-ring-series {
+  --sk-ring-ink: var(--sk-ring-color, var(--sk-accent));
+}
+
+.sk-ring-series[data-tone="1"] {
+  --sk-ring-ink: var(--sk-ring-color, #7f9b8c);
+}
+
+.sk-ring-series[data-tone="2"] {
+  --sk-ring-ink: var(--sk-ring-color, #a67749);
+}
+
+.sk-rings-readout {
+  position: absolute;
+  display: grid;
+  width: 32%;
+  justify-items: center;
+  gap: 3px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.sk-rings-readout strong {
+  font-size: clamp(19px, 7cqi, 36px);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-rings-readout span {
+  max-width: 100%;
+  color: var(--sk-muted);
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sk-rings-legend {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sk-rings-legend button {
+  display: grid;
+  width: 100%;
+  min-height: 44px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.sk-rings-legend button[aria-pressed="true"],
+.sk-rings-legend button:hover {
+  border-color: var(--sk-edge);
+  background: var(--sk-well);
+  box-shadow: inset 0 2px 4px var(--sk-shadow), 0 1px var(--sk-highlight);
+}
+
+.sk-rings-legend button:focus-visible {
+  outline: 2px solid var(--sk-ring);
+  outline-offset: 2px;
+}
+
+.sk-ring-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--sk-ring-ink);
+  box-shadow: inset 0 1px 1px #ffffff40, 0 1px 2px var(--sk-shadow);
+}
+
+.sk-ring-label,
+.sk-ring-value {
+  overflow-wrap: anywhere;
+}
+
+.sk-ring-value {
+  max-width: 18ch;
+  color: var(--sk-muted);
+  text-align: right;
+  font: 11px var(--sk-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-ring-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@container (max-width: 420px) {
+  .sk-rings-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sk-rings-dial[data-animate] .sk-ring-arc {
+    animation: sk-ring-sweep 820ms cubic-bezier(.18, .72, .23, 1) var(--sk-ring-delay) backwards;
+  }
+}
+
+@keyframes sk-ring-sweep {
+  from {
+    opacity: 0;
+    stroke-dasharray: 0 100;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+    stroke-dasharray: var(--sk-ring-progress) 100;
+  }
+}

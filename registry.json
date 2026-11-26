@@ -418,6 +418,34 @@
       ]
     },
     {
+      "name": "skeuo-progress-rings",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Progress Rings",
+      "description": "Concentric goal tracking with recessed grooves and a staggered entry sweep.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-progress-rings.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-progress-rings.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-progress-rings.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-progress-rings.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
+    },
+    {
       "name": "skeuo-focus-timer",
       "type": "registry:ui",
       "title": "Skeuomorphic Focus Timer",
