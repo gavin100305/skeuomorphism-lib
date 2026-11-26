@@ -84,6 +84,29 @@ try {
   await fader.press("End");
   assert.equal(await fader.inputValue(), "100");
 
+  f = await preview("timer");
+  const rim = f.getByRole("slider", { name: "Focus duration" });
+  const dial = await rim.boundingBox();
+  assert(dial);
+  const centerX = dial.x + dial.width / 2;
+  const centerY = dial.y + dial.height / 2;
+  const radius = dial.width / 2 - 5;
+  await page.mouse.move(centerX, centerY - radius);
+  await page.mouse.down();
+  for (let angle = 15; angle <= 90; angle += 15) {
+    const radians = angle * Math.PI / 180;
+    await page.mouse.move(centerX + radius * Math.sin(radians), centerY - radius * Math.cos(radians));
+  }
+  await page.mouse.up();
+  assert.equal(await rim.getAttribute("aria-valuenow"), "40");
+  await rim.press("ArrowLeft");
+  assert.equal(await rim.getAttribute("aria-valuenow"), "39");
+  await f.getByRole("button", { name: "Start focus", exact: true }).click();
+  await f.getByText("38:59", { exact: true }).waitFor();
+  await f.getByRole("button", { name: "Pause", exact: true }).click();
+  await f.getByRole("button", { name: "Reset focus timer", exact: true }).click();
+  await f.getByText("39:00", { exact: true }).waitFor();
+
   f = await preview("pocket");
   await f.getByRole("button", { name: "View all", exact: true }).click();
   await f.getByRole("heading", { name: "Transactions", exact: true }).waitFor();
@@ -181,7 +204,7 @@ try {
   }
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: 26 live previews; platform switch; four bars; fader keyboard controls; expense add/balance; theme bridge; persistent focus/habits; activity period; carousel bounds; native/web routes at 320/390/768/1280px.",
+    "PASS: 26 live previews; platform switch; four bars; fader keyboard controls; timer rim and reset; expense add/balance; theme bridge; persistent focus/habits; activity period; carousel bounds; native/web routes at 320/390/768/1280px.",
   );
 } catch (error) {
   console.error("Browser errors:", errors);

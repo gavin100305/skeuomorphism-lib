@@ -322,8 +322,9 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 9px solid var(--edge);
-  background: var(--well);
+  border: 1px solid var(--edge);
+  background: repeating-conic-gradient(var(--edge) 0deg 1deg, transparent 1deg 12deg), var(--well);
+  box-shadow: inset 0 2px 4px var(--shadow), 0 3px 5px var(--shadow);
   transform: none;
   position: relative;
 }
@@ -333,10 +334,15 @@
 .native-miniature-timer > span:after {
   content: "25:00";
   font-size: 22px;
+  font-family: var(--font-geist-mono), monospace;
   font-weight: 300;
   color: var(--ink);
   position: absolute;
-  inset: 0;
+  inset: 6px;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: inset 0 4px 8px var(--shadow), inset 0 -2px var(--highlight);
   display: grid;
   place-items: center;
 }

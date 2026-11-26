@@ -129,7 +129,7 @@
     "slug": "timer",
     "name": "Focus timer",
     "group": "Signature",
-    "description": "A recessed dial, tabular clock and physical start key.",
+    "description": "A recessed focus timer with a rotating rim that sets the session duration.",
     "file": "skeuo-timer.tsx",
     "export": "SkeuoTimer",
     "example": "<SkeuoTimer minutes={25} />"

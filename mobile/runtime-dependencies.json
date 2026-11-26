@@ -50,8 +50,9 @@
     "expo-haptics"
   ],
   "timer": [
-    "expo-haptics",
-    "expo-linear-gradient"
+    "expo-linear-gradient",
+    "react-native-svg",
+    "expo-haptics"
   ],
   "bottom-bar-dock": [
     "expo-linear-gradient",
