@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {Platform,Text,View} from 'react-native';
+import {Platform,StyleSheet,Text,View} from 'react-native';
 import {SkeuoButton,SkeuoIconButton,SkeuoInput,SkeuoSwitch,SkeuoCheckbox,SkeuoRadioGroup,SkeuoSlider,SkeuoRotaryKnob,SkeuoStepper,SkeuoTabs,SkeuoCard,SkeuoBadge,SkeuoDialog,SkeuoBottomSheet,SkeuoKeyButton,SkeuoPhotoCarousel,SkeuoProgressRings,SkeuoTimer,useSkeuo} from '../components/skeuomorphic';
 import {SkeuoBottomBar} from '../components/skeuomorphic/skeuo-bottom-bar';
 import {SummaryCard} from '../components/skeuomorphic/blocks/summary-card';
@@ -7,9 +7,21 @@ import {TransactionList} from '../components/skeuomorphic/blocks/transaction-lis
 import {HabitList} from '../components/skeuomorphic/blocks/habit-list';
 import {ActivityChart} from '../components/skeuomorphic/blocks/activity-chart';
 export function NativeDemo({slug}:{slug:string}){const {colors:c}=useSkeuo();const [enabled,setEnabled]=useState(true);const [value,setValue]=useState('week');const [volume,setVolume]=useState(65);const [tab,setTab]=useState('home');const [open,setOpen]=useState(false);const [count,setCount]=useState(0);const [knob,setKnob]=useState(68);const [quantity,setQuantity]=useState(3);const options=[{value:'week',label:'Week'},{value:'month',label:'Month'}];const items=[{value:'home',label:'Home'},{value:'transactions',label:'Payments'},{value:'analysis',label:'Analysis'},{value:'profile',label:'Profile'}];let content:React.ReactNode;
-if(slug.startsWith('bottom-bar-'))content=<View style={{gap:24}}><Text style={{color:c.ink,fontSize:25,fontWeight:'500'}}>Somewhere to return.</Text><View style={{height:140,borderWidth:1,borderColor:c.edge,borderRadius:16,backgroundColor:c.surface,alignItems:'center',justifyContent:'center'}}><Text style={{color:c.muted}}>{items.find(item=>item.value===tab)?.label}</Text></View><SkeuoBottomBar variant={slug.replace('bottom-bar-','') as 'dock'|'keys'|'rail'|'pill'} items={items} value={tab} onValueChange={setTab}/></View>;
+if (slug.startsWith('bottom-bar-')) {
+  content = (
+    <View style={styles.bottomBarDemo}>
+      <View style={styles.bottomBarContent}>
+        <Text style={{color:c.ink,fontSize:25,fontWeight:'500'}}>Somewhere to return.</Text>
+        <View style={{height:140,borderWidth:1,borderColor:c.edge,borderRadius:16,backgroundColor:c.surface,alignItems:'center',justifyContent:'center'}}>
+          <Text style={{color:c.muted}}>{items.find(item=>item.value===tab)?.label}</Text>
+        </View>
+      </View>
+      <SkeuoBottomBar variant={slug.replace('bottom-bar-','') as 'dock'|'keys'|'rail'|'pill'} items={items} value={tab} onValueChange={setTab}/>
+    </View>
+  );
+}
 else switch(slug){case 'button':content=<><SkeuoButton variant="accent" onPress={()=>setCount(count+1)}>Save changes</SkeuoButton><SkeuoButton onPress={()=>setCount(count+1)}>A quieter action</SkeuoButton><SkeuoButton disabled onPress={()=>{}}>Unavailable</SkeuoButton><Text style={{color:c.muted,fontSize:12}}>{count?`Pressed ${count} times`:'Go on. Give it a press.'}</Text></>;break;
-case 'keyboard-button':content=<View style={{flexDirection:'row',gap:14}}><SkeuoKeyButton label="Command" onPress={()=>setCount(count+1)}/><SkeuoKeyButton label="Option" symbol="⌥" onPress={()=>setCount(count+1)}/><SkeuoKeyButton label="Shift" symbol="⇧" onPress={()=>setCount(count+1)}/></View>;break;
+case 'keyboard-button':content=<View style={styles.keyboard}><SkeuoKeyButton label="Command" onPress={()=>setCount(count+1)}/><SkeuoKeyButton label="Option" symbol="⌥" onPress={()=>setCount(count+1)}/><SkeuoKeyButton label="Shift" symbol="⇧" onPress={()=>setCount(count+1)}/></View>;break;
 case 'icon-button':content=<SkeuoIconButton label="Add item" icon={<Text style={{fontSize:24,color:c.ink}}>+</Text>} onPress={()=>setCount(count+1)}/>;break;
 case 'input':content=<><SkeuoInput label="Email address" placeholder="you@example.com" keyboardType="email-address"/><SkeuoInput label="Your message" multiline placeholder="Leave a little note…"/></>;break;
 case 'switch':content=<><SkeuoSwitch label="Touch feedback" checked={enabled} onCheckedChange={setEnabled}/><SkeuoSwitch label="Unavailable" checked={false} onCheckedChange={()=>{}} disabled/></>;break;
@@ -43,4 +55,22 @@ case 'progress-rings':content=<SkeuoProgressRings items={[
 case 'timer':content=<SkeuoTimer/>;break;
 case 'summary-card':content=<SummaryCard/>;break;case 'transaction-list':content=<TransactionList/>;break;case 'habit-list':content=<HabitList/>;break;case 'activity-chart':content=<ActivityChart/>;break;
 default:content=<Text style={{color:c.muted}}>Choose a component.</Text>;
-}return <View style={{gap:20}}>{content}</View>}
+}
+  const centered = centeredDemos.has(slug);
+  return (
+    <View style={[styles.demo, slug === 'button' && styles.buttonStack, centered && styles.centered]}>
+      {content}
+    </View>
+  );
+}
+
+const centeredDemos = new Set(['icon-button', 'checkbox', 'radio-group', 'tabs', 'dialog', 'bottom-sheet']);
+
+const styles = StyleSheet.create({
+  demo: { gap: 20 },
+  buttonStack: { alignSelf: 'center', width: '100%', maxWidth: 194 },
+  centered: { alignItems: 'center' },
+  keyboard: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 14 },
+  bottomBarDemo: { gap: 24 },
+  bottomBarContent: { gap: 24, marginHorizontal: 16 },
+});

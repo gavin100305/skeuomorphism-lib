@@ -96,18 +96,27 @@ function Preview({ slug, onHeight }: { slug: string; onHeight?: (height: number)
   if (slug === "pocket") return <PocketTemplate />;
   if (slug === "still") return <StillTemplate />;
   if (slug === "daybook") return <DaybookTemplate />;
+  const horizontalPadding = slug.startsWith("bottom-bar-")
+    ? 0
+    : slug === "keyboard-button"
+      ? 16
+      : previewPadding;
   return (
     <View style={{ flex: 1, backgroundColor: onHeight ? c.surface : c.background }}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          padding: previewPadding,
+          paddingVertical: previewPadding,
+          paddingHorizontal: horizontalPadding,
           justifyContent: "center",
         }}
       >
-        <View onLayout={onHeight ? ({ nativeEvent }) => {
-          onHeight(Math.ceil(nativeEvent.layout.height + previewPadding * 2));
-        } : undefined}>
+        <View
+          style={onHeight ? { width: "100%", maxWidth: 420, alignSelf: "center" } : undefined}
+          onLayout={onHeight ? ({ nativeEvent }) => {
+            onHeight(Math.ceil(nativeEvent.layout.height + previewPadding * 2));
+          } : undefined}
+        >
           <NativeDemo slug={slug} />
         </View>
       </ScrollView>
