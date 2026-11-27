@@ -1,5 +1,5 @@
 import "./global.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Platform, ScrollView, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -22,6 +22,8 @@ export default function App() {
   const [slug, setSlug] = useState(initial?.get("item") ?? "pocket");
   const [appearance, setAppearance] = useState<"light" | "dark">("light");
   const embedded = Platform.OS === "web" && initial?.get("embed") === "1";
+  const inline = embedded && initial?.get("surface") === "1";
+  const measuredHeight = useRef<number | undefined>(undefined);
   useEffect(() => {
     if (Platform.OS !== "web") return;
     const receive = (event: MessageEvent) => {
@@ -30,7 +32,12 @@ export default function App() {
         event.origin !== window.location.origin
       )
         return;
-      if (event.data?.type === "skeuo-ping") window.parent.postMessage({type:"skeuo-ready"},window.location.origin);
+      if (event.data?.type === "skeuo-ping") {
+        if (measuredHeight.current !== undefined) {
+          window.parent.postMessage({ type: "skeuo-preview-height", height: measuredHeight.current }, window.location.origin);
+        }
+        window.parent.postMessage({ type: "skeuo-ready" }, window.location.origin);
+      }
       if (event.data?.type === "skeuo-theme")
         setAppearance(event.data.dark ? "dark" : "light");
     };
@@ -53,7 +60,10 @@ export default function App() {
         }
       >
         <StatusBar style={appearance === "dark" ? "light" : "dark"} />
-        <Preview slug={slug} />
+        <Preview slug={slug} onHeight={inline ? (height) => {
+          measuredHeight.current = height;
+          window.parent.postMessage({ type: "skeuo-preview-height", height }, window.location.origin);
+        } : undefined} />
         {!embedded && (
           <View style={{ position: "absolute", top: 4, right: 4 }}>
             <SkeuoButton
@@ -79,21 +89,27 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-function Preview({ slug }: { slug: string }) {
+const previewPadding = 24;
+
+function Preview({ slug, onHeight }: { slug: string; onHeight?: (height: number) => void }) {
   const { colors: c } = useSkeuo();
   if (slug === "pocket") return <PocketTemplate />;
   if (slug === "still") return <StillTemplate />;
   if (slug === "daybook") return <DaybookTemplate />;
   return (
-    <View style={{ flex: 1, backgroundColor: c.background }}>
+    <View style={{ flex: 1, backgroundColor: onHeight ? c.surface : c.background }}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          padding: 24,
+          padding: previewPadding,
           justifyContent: "center",
         }}
       >
-        <NativeDemo slug={slug} />
+        <View onLayout={onHeight ? ({ nativeEvent }) => {
+          onHeight(Math.ceil(nativeEvent.layout.height + previewPadding * 2));
+        } : undefined}>
+          <NativeDemo slug={slug} />
+        </View>
       </ScrollView>
     </View>
   );

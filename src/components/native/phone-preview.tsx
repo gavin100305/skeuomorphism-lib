@@ -5,6 +5,7 @@ import { SOUND_KEY } from "@/components/button-sound-effects";
 export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const [ready, setReady] = useState(false);
+  const [height, setHeight] = useState<number>();
   useEffect(() => {
     const sendTheme = () => {
       const root = document.documentElement;
@@ -21,6 +22,12 @@ export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }
         event.source !== iframe.current?.contentWindow
       )
         return;
+      if (event.data?.type === "skeuo-preview-height" && !framed) {
+        const height = event.data.height;
+        if (typeof height === "number" && Number.isFinite(height) && height > 0) {
+          setHeight(Math.max(300, Math.min(960, height)));
+        }
+      }
       if (event.data?.type === "skeuo-ready") {
         clearInterval(handshake);
         setReady(true);
@@ -58,11 +65,11 @@ export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }
       observer.disconnect();
       window.removeEventListener("message", receive);
     };
-  }, [slug]);
+  }, [slug, framed]);
   return (
     <div className={framed ? "native-phone" : "native-inline-preview"}>
       {framed && <div className="native-phone-top" aria-hidden="true"><i /></div>}
-      <div className="native-phone-screen">
+      <div className="native-phone-screen" style={framed ? undefined : { height }}>
         {!ready && (
           <div className="native-preview-loading" role="status">
             Loading native preview…
@@ -72,7 +79,7 @@ export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }
           key={slug}
           ref={iframe}
           title={`Interactive ${slug} React Native preview`}
-          src={`/native-preview/index.html?embed=1&item=${encodeURIComponent(slug)}`}
+          src={`/native-preview/index.html?embed=1&item=${encodeURIComponent(slug)}${framed ? "" : "&surface=1"}`}
           loading="lazy"
           onLoad={() =>
             iframe.current?.contentWindow?.postMessage(

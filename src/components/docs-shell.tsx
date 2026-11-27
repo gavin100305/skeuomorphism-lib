@@ -169,12 +169,12 @@ const introSections = [
   { id: "blocks", label: "Composed components" },
   { id: "getting-started", label: "Installation" },
 ];
-const mobileSections = [
+const nativeComponentSections = [
   { id: "overview", label: "Overview" },
-  { id: "installation", label: "Showcase" },
-  { id: "source", label: "Installation" },
-  { id: "components", label: "Components" },
-  { id: "accessibility", label: "Platform behavior" },
+  { id: "preview", label: "Preview" },
+  { id: "installation", label: "Installation" },
+  { id: "usage", label: "Usage" },
+  { id: "compatibility", label: "Compatibility" },
 ];
 const skillsSections = [
   { id: "overview", label: "Overview" },
@@ -329,10 +329,17 @@ export default function DocsShell({
   wide?: boolean;
 }) {
   const pathname = usePathname();
+  const mobile = pathname.includes("/mobile");
   const slug =
     pathname === "/docs" || pathname === "/docs/mobile"
       ? ""
       : (pathname.split("/").pop() ?? "");
+  const nativeComponent = pathname.startsWith("/docs/mobile/") &&
+    allNativeItems.some((item) => item.slug === slug && item.group !== "Templates");
+  const wideLayout = wide || (mobile && !nativeComponent);
+  const sections = nativeComponent
+    ? nativeComponentSections
+    : slug === "skills" ? skillsSections : slug ? componentSections : introSections;
   return (
     <>
       <a className="skip-link" href="#docs-workspace">
@@ -352,23 +359,10 @@ export default function DocsShell({
         </Sidebar>
         <SidebarInset>
           <div
-            className={`docs-reading-layout ${wide || pathname.includes("/mobile") ? "docs-reading-wide" : ""} ${pathname.includes("/mobile") ? "docs-native-reading" : ""}`}
+            className={`docs-reading-layout${wideLayout ? " docs-reading-wide" : ""}${mobile && !nativeComponent ? " docs-native-reading" : ""}`}
           >
             {children}
-            {!wide && !pathname.includes("/mobile") && (
-              <PageContents
-                sections={
-                  slug === "mobile"
-                    ? mobileSections
-                    : slug === "skills"
-                      ? skillsSections
-                      : slug
-                        ? componentSections
-                        : introSections
-                }
-                route={pathname}
-              />
-            )}
+            {!wideLayout && <PageContents sections={sections} route={pathname} />}
           </div>
         </SidebarInset>
       </SidebarProvider>

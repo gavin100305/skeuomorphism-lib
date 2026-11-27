@@ -493,10 +493,18 @@
   border: 0;
   background: var(--bg);
 }
-.native-preview-stage.native-preview-inline {
+.doc-live-preview.native-component-inline {
   padding: 0;
-  background: var(--bg);
-  overflow: hidden;
+}
+.native-component-preview .native-inline-preview {
+  max-width: none;
+}
+.native-component-preview .native-inline-preview .native-phone-screen {
+  min-height: 300px;
+}
+.native-component-flow .doc-code pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 @container (min-width: 730px) {
   .native-detail-grid {
@@ -645,9 +653,6 @@
   }
   .native-preview-stage {
     padding: 24px 8px;
-  }
-  .native-preview-stage.native-preview-inline {
-    padding: 0;
   }
   .native-detail-guide {
     padding: 16px;

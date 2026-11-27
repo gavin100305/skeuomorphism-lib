@@ -166,7 +166,8 @@ export function NativeCatalog({
 }
 export function NativeDocumentation({ slug }: { slug: string }) {
   const item = allNativeItems.find((x) => x.slug === slug)!;
-  const showPhone = item.group === "Templates" || item.group === "Bottom bars";
+  const template = item.group === "Templates";
+  const showPhone = template || item.group === "Bottom bars";
   const [panel, setPanel] = useState("preview");
   const file = item.file.replace(/\.tsx$/, "");
   const stateful =
@@ -209,31 +210,26 @@ export default function App() {
   );
 }`;
   return (
-    <main id="docs-workspace" className="native-detail component-documentation">
+    <main id="docs-workspace" className={`${template ? "native-detail" : "docs-workspace"} component-documentation`}>
       <header id="overview" className="doc-component-heading">
-        <Link
-          className="native-back"
-          href={
-            item.group === "Templates"
-              ? "/templates/mobile"
-              : item.group === "Blocks"
-                ? "/docs/mobile/blocks"
-                : "/docs/mobile"
-          }
-        >
-          ‹ {item.group === "Templates" ? "Templates" : "Native collection"}
-        </Link>
-        <div className="native-heading-meta">
-          <span>{item.group.toUpperCase()}</span>
-          <span>REACT NATIVE</span>
-        </div>
+        {template ? (
+          <>
+            <Link className="native-back" href="/templates/mobile">‹ Templates</Link>
+            <div className="native-heading-meta">
+              <span>{item.group.toUpperCase()}</span>
+              <span>REACT NATIVE</span>
+            </div>
+          </>
+        ) : <span className="docs-kicker">{item.group}</span>}
         <h1>{item.name}</h1>
         <p>{item.description}</p>
+        {!template && <span className="doc-origin">React Native · Expo</span>}
       </header>
-      <div className={slug === "pocket" ? "native-detail-grid native-pocket-layout" : "native-detail-grid"}>
+      <div className={template ? `native-detail-grid${slug === "pocket" ? " native-pocket-layout" : ""}` : "native-component-flow"}>
         <section id="preview" className="doc-section">
-          <div className="native-preview-toolbar">
-            <div role="group" aria-label="Example view">
+          {!template && <h2>Preview</h2>}
+          <div className={template ? "native-preview-toolbar" : undefined}>
+            <div role="group" aria-label="Example view" className={template ? undefined : "doc-preview-tabs"}>
               <button
                 aria-pressed={panel === "preview"}
                 onClick={() => setPanel("preview")}
@@ -247,10 +243,10 @@ export default function App() {
                 Code
               </button>
             </div>
-            <span>React Native Web</span>
+            {template && <span>React Native Web</span>}
           </div>
           {panel === "preview" ? (
-            <div className={showPhone ? "native-preview-stage" : "native-preview-stage native-preview-inline"}>
+            <div className={template ? "native-preview-stage" : `doc-live-preview native-component-preview${showPhone ? "" : " native-component-inline"}`}>
               {slug === "pocket" && (
                 <div className="native-pocket-intro">
                   <h2>Take Pocket for a spin.</h2>
@@ -258,7 +254,7 @@ export default function App() {
                   <a href="#installation">Install Pocket <span aria-hidden="true">↓</span></a>
                 </div>
               )}
-              <PhonePreview slug={slug} framed={showPhone} />
+              <PhonePreview key={slug} slug={slug} framed={showPhone} />
             </div>
           ) : (
             <CodeBlock
@@ -267,7 +263,7 @@ export default function App() {
             />
           )}
         </section>
-        <div className="native-detail-guide">
+        <div className={template ? "native-detail-guide" : undefined}>
           <section id="installation" className="doc-section">
             <h2>Installation</h2>
             <p>
