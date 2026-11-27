@@ -28,6 +28,10 @@
     "expo-haptics",
     "react-native-svg"
   ],
+  "stepper": [
+    "expo-linear-gradient",
+    "expo-haptics"
+  ],
   "slider": [
     "@react-native-community/slider",
     "expo-linear-gradient",

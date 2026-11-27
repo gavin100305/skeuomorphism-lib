@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeuo-native-stepper",
+  "type": "registry:ui",
+  "title": "Mechanical Stepper",
+  "description": "Raised plus and minus keys around a recessed counter.",
+  "dependencies": [
+    "nativewind"
+  ],
+  "registryDependencies": [],
+  "meta": {
+    "platform": "react-native",
+    "expoDependencies": [
+      "expo-linear-gradient",
+      "expo-haptics"
+    ],
+    "testedWith": {
+      "expo": "54",
+      "reactNative": "0.81.5",
+      "nativewind": "4.2.1"
+    }
+  },
+  "files": [
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-stepper.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-stepper.tsx",
+      "content": "import { LinearGradient } from \"expo-linear-gradient\";\nimport { Pressable, StyleSheet, Text, View } from \"react-native\";\nimport { valueRange } from \"./skeuo-value-range\";\nimport { useFeedback, useSkeuo } from \"./theme\";\n\nexport type SkeuoStepperProps = {\n  label: string;\n  value: number;\n  onValueChange: (value: number) => void;\n  min?: number;\n  max?: number;\n  step?: number;\n  disabled?: boolean;\n  formatValue?: (value: number) => string;\n};\n\nexport function SkeuoStepper({\n  label, value, onValueChange, min = 0, max = 99, step = 1, disabled = false,\n  formatValue = (number) => String(number).padStart(number >= 0 ? 2 : 0, \"0\"),\n}: SkeuoStepperProps) {\n  const { colors: c, dark } = useSkeuo();\n  const feedback = useFeedback();\n  const range = valueRange(min, max, step);\n  const current = range.clamp(value);\n  const screen = dark\n    ? { top: \"#839e8d\", bottom: \"#b0c4b4\", ink: \"#15271d\", edge: \"#4f695b\" }\n    : { top: \"#d7c9a7\", bottom: \"#f2e8ce\", ink: \"#28241a\", edge: \"#a18e67\" };\n  const highlight = dark ? \"#ffffff25\" : \"#fff\";\n  const keys = [\n    { name: \"Decrease\", sign: \"−\", next: range.move(current, -1), colors: [c.raised, c.surface] as const, base: c.base, ink: c.ink },\n    { name: \"Increase\", sign: \"+\", next: range.move(current, 1), colors: [dark ? \"#bbcec2\" : \"#487b68\", c.accent] as const, base: dark ? \"#4d6558\" : \"#213c32\", ink: c.accentInk },\n  ];\n\n  function key(item: typeof keys[number]) {\n    const unavailable = disabled || item.next === current;\n    return (\n      <Pressable\n        accessibilityRole=\"button\"\n        accessibilityLabel={`${item.name} ${label}`}\n        accessibilityState={{ disabled: unavailable }}\n        aria-disabled={unavailable}\n        disabled={unavailable}\n        onPress={() => { feedback(); onValueChange(item.next); }}\n        style={({ pressed }) => [styles.key, {\n          borderColor: c.edge,\n          backgroundColor: item.base,\n          opacity: unavailable ? 0.45 : 1,\n          transform: [{ translateY: pressed ? 2 : 0 }],\n          boxShadow: pressed ? \"0 1px 2px #0002\" : \"0 2px 4px #0003\",\n        }]}\n      >\n        <LinearGradient colors={item.colors} style={styles.keyFace}>\n          <Text style={[styles.sign, { color: item.ink }]}>{item.sign}</Text>\n        </LinearGradient>\n      </Pressable>\n    );\n  }\n\n  return (\n    <View style={[styles.panel, { backgroundColor: c.surface, borderColor: c.edge, boxShadow: `0 3px ${c.base}, 0 6px 10px #00000017` }]}>\n      <Text style={[styles.title, { color: c.ink }]}>{label}</Text>\n      <View style={[styles.tray, { backgroundColor: c.well, borderColor: c.edge, boxShadow: `inset 0 3px 5px #00000024, 0 1px ${highlight}` }]}>\n        {key(keys[0])}\n        <View style={[styles.counter, { borderColor: screen.edge, backgroundColor: screen.edge, boxShadow: `0 1px ${highlight}` }]}>\n          <LinearGradient colors={[screen.top, screen.bottom]} style={styles.screen}>\n            <View pointerEvents=\"none\" style={[StyleSheet.absoluteFill, { borderRadius: 5, boxShadow: \"inset 0 4px 6px #15110952, inset 0 -1px #ffffff70\" }]} />\n            <Text accessibilityLiveRegion=\"polite\" aria-live=\"polite\" style={[styles.readout, { color: screen.ink }]}>{formatValue(current)}</Text>\n          </LinearGradient>\n        </View>\n        {key(keys[1])}\n      </View>\n    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  panel: { width: \"100%\", maxWidth: 320, alignSelf: \"center\", alignItems: \"center\", padding: 16, gap: 14, borderWidth: 1, borderRadius: 15 },\n  title: { fontSize: 19, fontWeight: \"600\" },\n  tray: { width: \"100%\", flexDirection: \"row\", gap: 6, padding: 6, borderWidth: 1, borderRadius: 11 },\n  key: { width: 48, minHeight: 48, padding: 1, paddingBottom: 5, borderWidth: 1, borderRadius: 8 },\n  keyFace: { flex: 1, borderRadius: 6, alignItems: \"center\", justifyContent: \"center\", boxShadow: \"inset 0 1px #ffffff60\" },\n  sign: { fontSize: 23, fontWeight: \"600\" },\n  counter: { flex: 1, minWidth: 0, padding: 2, borderWidth: 1, borderRadius: 7 },\n  screen: { flex: 1, justifyContent: \"center\", alignItems: \"center\", borderRadius: 5, paddingHorizontal: 4 },\n  readout: { fontSize: 22, fontWeight: \"600\", fontVariant: [\"tabular-nums\"], textAlign: \"center\" },\n});\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/skeuo-value-range.ts",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/skeuo-value-range.ts",
+      "content": "export function valueRange(min: number, max: number, step: number) {\n  const lower = Number.isFinite(min) ? min : 0;\n  const upper = Number.isFinite(max) && max >= lower ? max : lower;\n  const increment = Number.isFinite(step) && step > 0 ? step : 1;\n\n  function clamp(value: number) {\n    return Number.isFinite(value) ? Math.min(upper, Math.max(lower, value)) : lower;\n  }\n\n  function atStep(index: number) {\n    return clamp(Number((lower + index * increment).toPrecision(15)));\n  }\n\n  function nearest(value: number) {\n    const bounded = clamp(value);\n    return bounded === upper ? upper : atStep(Math.round((bounded - lower) / increment));\n  }\n\n  function move(value: number, steps: number) {\n    const offset = (clamp(value) - lower) / increment;\n    const index = Number(offset.toPrecision(15));\n    return atStep(steps > 0 ? Math.floor(index) + steps : Math.ceil(index) + steps);\n  }\n\n  return { min: lower, max: upper, clamp, nearest, move };\n}\n"
+    },
+    {
+      "path": "mobile/components/skeuomorphic/theme.tsx",
+      "type": "registry:ui",
+      "target": "@ui/skeuo-native/theme.tsx",
+      "content": "import React, { createContext, useContext } from \"react\";\nimport { useColorScheme } from \"nativewind\";\nimport * as Haptics from \"expo-haptics\";\n\nexport const themes = {\n  light: {\n    background: \"#ffffff\",\n    surface: \"#f5f5f2\",\n    raised: \"#fafaf8\",\n    well: \"#e9e9e5\",\n    edge: \"#d1d1cb\",\n    base: \"#d9d9d3\",\n    ink: \"#202020\",\n    muted: \"#686863\",\n    accent: \"#365e50\",\n    accentInk: \"#ffffff\",\n  },\n  dark: {\n    background: \"#000000\",\n    surface: \"#191919\",\n    raised: \"#252525\",\n    well: \"#111111\",\n    edge: \"#3b3b39\",\n    base: \"#080808\",\n    ink: \"#efefeb\",\n    muted: \"#aaaAA5\",\n    accent: \"#9ab5a6\",\n    accentInk: \"#14251c\",\n  },\n};\ntype ThemeState = { colors: typeof themes.light; dark: boolean; haptics: boolean; onSound?: () => void };\nconst Context = createContext<ThemeState | null>(null);\nexport function SkeuoProvider({\n  children,\n  appearance = \"system\",\n  haptics = false,\n  onSound,\n  colors: overrides,\n}: {\n  children: React.ReactNode;\n  appearance?: \"light\" | \"dark\" | \"system\";\n  haptics?: boolean;\n  onSound?: () => void;\n  colors?: Partial<typeof themes.light>;\n}) {\n  const { colorScheme: system } = useColorScheme();\n  const dark = (appearance === \"system\" ? system : appearance) === \"dark\";\n  return (\n    <Context.Provider\n      value={{\n        colors: { ...(dark ? themes.dark : themes.light), ...overrides },\n        dark,\n        haptics,\n        onSound,\n      }}\n    >\n      {children}\n    </Context.Provider>\n  );\n}\nexport function useSkeuo(): ThemeState {\n  const context = useContext(Context);\n  const { colorScheme } = useColorScheme();\n  return context ?? { colors: colorScheme === \"dark\" ? themes.dark : themes.light, dark: colorScheme === \"dark\", haptics: false };\n}\nexport function useFeedback() {\n  const { haptics, onSound } = useSkeuo();\n  return () => {\n    onSound?.();\n    if (haptics) void Haptics.selectionAsync().catch(() => {});\n  };\n}\n"
+    }
+  ]
+}

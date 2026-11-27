@@ -72,6 +72,15 @@
     "example": "<SkeuoRotaryKnob label=\"Volume\" value={volume} onValueChange={setVolume} formatValue={(value) => `${value}%`} />"
   },
   {
+    "slug": "stepper",
+    "name": "Mechanical Stepper",
+    "group": "Forms",
+    "description": "Raised plus and minus keys around a recessed counter.",
+    "file": "skeuo-stepper.tsx",
+    "export": "SkeuoStepper",
+    "example": "<SkeuoStepper label=\"Quantity\" value={quantity} onValueChange={setQuantity} />"
+  },
+  {
     "slug": "slider",
     "name": "Slider",
     "group": "Forms",

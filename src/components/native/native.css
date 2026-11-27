@@ -1061,3 +1061,20 @@
   transform: rotate(45deg);
 }
 .native-miniature-rotary-knob > span:not(:first-child) { display: none; }
+.native-miniature-stepper > span,
+.native-miniature-stepper > span:nth-child(2),
+.native-miniature-stepper > span:nth-child(3) { transform: none; }
+.native-miniature-stepper > span:nth-child(2) {
+  width: 55px;
+  display: grid;
+  place-items: center;
+  border-bottom-width: 1px;
+  background: var(--well);
+  box-shadow: inset 0 3px 5px var(--shadow);
+}
+.native-miniature-stepper > span:nth-child(2)::after {
+  content: "03";
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.native-miniature-stepper > span:nth-child(3) { background: var(--accent); }

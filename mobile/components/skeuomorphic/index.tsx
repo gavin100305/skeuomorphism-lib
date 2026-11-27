@@ -9,6 +9,7 @@ export { SkeuoCheckbox } from "./skeuo-checkbox";
 export { SkeuoRadioGroup } from "./skeuo-radio-group";
 export { SkeuoTabs } from "./skeuo-tabs";
 export { SkeuoRotaryKnob, type SkeuoRotaryKnobProps } from "./skeuo-rotary-knob";
+export { SkeuoStepper, type SkeuoStepperProps } from "./skeuo-stepper";
 export { SkeuoSlider } from "./skeuo-slider";
 export { SkeuoBadge } from "./skeuo-badge";
 export { SkeuoDialog } from "./skeuo-dialog";

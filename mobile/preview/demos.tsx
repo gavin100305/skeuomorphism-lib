@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
 import {Platform,Text,View} from 'react-native';
-import {SkeuoButton,SkeuoIconButton,SkeuoInput,SkeuoSwitch,SkeuoCheckbox,SkeuoRadioGroup,SkeuoSlider,SkeuoRotaryKnob,SkeuoTabs,SkeuoCard,SkeuoBadge,SkeuoDialog,SkeuoBottomSheet,SkeuoKeyButton,SkeuoPhotoCarousel,SkeuoProgressRings,SkeuoTimer,useSkeuo} from '../components/skeuomorphic';
+import {SkeuoButton,SkeuoIconButton,SkeuoInput,SkeuoSwitch,SkeuoCheckbox,SkeuoRadioGroup,SkeuoSlider,SkeuoRotaryKnob,SkeuoStepper,SkeuoTabs,SkeuoCard,SkeuoBadge,SkeuoDialog,SkeuoBottomSheet,SkeuoKeyButton,SkeuoPhotoCarousel,SkeuoProgressRings,SkeuoTimer,useSkeuo} from '../components/skeuomorphic';
 import {SkeuoBottomBar} from '../components/skeuomorphic/skeuo-bottom-bar';
 import {SummaryCard} from '../components/skeuomorphic/blocks/summary-card';
 import {TransactionList} from '../components/skeuomorphic/blocks/transaction-list';
 import {HabitList} from '../components/skeuomorphic/blocks/habit-list';
 import {ActivityChart} from '../components/skeuomorphic/blocks/activity-chart';
-export function NativeDemo({slug}:{slug:string}){const {colors:c}=useSkeuo();const [enabled,setEnabled]=useState(true);const [value,setValue]=useState('week');const [volume,setVolume]=useState(65);const [tab,setTab]=useState('home');const [open,setOpen]=useState(false);const [count,setCount]=useState(0);const [knob,setKnob]=useState(68);const options=[{value:'week',label:'Week'},{value:'month',label:'Month'}];const items=[{value:'home',label:'Home'},{value:'transactions',label:'Payments'},{value:'analysis',label:'Analysis'},{value:'profile',label:'Profile'}];let content:React.ReactNode;
+export function NativeDemo({slug}:{slug:string}){const {colors:c}=useSkeuo();const [enabled,setEnabled]=useState(true);const [value,setValue]=useState('week');const [volume,setVolume]=useState(65);const [tab,setTab]=useState('home');const [open,setOpen]=useState(false);const [count,setCount]=useState(0);const [knob,setKnob]=useState(68);const [quantity,setQuantity]=useState(3);const options=[{value:'week',label:'Week'},{value:'month',label:'Month'}];const items=[{value:'home',label:'Home'},{value:'transactions',label:'Payments'},{value:'analysis',label:'Analysis'},{value:'profile',label:'Profile'}];let content:React.ReactNode;
 if(slug.startsWith('bottom-bar-'))content=<View style={{gap:24}}><Text style={{color:c.ink,fontSize:25,fontWeight:'500'}}>Somewhere to return.</Text><View style={{height:140,borderWidth:1,borderColor:c.edge,borderRadius:16,backgroundColor:c.surface,alignItems:'center',justifyContent:'center'}}><Text style={{color:c.muted}}>{items.find(item=>item.value===tab)?.label}</Text></View><SkeuoBottomBar variant={slug.replace('bottom-bar-','') as 'dock'|'keys'|'rail'|'pill'} items={items} value={tab} onValueChange={setTab}/></View>;
 else switch(slug){case 'button':content=<><SkeuoButton variant="accent" onPress={()=>setCount(count+1)}>Save changes</SkeuoButton><SkeuoButton onPress={()=>setCount(count+1)}>A quieter action</SkeuoButton><SkeuoButton disabled onPress={()=>{}}>Unavailable</SkeuoButton><Text style={{color:c.muted,fontSize:12}}>{count?`Pressed ${count} times`:'Go on. Give it a press.'}</Text></>;break;
 case 'keyboard-button':content=<View style={{flexDirection:'row',gap:14}}><SkeuoKeyButton label="Command" onPress={()=>setCount(count+1)}/><SkeuoKeyButton label="Option" symbol="⌥" onPress={()=>setCount(count+1)}/><SkeuoKeyButton label="Shift" symbol="⇧" onPress={()=>setCount(count+1)}/></View>;break;
@@ -20,6 +20,7 @@ case 'rotary-knob':content=<SkeuoRotaryKnob label="Volume" value={knob} onValueC
     window.parent.postMessage({type:'skeuo-knob-sound',direction},window.location.origin);
   }
 }}/>;break;
+case 'stepper':content=<SkeuoStepper label="Quantity" value={quantity} onValueChange={setQuantity}/>;break;
 case 'slider':content=<SkeuoSlider label="Depth" value={volume} onValueChange={setVolume}/>;break;
 case 'tabs':content=<><SkeuoTabs label="Period" value={value} onValueChange={setValue} options={options}/><Text style={{color:c.muted}}>A look at your {value}.</Text></>;break;
 case 'card':content=<SkeuoCard><Text style={{color:c.ink,fontSize:23,fontWeight:'500'}}>A place for your ideas.</Text><Text style={{color:c.muted,lineHeight:22}}>A fine edge. A little depth. Enough room for what matters.</Text><SkeuoButton onPress={()=>setCount(count+1)}>Make something</SkeuoButton></SkeuoCard>;break;
