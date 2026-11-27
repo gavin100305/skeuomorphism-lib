@@ -9,17 +9,20 @@ export function LibraryModeToggle() {
   return (
     <div
       className="library-mode-toggle"
+      data-platform={mobile ? "mobile" : "web"}
       role="group"
       aria-label="Library platform"
     >
       <Link
         href={templates ? "/templates" : "/docs"}
+        transitionTypes={mobile ? ["library-to-web"] : undefined}
         aria-current={!mobile ? "page" : undefined}
       >
         Web
       </Link>
       <Link
         href={templates ? "/templates/mobile" : "/docs/mobile"}
+        transitionTypes={!mobile ? ["library-to-mobile"] : undefined}
         aria-current={mobile ? "page" : undefined}
       >
         Mobile

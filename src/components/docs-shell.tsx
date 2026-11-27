@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { components, componentSections } from "@/data/components";
 import { SoundToggle } from "./button-sound-effects";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ViewTransition } from "react";
 import { Icon } from "./icons";
 import {
   Sidebar,
@@ -284,7 +284,6 @@ function DocsHeader() {
           <Icon name="layers" size={23} />
           <span>skeuomorphism.</span>
         </Link>
-        <LibraryModeToggle />
         <nav aria-label="Main navigation">
           <Link href="/">Home</Link>
           <Link
@@ -304,22 +303,31 @@ function DocsHeader() {
           </Link>
         </nav>
       </div>
-      <div className="docs-toolbar-actions">
-        <SoundToggle />
-        <a
-          className="docs-github-link"
-          href="https://github.com/gavin100305/skeuomorphism-lib"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="GitHub repository"
-        >
-          <Icon name="github" size={18} />
-        </a>
-        <DemoThemeButton variant="round" />
+      <div className="docs-header-right">
+        <LibraryModeToggle />
+        <div className="docs-toolbar-actions">
+          <SoundToggle />
+          <a
+            className="docs-github-link"
+            href="https://github.com/gavin100305/skeuomorphism-lib"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub repository"
+          >
+            <Icon name="github" size={18} />
+          </a>
+          <DemoThemeButton variant="round" />
+        </div>
       </div>
     </header>
   );
 }
+
+const platformMotion = {
+  "library-to-mobile": "library-to-mobile",
+  "library-to-web": "library-to-web",
+  default: "none",
+};
 
 export default function DocsShell({
   children,
@@ -358,12 +366,21 @@ export default function DocsShell({
           />
         </Sidebar>
         <SidebarInset>
-          <div
-            className={`docs-reading-layout${wideLayout ? " docs-reading-wide" : ""}${mobile && !nativeComponent ? " docs-native-reading" : ""}`}
+          <ViewTransition
+            name="library-content"
+            default="none"
+            update={platformMotion}
+            share={platformMotion}
+            enter={platformMotion}
+            exit={platformMotion}
           >
-            {children}
-            {!wideLayout && <PageContents sections={sections} route={pathname} />}
-          </div>
+            <div
+              className={`docs-reading-layout${wideLayout ? " docs-reading-wide" : ""}${mobile && !nativeComponent ? " docs-native-reading" : ""}`}
+            >
+              {children}
+              {!wideLayout && <PageContents sections={sections} route={pathname} />}
+            </div>
+          </ViewTransition>
         </SidebarInset>
       </SidebarProvider>
     </>
