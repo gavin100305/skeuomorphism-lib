@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { playButtonSound } from "@/lib/button-sound";
+import { playButtonSound, playKnobTurnSound } from "@/lib/button-sound";
 import { SOUND_KEY } from "@/components/button-sound-effects";
 export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }) {
   const iframe = useRef<HTMLIFrameElement>(null);
@@ -31,6 +31,13 @@ export function PhonePreview({ slug, framed }: { slug: string; framed: boolean }
         localStorage.getItem(SOUND_KEY) !== "off"
       )
         playButtonSound("down");
+      if (
+        event.data?.type === "skeuo-knob-sound" &&
+        slug === "rotary-knob" &&
+        localStorage.getItem(SOUND_KEY) !== "off"
+      ) {
+        void playKnobTurnSound(event.data.direction === "anticlockwise" ? "anticlockwise" : "clockwise")?.catch(() => {});
+      }
     };
     const observer = new MutationObserver(sendTheme);
     observer.observe(document.documentElement, {

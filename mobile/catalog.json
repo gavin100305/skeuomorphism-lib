@@ -63,6 +63,15 @@
     "example": "<SkeuoRadioGroup label=\"Appearance\" value={value} onValueChange={setValue} options={[{value:\"light\",label:\"Light\"},{value:\"dark\",label:\"Dark\"}]} />"
   },
   {
+    "slug": "rotary-knob",
+    "name": "Rotary Knob",
+    "group": "Forms",
+    "description": "A turnable dial with a recessed face, engraved ticks and a numeric readout.",
+    "file": "skeuo-rotary-knob.tsx",
+    "export": "SkeuoRotaryKnob",
+    "example": "<SkeuoRotaryKnob label=\"Volume\" value={volume} onValueChange={setVolume} formatValue={(value) => `${value}%`} />"
+  },
+  {
     "slug": "slider",
     "name": "Slider",
     "group": "Forms",

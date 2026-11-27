@@ -26,6 +26,8 @@ The component source has relative imports and does not depend on Expo Router, we
 
 ## Added native pieces
 
+- `SkeuoRotaryKnob`: controlled `label`, `value`, and `onValueChange`, with optional `min`, `max`, `step`, `disabled`, `formatValue`, and `onTurnSound`. Drag around the dial or use accessibility adjustment actions. A provider with `haptics` enabled gives selection feedback.
+
 - `SkeuoKeyButton`: `label`, optional `symbol`, `onPress`, `disabled?`.
 - `SkeuoPhotoCarousel`: `items: { uri, title, caption?, imageAlt?, label?, meta?, description? }[]`, optional `label`. Swipe or use the previous/next controls, which stop at the ends. Tap the active print or More info for the photo record. Hosts own image availability.
 - `SkeuoProgressRings`: `items: { id, label, value, max, unit?, color? }[]`, optional `title` and `animate`. Tap a ring or legend row to select a goal. The entry sweep respects Reduce Motion.

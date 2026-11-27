@@ -175,20 +175,23 @@ export function NativeDocumentation({ slug }: { slug: string }) {
       "checkbox",
       "radio-group",
       "slider",
+      "rotary-knob",
       "tabs",
       "bottom-sheet",
       "dialog",
     ].includes(slug) || slug.startsWith("bottom-bar-");
   const states =
-    slug === "slider"
-      ? "const [volume, setVolume] = useState(65);"
-      : slug.startsWith("bottom-bar-")
-        ? 'const [tab, setTab] = useState("home");'
-        : ["dialog", "bottom-sheet"].includes(slug)
-          ? "const [open, setOpen] = useState(false);"
-          : ["switch", "checkbox"].includes(slug)
-            ? "const [enabled, setEnabled] = useState(true);"
-            : 'const [value, setValue] = useState("week");';
+    slug === "rotary-knob"
+      ? "const [volume, setVolume] = useState(68);"
+      : slug === "slider"
+        ? "const [volume, setVolume] = useState(65);"
+        : slug.startsWith("bottom-bar-")
+          ? 'const [tab, setTab] = useState("home");'
+          : ["dialog", "bottom-sheet"].includes(slug)
+            ? "const [open, setOpen] = useState(false);"
+            : ["switch", "checkbox"].includes(slug)
+              ? "const [enabled, setEnabled] = useState(true);"
+              : 'const [value, setValue] = useState("week");';
   const pocketUsage = `import { SafeAreaProvider } from "react-native-safe-area-context";
 import { SkeuoProvider } from "@/components/ui/skeuo-native/theme";
 import { PocketTemplate } from "@/components/ui/skeuo-native/templates/pocket";

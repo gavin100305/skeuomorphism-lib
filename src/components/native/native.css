@@ -1038,3 +1038,26 @@
 .native-tile-bottom-bars .native-miniature-bottom-bar-dock > span:first-child::after {
   border-color: #ffffff60;
 }
+
+.native-miniature-rotary-knob > span:first-child {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border: 5px solid var(--edge);
+  border-radius: 50%;
+  transform: none;
+  background: linear-gradient(145deg, var(--base), var(--surface-raised));
+  box-shadow: inset 0 3px 5px var(--shadow), 0 4px 7px var(--shadow);
+}
+.native-miniature-rotary-knob > span:first-child::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 18px;
+  left: 60%;
+  top: 20%;
+  border-radius: 3px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+.native-miniature-rotary-knob > span:not(:first-child) { display: none; }

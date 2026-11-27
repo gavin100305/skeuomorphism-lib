@@ -23,6 +23,11 @@
   "radio-group": [
     "expo-haptics"
   ],
+  "rotary-knob": [
+    "expo-linear-gradient",
+    "expo-haptics",
+    "react-native-svg"
+  ],
   "slider": [
     "@react-native-community/slider",
     "expo-linear-gradient",
