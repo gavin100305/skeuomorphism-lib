@@ -69,12 +69,12 @@ Other items include their own required controls and local icons where needed.
 
 ## Components
 
-The component registry contains **20 installable items**, including two optional providers. Input and textarea share one registry item.
+The component registry contains **21 installable items**, including two optional providers. Input and textarea share one registry item.
 
 | Area | Documentation |
 | --- | --- |
 | Buttons | [Standard](https://skeuomorphismui.vercel.app/docs/button) · [Theme](https://skeuomorphismui.vercel.app/docs/theme-button) · [Keyboard](https://skeuomorphismui.vercel.app/docs/keyboard-button) |
-| Form controls | [Input](https://skeuomorphismui.vercel.app/docs/input) · [Textarea](https://skeuomorphismui.vercel.app/docs/textarea) · [Switch](https://skeuomorphismui.vercel.app/docs/switch) · [Slider](https://skeuomorphismui.vercel.app/docs/slider) |
+| Form controls | [Input](https://skeuomorphismui.vercel.app/docs/input) · [Textarea](https://skeuomorphismui.vercel.app/docs/textarea) · [Switch](https://skeuomorphismui.vercel.app/docs/switch) · [Slider](https://skeuomorphismui.vercel.app/docs/slider) · [Rotary Knob](https://skeuomorphismui.vercel.app/docs/rotary-knob) |
 | Structure | [Surface](https://skeuomorphismui.vercel.app/docs/surface) · [Tabs](https://skeuomorphismui.vercel.app/docs/tabs) · [Section Dock](https://skeuomorphismui.vercel.app/docs/section-dock) |
 | Cards | [Project Card](https://skeuomorphismui.vercel.app/docs/project-card) · [ID Card](https://skeuomorphismui.vercel.app/docs/id-card) · [Contact Form](https://skeuomorphismui.vercel.app/docs/contact-form) · [Experience Tabs](https://skeuomorphismui.vercel.app/docs/experience-tabs) |
 | Interactive pieces | [Contribution Calendar](https://skeuomorphismui.vercel.app/docs/contribution-calendar) · [Focus Timer](https://skeuomorphismui.vercel.app/docs/focus-timer) · [Progress Rings](https://skeuomorphismui.vercel.app/docs/progress-rings) · [Photo Carousel](https://skeuomorphismui.vercel.app/docs/photo-carousel) · [Testimonial Carousel](https://skeuomorphismui.vercel.app/docs/testimonial-carousel) |

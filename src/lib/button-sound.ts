@@ -94,3 +94,36 @@ export function playRimTurnSound(_direction: "clockwise" | "anticlockwise", inde
     // Turning remains functional when browser audio is unavailable.
   });
 }
+
+let knobSample: AudioBuffer | undefined;
+
+export function playKnobTurnSound(direction: "clockwise" | "anticlockwise") {
+  if (typeof AudioContext === "undefined") return;
+  if (!audio || audio.state === "closed") audio = new AudioContext();
+  const context = audio;
+  const requestedAt = performance.now();
+
+  if (!knobSample || knobSample.sampleRate !== context.sampleRate) {
+    const rate = context.sampleRate;
+    knobSample = context.createBuffer(1, Math.ceil(rate * 0.048), rate);
+    const samples = knobSample.getChannelData(0);
+    for (let frame = 0; frame < samples.length; frame++) {
+      const time = frame / rate;
+      const attack = Math.min(1, time / 0.0015);
+      const body = 0.13 * Math.sin(2 * Math.PI * 680 * time) * Math.exp(-time / 0.006);
+      const transient = 0.045 * Math.sin(2 * Math.PI * 1630 * time) * Math.exp(-time / 0.002);
+      samples[frame] = attack * (body + transient) * (1 - frame / samples.length);
+    }
+  }
+
+  const buffer = knobSample;
+  return context.resume().then(() => {
+    if (context.state !== "running" || performance.now() - requestedAt > 120) return;
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+    source.playbackRate.value = direction === "clockwise" ? 1 : 0.94;
+    source.connect(context.destination);
+    source.start();
+    source.onended = () => source.disconnect();
+  });
+}

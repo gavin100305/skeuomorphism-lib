@@ -1,0 +1,153 @@
+@import "./skeuo-base.css";
+
+:where(:root, .light, [data-theme="light"]) {
+  --sk-rotary-finish: #d2c8b5;
+  --sk-rotary-rim: #8d826f;
+  --sk-rotary-index: #335d49;
+}
+:where(.dark, [data-theme="dark"]) {
+  --sk-rotary-finish: #89978e;
+  --sk-rotary-rim: #4d6055;
+  --sk-rotary-index: #d1e8bb;
+}
+@media (prefers-color-scheme: dark) {
+  :where(html:not(.light):not(.dark):not([data-theme])) {
+    --sk-rotary-finish: #89978e;
+    --sk-rotary-rim: #4d6055;
+    --sk-rotary-index: #d1e8bb;
+  }
+}
+
+.sk-rotary {
+  --sk-rotary-body: color-mix(in srgb, var(--sk-surface) 91%, #c8a575);
+  --sk-rotary-lip: color-mix(in srgb, var(--sk-base) 84%, #aa8d66);
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  width: min(100%, 358px);
+  padding: 24px clamp(12px, 5vw, 26px) 22px;
+  border: 1px solid var(--sk-rotary-lip);
+  border-radius: 20px;
+  background: linear-gradient(150deg, var(--sk-surface-raised), var(--sk-rotary-body));
+  color: var(--sk-card-ink);
+  box-shadow: inset 0 2px var(--sk-highlight), inset 0 -3px var(--sk-rotary-lip),
+    0 4px var(--sk-base), 0 5px var(--sk-edge), 0 8px 12px #0002;
+}
+
+.sk-rotary-label { font-size: 22px; font-weight: 650; overflow-wrap: anywhere; }
+.sk-rotary-scale { width: min(100%, 252px); aspect-ratio: 1; position: relative; }
+.sk-rotary-ticks { position: absolute; inset: 0; overflow: clip; pointer-events: none; }
+.sk-rotary-ticks i { position: absolute; inset: 0; transform: rotate(var(--sk-tick)); }
+.sk-rotary-ticks i::before {
+  content: "";
+  position: absolute;
+  top: 3%;
+  left: calc(50% - 1.5px);
+  width: 3px;
+  height: 4%;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--sk-muted) 80%, black);
+  box-shadow: inset 0 2px 2px #0007, 0 1px var(--sk-highlight);
+}
+.sk-rotary-ticks i[data-major]::before { height: 5.75%; }
+.sk-rotary-min, .sk-rotary-max {
+  position: absolute;
+  bottom: 8%;
+  color: var(--sk-muted);
+  font: 11px var(--sk-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.sk-rotary-min { left: 8%; }
+.sk-rotary-max { right: 8%; }
+
+.sk-rotary-control {
+  position: absolute;
+  inset: 12%;
+  padding: 5px;
+  border: 1px solid var(--sk-rotary-lip);
+  border-radius: 50%;
+  background: linear-gradient(155deg, var(--sk-surface-raised), var(--sk-rotary-lip) 76%);
+  box-shadow: inset 0 1px var(--sk-highlight), inset 0 -1px 2px #0002,
+    0 2px var(--sk-rotary-lip), 0 5px 9px -2px #1b18152b;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.sk-rotary-control::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  box-shadow: 0 2px 2px #16141032, 0 4px 6px -2px #16141028;
+  pointer-events: none;
+}
+.sk-rotary-control[data-turning] { cursor: grabbing; }
+.sk-rotary-control:focus-visible { outline: 2px solid var(--sk-ring); outline-offset: 5px; }
+.sk-rotary-control[data-pointer-focus]:focus { outline: none; }
+.sk-rotary-disc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: clamp(8px, 2vw, 11px);
+  border: 1px solid color-mix(in srgb, var(--sk-rotary-rim) 65%, black);
+  border-radius: inherit;
+  transform: rotate(var(--sk-angle));
+  background: repeating-conic-gradient(
+    color-mix(in srgb, var(--sk-rotary-rim) 55%, black) 0deg 1.8deg,
+    color-mix(in srgb, var(--sk-rotary-rim) 77%, white) 2.3deg 5.1deg,
+    var(--sk-rotary-rim) 5.9deg 7.5deg
+  );
+  box-shadow: inset 0 0 2px #ffffff58;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sk-rotary-disc { transition: transform 95ms ease-out; }
+}
+.sk-rotary-disc::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid color-mix(in srgb, var(--sk-rotary-rim) 63%, black);
+  border-radius: inherit;
+  background: linear-gradient(165deg,
+    color-mix(in srgb, var(--sk-rotary-rim) 50%, black),
+    var(--sk-rotary-rim) 48%,
+    color-mix(in srgb, var(--sk-rotary-finish) 72%, white));
+  box-shadow: inset 0 3px 4px #17130f82, 0 1px #ffffff59;
+  pointer-events: none;
+}
+.sk-rotary-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid color-mix(in srgb, var(--sk-rotary-rim) 72%, black);
+  border-radius: inherit;
+  background: repeating-linear-gradient(0deg, #ffffff12 0 1px, transparent 1px 3px),
+    linear-gradient(140deg, color-mix(in srgb, var(--sk-rotary-finish) 60%, white), var(--sk-rotary-finish) 47%, var(--sk-rotary-rim));
+  box-shadow: inset 0 4px 6px #15120e60, inset 3px 0 5px #15120e42,
+    inset -2px 0 4px #15120e30, inset 0 -2px 2px #ffffff75, 0 1px #ffffff3d;
+}
+.sk-rotary-face i {
+  position: absolute;
+  top: 9%;
+  left: calc(50% - 2.5px);
+  width: 5px;
+  height: 32%;
+  border-radius: 4px;
+  background: var(--sk-rotary-index);
+  box-shadow: inset 0 1px #ffffff55, 0 1px 3px #0006;
+}
+.sk-rotary-readout {
+  min-width: 96px;
+  max-width: 100%;
+  padding: 6px 13px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--sk-edge);
+  border-radius: 7px;
+  background: var(--sk-well);
+  box-shadow: inset 0 4px 6px #0003, inset 1px 1px 3px #0002, 0 2px var(--sk-highlight);
+  font: 600 17px var(--sk-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.sk-rotary[data-disabled] { opacity: .55; }
+.sk-rotary[data-disabled] .sk-rotary-control { cursor: not-allowed; touch-action: auto; }

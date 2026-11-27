@@ -2,7 +2,7 @@
 import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import { SkeuoSoundProvider } from "./skeuomorphic/skeuo-sound-provider";
 import { Icon } from "./icons";
-import { playButtonSound, playRimTurnSound, preloadButtonSound, preloadRimSound } from "@/lib/button-sound";
+import { playButtonSound, playKnobTurnSound, playRimTurnSound, preloadButtonSound, preloadRimSound } from "@/lib/button-sound";
 
 export const SOUND_KEY = "skeuomorphism-sound";
 let fallbackEnabled = true;
@@ -21,7 +21,7 @@ const serverSoundSnapshot = () => false;
 export function ButtonSoundEffects({ children }: {children: ReactNode}) {
   const enabled = useSyncExternalStore(subscribeSound, soundSnapshot, serverSoundSnapshot);
   useEffect(() => { if (enabled) { preloadButtonSound(); preloadRimSound(); } }, [enabled]);
-  return <SkeuoSoundProvider enabled={enabled} onSound={playButtonSound} onTurnSound={playRimTurnSound}>{children}</SkeuoSoundProvider>;
+  return <SkeuoSoundProvider enabled={enabled} onSound={playButtonSound} onTurnSound={playRimTurnSound} onKnobSound={playKnobTurnSound}>{children}</SkeuoSoundProvider>;
 }
 export function SoundToggle() {
   const enabled = useSyncExternalStore(subscribeSound, soundSnapshot, serverSoundSnapshot);

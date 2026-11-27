@@ -21,6 +21,7 @@ import { SkeuoExperienceTabs as ExperienceTabs } from "./skeuomorphic/skeuo-expe
 import { SkeuoFocusTimer as FocusTimer } from "./skeuomorphic/skeuo-focus-timer";
 import { SkeuoTestimonialCarousel as TestimonialCarousel } from "./skeuomorphic/skeuo-testimonial-carousel";
 import { Icon } from "./icons";
+import { SkeuoRotaryKnob } from "./skeuomorphic/skeuo-rotary-knob";
 import { SkeuoProgressRings } from "./skeuomorphic/skeuo-progress-rings";
 
 const contributionDays: ContributionDay[] = Array.from({ length: 730 }, (_, index) => {
@@ -39,10 +40,12 @@ export function ComponentDemo({ slug }: { slug: string }) {
   const [dock, setDock] = useState("home");
   const [mobile, setMobile] = useState(false);
   const [count, setCount] = useState(0);
+  const [volume, setVolume] = useState(68);
   const [on, setOn] = useState(true);
   const [value, setValue] = useState(65);
   const [tab, setTab] = useState("design");
   const [experience, setExperience] = useState("studio");
+  if (slug === "rotary-knob") return <SkeuoRotaryKnob label="Volume" value={volume} onValueChange={setVolume} formatValue={(amount) => `${amount}%`} />;
   if (slug === "progress-rings") return <SkeuoProgressRings items={[
     { id: "focus", label: "Focus time", value: 45, max: 60, unit: "min" },
     { id: "movement", label: "Movement", value: 4, max: 8, unit: "km" },
