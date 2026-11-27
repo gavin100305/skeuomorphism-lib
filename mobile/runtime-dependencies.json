@@ -22,6 +22,7 @@
     "expo-haptics"
   ],
   "radio-group": [
+    "expo-linear-gradient",
     "expo-haptics"
   ],
   "rotary-knob": [

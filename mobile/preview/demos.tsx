@@ -31,7 +31,9 @@ case 'checkbox':
     <SkeuoCheckbox label="Unavailable" checked={false} onCheckedChange={setEnabled} disabled />
   </View>;
   break;
-case 'radio-group':content=<SkeuoRadioGroup label="Your pace" value={value} onValueChange={setValue} options={options}/>;break;
+case 'radio-group':
+  content = <RadioGroupDemo />;
+  break;
 case 'rotary-knob':content=<SkeuoRotaryKnob label="Volume" value={knob} onValueChange={setKnob} formatValue={value=>`${value}%`} onTurnSound={direction=>{
   if (Platform.OS === 'web' && window.parent !== window) {
     window.parent.postMessage({type:'skeuo-knob-sound',direction},window.location.origin);
@@ -71,11 +73,48 @@ default:content=<Text style={{color:c.muted}}>Choose a component.</Text>;
 
 const centeredDemos = new Set(['icon-button', 'checkbox', 'radio-group', 'tabs', 'dialog', 'bottom-sheet']);
 
+const radioSamples = {
+  single: { labels: ['Standard'], selected: 'Standard' },
+  four: { labels: ['Daily', 'Weekly', 'Monthly', 'Yearly'], selected: 'Weekly' },
+  long: {
+    labels: ['5 minutes', '15 minutes', '30 minutes', '1 hour', '2 hours', '3 hours', '6 hours', '12 hours', '24 hours'],
+    selected: '30 minutes',
+  },
+};
+
+const radioSampleTabs = [
+  { value: 'single', label: 'Single' },
+  { value: 'four', label: 'Four' },
+  { value: 'long', label: 'Long list' },
+];
+
+function RadioGroupDemo() {
+  const [sample, setSample] = useState<keyof typeof radioSamples>('four');
+  const [value, setValue] = useState(radioSamples.four.selected);
+  return (
+    <View style={styles.radioDemo}>
+      <SkeuoTabs label="Example size" value={sample} options={radioSampleTabs} onValueChange={(next) => {
+        const size = next as keyof typeof radioSamples;
+        setSample(size);
+        setValue(radioSamples[size].selected);
+      }} />
+      <SkeuoRadioGroup
+        key={sample}
+        label="Frequency"
+        value={value}
+        onValueChange={setValue}
+        options={radioSamples[sample].labels.map((label) => ({ value: label, label }))}
+      />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   demo: { gap: 20 },
   buttonStack: { alignSelf: 'center', width: '100%', maxWidth: 194 },
   centered: { alignItems: 'center' },
   choiceStack: { maxWidth: '100%' },
+  radioDemo: { width: '100%', maxWidth: 350, gap: 16 },
   keyboard: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 14 },
   bottomBarDemo: { gap: 24 },
   bottomBarContent: { gap: 24, marginHorizontal: 16 },
