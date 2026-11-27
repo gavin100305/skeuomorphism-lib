@@ -456,6 +456,39 @@
       ]
     },
     {
+      "name": "skeuo-stepper",
+      "type": "registry:ui",
+      "title": "Skeuomorphic Mechanical Stepper",
+      "description": "Raised plus and minus keys flank a recessed numeric counter.",
+      "files": [
+        {
+          "path": "src/components/skeuomorphic/skeuo-stepper.tsx",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-stepper.tsx"
+        },
+        {
+          "path": "src/components/skeuomorphic/skeuo-value-range.ts",
+          "type": "registry:ui",
+          "target": "@ui/skeuo-value-range.ts"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-stepper.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-stepper.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-base.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-base.css"
+        },
+        {
+          "path": "src/components/skeuomorphic/styles/skeuo-tokens.css",
+          "type": "registry:file",
+          "target": "@ui/styles/skeuo-tokens.css"
+        }
+      ]
+    },
+    {
       "name": "skeuo-progress-rings",
       "type": "registry:ui",
       "title": "Skeuomorphic Progress Rings",
