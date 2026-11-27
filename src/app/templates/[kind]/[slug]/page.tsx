@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { RouteSkeleton } from "@/components/route-skeleton";
 import { templates } from "@/data/templates";
 import { TemplatePreview } from "@/components/templates/template-preview";
 
@@ -20,5 +21,5 @@ async function TemplatePageContent({ params }: { params: Promise<{ kind: string;
 }
 
 export default function TemplatePage({ params }: { params: Promise<{ kind: string; slug: string }> }) {
-  return <Suspense fallback={<div className="template-route-loading" role="status">Opening template…</div>}><TemplatePageContent params={params} /></Suspense>;
+  return <Suspense fallback={<RouteSkeleton template />}><TemplatePageContent params={params} /></Suspense>;
 }

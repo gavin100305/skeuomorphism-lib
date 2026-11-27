@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { RouteSkeleton } from "@/components/route-skeleton";
 import { notFound } from "next/navigation";
 import { components, findComponent } from "@/data/components";
 import { ComponentDocumentation } from "@/components/component-documentation";
@@ -19,5 +20,5 @@ async function ComponentContent({ params }: { params: Promise<{ slug: string }> 
 }
 
 export default function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
-  return <Suspense fallback={<main id="docs-workspace" className="docs-workspace component-documentation"><span className="docs-kicker">COMPONENTS</span><h1>Loading component…</h1></main>}><ComponentContent params={params} /></Suspense>;
+  return <Suspense fallback={<RouteSkeleton />}><ComponentContent params={params} /></Suspense>;
 }

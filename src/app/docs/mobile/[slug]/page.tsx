@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { RouteSkeleton } from "@/components/route-skeleton";
 import { notFound } from "next/navigation";
 import catalog from "../../../../../mobile/catalog.json";
 import { NativeDocumentation } from "@/components/native/catalog";
@@ -27,7 +28,7 @@ export default function Page({
 }) {
   return (
     <Suspense
-      fallback={<main id="docs-workspace">Loading native component…</main>}
+      fallback={<RouteSkeleton />}
     >
       <Content params={params} />
     </Suspense>
