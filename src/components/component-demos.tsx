@@ -8,6 +8,7 @@ import { DemoThemeButton as ThemeButton } from "./demo-theme-button";
 import { SkeuoSectionDock as SectionDock } from "./skeuomorphic/skeuo-section-dock";
 import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
 import { SkeuoSwitch as Switch } from "./skeuomorphic/skeuo-switch";
+import { SkeuoCheckbox } from "./skeuomorphic/skeuo-checkbox";
 import { SkeuoInput as Input, SkeuoTextarea as Textarea } from "./skeuomorphic/skeuo-input";
 import { SkeuoSlider as Slider } from "./skeuomorphic/skeuo-slider";
 import { SkeuoTabs as Tabs } from "./skeuomorphic/skeuo-tabs";
@@ -35,6 +36,7 @@ const experiences = [
   { id: "product", label: "Product", role: "Product Designer", period: "2024 — 2025", description: "Taking early ideas through prototypes and into working products, with a focus on clarity and accessibility.", technologies: ["Figma","Prototyping","Design systems"] },
   { id: "independent", label: "Independent", role: "Independent Maker", period: "2023 — 2024", description: "A selection of experiments, small projects, and things made out of curiosity.", technologies: ["Next.js","Web APIs","SVG"] },
 ];
+
 export function ComponentDemo({ slug }: { slug: string }) {
   const [colorMode, setColorMode] = useState<"same" | "alternating">("same");
   const [orientation, setOrientation] = useState<"vertical" | "horizontal">("vertical");
@@ -66,6 +68,10 @@ export function ComponentDemo({ slug }: { slug: string }) {
   if (slug === "keyboard-button") return <div className="demo-stack"><div className="demo-controls"><KeyButton icon={<img src="/tech-icons/react.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>React</KeyButton><KeyButton tone="accent" icon={<img src="/tech-icons/razorpay.svg" alt="" width={21} height={21} />} onClick={() => setCount(count + 1)}>Razorpay</KeyButton></div><div className="demo-controls"><KeyButton onClick={() => setCount(count + 1)}>Without icon</KeyButton><KeyButton disabled>Disabled key</KeyButton></div><p className="demo-feedback" role="status">{count ? `Key pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a key to feel its travel and hear the click."}</p></div>;
   if (slug === "button") return <div className="demo-stack"><div className="demo-controls"><Button variant="primary" onClick={() => setCount(count + 1)}>Save changes <Icon name="arrow" size={16} /></Button><Button onClick={() => setCount(count + 1)}>Secondary</Button><Button square aria-label="Add item" onClick={() => setCount(count + 1)}><Icon name="plus" size={17} /></Button></div><div className="demo-controls"><Button size="sm">Small</Button><Button>Default</Button><Button size="lg">Large</Button></div><div className="demo-controls"><Button disabled>Disabled</Button><Button loading>Saving…</Button></div><p className="demo-feedback" role="status">{count ? `Button pressed ${count} ${count === 1 ? "time" : "times"}.` : "Press a button to try the sound and physical state."}</p></div>;
   if (slug === "switch") return <div className="demo-stack demo-narrow"><label className="demo-labeled-control"><span>Notifications</span><Switch checked={on} onCheckedChange={setOn} aria-label="Enable notifications" /></label><label className="demo-labeled-control"><span>Disabled</span><Switch checked={false} disabled onCheckedChange={() => {}} aria-label="Disabled switch" /></label><p className="demo-feedback">Notifications are {on ? "on" : "off"}.</p></div>;
+  if (slug === "checkbox") return <div className="demo-narrow">
+    <SkeuoCheckbox label="Include a weekly summary" checked={on} onCheckedChange={setOn} />
+    <SkeuoCheckbox label="Unavailable" checked={false} onCheckedChange={setOn} disabled />
+  </div>;
   if (slug === "input") return <div className="demo-stack demo-narrow"><label className="demo-field">Email address<Input type="email" placeholder="you@example.com" /></label><label className="demo-field">Disabled field<Input disabled placeholder="Unavailable" /></label></div>;
   if (slug === "textarea") return <label className="demo-field demo-narrow">Your message<Textarea placeholder="A little room for your next idea…" rows={4} /></label>;
   if (slug === "slider") return <div className="demo-stack demo-narrow"><div className="slider-heading"><span>Surface depth</span><output>{value}%</output></div><Slider value={value} onValueChange={setValue} aria-label="Surface depth" /><Surface variant="raised" className="demo-depth-surface" style={{ boxShadow: `inset 0 1px 0 var(--highlight), 0 ${value / 8}px 0 var(--base), 0 ${value / 8 + 1}px 0 var(--edge), 0 16px 18px var(--shadow)` }}><Icon name="layers" size={25} /></Surface></div>;

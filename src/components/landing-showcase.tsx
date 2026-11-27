@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Icon } from "./icons";
 import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
+import { SkeuoCheckbox } from "./skeuomorphic/skeuo-checkbox";
 import { SkeuoFocusTimer as FocusTimer } from "./skeuomorphic/skeuo-focus-timer";
 
 export function ObjectShowcase() {
@@ -15,7 +16,12 @@ export function ObjectShowcase() {
       <article className="task-object tactile-object">
         <div className="object-overline"><span>THE SHORT LIST</span><Icon name="check" size={15} /></div>
         <h3>One thing at a time.</h3>
-        <div className="task-list">{["Find an idea", "Make it tangible", "Put it out there"].map((task, i) => <label key={task} className={tasks[i] ? "done" : ""}><input type="checkbox" checked={tasks[i]} onChange={() => setTasks(tasks.map((v, n) => n === i ? !v : v))} /><span className="task-checkbox"><Icon name="check" size={11} /></span><span>{task}</span></label>)}</div>
+        <div className="task-list">
+          {["Find an idea", "Make it tangible", "Put it out there"].map((task, index) => (
+            <SkeuoCheckbox key={task} label={task} checked={tasks[index]}
+              onCheckedChange={(checked) => setTasks((items) => items.map((item, i) => i === index ? checked : item))} />
+          ))}
+        </div>
         <div className="task-bottom"><span>{tasks.filter(Boolean).length} of 3 complete</span><span className="task-progress"><i style={{ width: `${tasks.filter(Boolean).length / 3 * 100}%` }} /></span></div>
       </article>
       <FocusTimer />

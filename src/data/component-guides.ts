@@ -16,6 +16,20 @@ export const componentGuides: Record<string, ComponentGuide> = {
     "example": "\"use client\";\n\nimport { useState } from \"react\";\nimport { SkeuoSwitch } from \"@/components/ui/skeuo-switch\";\n\nexport function Example() {\n  const [enabled, setEnabled] = useState(false);\n  return (\n    <SkeuoSwitch checked={enabled} onCheckedChange={setEnabled}\n      aria-label=\"Enable notifications\" />\n  );\n}",
     "notes": "Keep checked in your application state. Supply an accessible name and pass disabled to prevent interaction. No storage or preferences are managed by the switch."
   },
+  "checkbox": {
+    example: `"use client";
+
+import { useState } from "react";
+import { SkeuoCheckbox } from "@/components/ui/skeuo-checkbox";
+
+export function Example() {
+  const [checked, setChecked] = useState(true);
+  return <SkeuoCheckbox label="Include a weekly summary" name="summary"
+    checked={checked} onCheckedChange={setChecked} />;
+}
+`,
+    notes: "Supply the visible label and control checked in your application. Native input attributes such as name, value, required, and disabled are forwarded."
+  },
   "input": {
     "example": "import { SkeuoInput } from \"@/components/ui/skeuo-input\";\n\nexport function Example() {\n  return (\n    <label>Email address\n      <SkeuoInput type=\"email\" name=\"email\" placeholder=\"you@example.com\" />\n    </label>\n  );\n}",
     "notes": "All native input props are supported. Connect labels and helper text using id, htmlFor, and aria-describedby. Set aria-invalid when your own validation finds an error."
