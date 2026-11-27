@@ -4,6 +4,7 @@ import { templates, templatePath, type TemplateEntry } from "@/data/templates";
 import { InstallCommand } from "@/components/templates/install-command";
 import DocsShell from "@/components/docs-shell";
 import { TemplateDownload } from "@/components/templates/template-download";
+import { TemplateThumbnail } from "@/components/templates/template-thumbnail";
 import "./refined-gallery.css";
 export const metadata: Metadata = {
   title: "Templates — Skeuomorphism UI",
@@ -19,13 +20,7 @@ function TemplateTile({ item }: { item: TemplateEntry }) {
         aria-label={`Preview ${item.name}`}
       >
         <div className="template-tile-art" aria-hidden="true">
-          <div className={`template-abstract template-abstract-${item.slug}`}>
-            <span className="abstract-orbit" />
-            <span className="abstract-orbit" />
-            <span className="abstract-orbit" />
-            <span className="abstract-core" />
-            <span className="abstract-rule" />
-          </div>
+          <TemplateThumbnail name={item.slug} />
           <span className="template-art-open">
             Open preview <span>↗</span>
           </span>

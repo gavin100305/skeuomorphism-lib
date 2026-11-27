@@ -1,0 +1,13 @@
+.template-thumbnail {
+  background: var(--template-preview-light) center top / cover no-repeat;
+}
+
+:root[data-theme="dark"] .template-thumbnail {
+  background-image: var(--template-preview-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .template-thumbnail {
+    background-image: var(--template-preview-dark);
+  }
+}

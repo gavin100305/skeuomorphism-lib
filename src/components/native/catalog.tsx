@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { TemplateThumbnail } from "../templates/template-thumbnail";
 import { useState, useSyncExternalStore } from "react";
 import allNativeItems from "../../../mobile/catalog.json";
 import unlisted from "../../../mobile/unlisted.json";
@@ -47,13 +48,16 @@ function NativeTile({ item }: { item: (typeof catalog)[number] }) {
       className={`native-tile native-tile-${item.group.toLowerCase().replace(" ", "-")}`}
     >
       <div className="native-tile-art" aria-hidden="true">
-        <div className={`native-miniature native-miniature-${item.slug}`}>
-          <span />
-          <span />
-          <span />
-          <span />
-          {item.group === "Templates" && <b>{item.name.toLowerCase()}.</b>}
-        </div>
+        {item.group === "Templates" ? (
+          <TemplateThumbnail name={item.slug} />
+        ) : (
+          <div className={`native-miniature native-miniature-${item.slug}`}>
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+        )}
         {item.group !== "Templates" && <span className="native-tile-open">Preview ↗</span>}
       </div>
       <div className="native-tile-copy">
