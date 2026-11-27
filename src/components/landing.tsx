@@ -111,8 +111,22 @@ export default function Landing() {
       </section>
     </main>
     <footer className="site-footer section-shell">
-      <div className="footer-top"><div className="footer-brand"><Link href="/" className="brand"><Mark /><span>skeuomorphism.</span></Link><p>Made with depth. Built for the web.</p></div><nav aria-label="Footer navigation"><Link href="/docs#components">Components <Icon name="arrow" size={13} /></Link><Link href="/docs#blocks">Blocks <Icon name="arrow" size={13} /></Link><a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a></nav></div>
-      <div className="footer-bottom"><span>A work in progress by Gavin Soares.</span><a href="#top">Back to top <Icon name="up" size={13} /></a></div>
+      <div className="footer-panel">
+        <div className="footer-identity">
+          <Link href="/" className="brand"><Mark /><span>skeuomorphism.</span></Link>
+          <p className="footer-credit">
+            Crafted by <a href="https://gavin-soares.vercel.app/">Gavin Soares</a>
+            {" & "}
+            <a href="https://russeldanielpaul.is-a.dev/">Russel Daniel Paul</a>
+          </p>
+        </div>
+        <nav className="footer-links" aria-label="Footer navigation">
+          <Link href="/docs#components">Components</Link>
+          <Link href="/docs#blocks">Blocks</Link>
+          <a href={repo} target="_blank" rel="noreferrer">GitHub <Icon name="diagonal" size={13} /></a>
+          <a className="tactile footer-top-link" href="#top">Back to top <Icon name="up" size={13} /></a>
+        </nav>
+      </div>
     </footer>
   </>;
 }

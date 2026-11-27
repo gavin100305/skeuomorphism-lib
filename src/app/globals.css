@@ -263,9 +263,9 @@ html[data-theme="dark"] { --accent: #9ab5a6; --accent-bright: #bbcec2; --accent-
 .site-header { position: sticky; top: 0; height: 82px; max-width: none; margin: 0; padding: 0 30px; background: var(--bg); border-bottom: 1px solid var(--line); }
 .header-inner { max-width: 1200px; margin: auto; padding: 0 10px; border: 0; border-radius: 0; background: none; box-shadow: none; gap: 36px; }
 .header-inner .brand { font-size: 18px; }
-.header-inner .brand-mark { width: 37px; height: 37px; border: 1px solid var(--edge); border-radius: 9px; background: linear-gradient(145deg,var(--surface-raised),var(--surface)); box-shadow: inset 0 1px 0 var(--highlight),0 2px 0 var(--base),0 3px 0 var(--edge); }
-.header-inner .brand-mark i { width: 17px; height: 11px; left: 9px; top: 19px; border-width: 1.4px; background: var(--surface); }
-.header-inner .brand-mark i:nth-child(2) { top: 14px; }.header-inner .brand-mark i:nth-child(3) { top: 9px; }
+:is(.header-inner, .footer-identity) .brand-mark { width: 37px; height: 37px; border: 1px solid var(--edge); border-radius: 9px; background: linear-gradient(145deg,var(--surface-raised),var(--surface)); box-shadow: inset 0 1px 0 var(--highlight),0 2px 0 var(--base),0 3px 0 var(--edge); }
+:is(.header-inner, .footer-identity) .brand-mark i { width: 17px; height: 11px; left: 9px; top: 19px; border-width: 1.4px; background: var(--surface); }
+:is(.header-inner, .footer-identity) .brand-mark i:nth-child(2) { top: 14px; }:is(.header-inner, .footer-identity) .brand-mark i:nth-child(3) { top: 9px; }
 .nav-links { background: none; border: 0; box-shadow: none; gap: 26px; padding: 0; height: 100%; align-items: center; }
 .nav-links > a, .nav-docs { position: relative; padding: 12px 0; border: 0; border-radius: 0; font-size: 12px; }
 .nav-links > a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
@@ -370,6 +370,45 @@ body { background-image: repeating-linear-gradient(113deg,transparent 0 3px,var(
 .footer-bottom { margin-top: 22px; padding-top: 17px; border-top: 1px solid var(--line); }.footer-bottom a { display: inline-flex; align-items: center; gap: 7px; }
 :is(.arrow-icon,.sk-arrow-icon) { flex-shrink: 0; transform-origin: center; transition: scale .24s cubic-bezier(.2,.8,.2,1); }
 :is(a,button,:is(.project-mini,.sk-project-mini),:is(.showcase-footer,.sk-showcase-footer)):hover :is(.arrow-icon,.sk-arrow-icon), :is(a,button):focus-visible :is(.arrow-icon,.sk-arrow-icon) { scale: 1.22; }
+.footer-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px 36px;
+  flex-wrap: wrap;
+  padding: 24px clamp(18px, 3vw, 32px);
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  background: linear-gradient(115deg, var(--quote-tint), transparent 65%),
+    linear-gradient(145deg, var(--surface-raised), var(--surface));
+  box-shadow: inset 0 1px 0 var(--highlight), 0 3px 0 var(--base), 0 4px 0 var(--edge);
+}
+
+.footer-identity { display: grid; justify-items: start; gap: 10px; }
+.footer-identity .brand { align-items: center; gap: 10px; font-size: 16px; }
+.footer-identity .brand-mark { transform: none; }
+.footer-credit { margin: 0; color: var(--site-muted); font-size: 12px; line-height: 1.8; }
+
+.footer-credit a {
+  color: var(--ink);
+  font-weight: 550;
+  text-decoration: underline wavy var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .24em;
+  white-space: nowrap;
+}
+
+.footer-credit a + a { text-decoration-color: light-dark(#337653, #79bf94); }
+.footer-credit a:hover { text-decoration-thickness: 2px; }
+.footer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+.footer-links a { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--site-muted); }
+.footer-links a:hover { color: var(--ink); }
+.footer-links .footer-top-link { min-height: 34px; padding: 0 11px; gap: 8px; }
+
+@media (max-width: 600px) {
+  .footer-links { width: 100%; padding-top: 16px; border-top: 1px solid var(--line); }
+}
+
 @media(max-width:800px) { .footer-brand { flex-direction: column; align-items: flex-start; gap: 10px; }.closing-panel { padding: 28px; }.closing h2 { font-size: 30px; } }
 @media(max-width:600px) {
   .site-header { position: relative; top: auto; }
