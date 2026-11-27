@@ -25,7 +25,12 @@ case 'keyboard-button':content=<View style={styles.keyboard}><SkeuoKeyButton lab
 case 'icon-button':content=<SkeuoIconButton label="Add item" icon={<Text style={{fontSize:24,color:c.ink}}>+</Text>} onPress={()=>setCount(count+1)}/>;break;
 case 'input':content=<><SkeuoInput label="Email address" placeholder="you@example.com" keyboardType="email-address"/><SkeuoInput label="Your message" multiline placeholder="Leave a little note…"/></>;break;
 case 'switch':content=<><SkeuoSwitch label="Touch feedback" checked={enabled} onCheckedChange={setEnabled}/><SkeuoSwitch label="Unavailable" checked={false} onCheckedChange={()=>{}} disabled/></>;break;
-case 'checkbox':content=<SkeuoCheckbox label="A little room for good things" checked={enabled} onCheckedChange={setEnabled}/>;break;
+case 'checkbox':
+  content = <View style={styles.choiceStack}>
+    <SkeuoCheckbox label="A little room for good things" checked={enabled} onCheckedChange={setEnabled} />
+    <SkeuoCheckbox label="Unavailable" checked={false} onCheckedChange={setEnabled} disabled />
+  </View>;
+  break;
 case 'radio-group':content=<SkeuoRadioGroup label="Your pace" value={value} onValueChange={setValue} options={options}/>;break;
 case 'rotary-knob':content=<SkeuoRotaryKnob label="Volume" value={knob} onValueChange={setKnob} formatValue={value=>`${value}%`} onTurnSound={direction=>{
   if (Platform.OS === 'web' && window.parent !== window) {
@@ -70,6 +75,7 @@ const styles = StyleSheet.create({
   demo: { gap: 20 },
   buttonStack: { alignSelf: 'center', width: '100%', maxWidth: 194 },
   centered: { alignItems: 'center' },
+  choiceStack: { maxWidth: '100%' },
   keyboard: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 14 },
   bottomBarDemo: { gap: 24 },
   bottomBarContent: { gap: 24, marginHorizontal: 16 },

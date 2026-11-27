@@ -727,7 +727,6 @@
   font-size: 24px;
   color: var(--ink);
 }
-.native-miniature-checkbox > span,
 .native-miniature-radio-group > span {
   width: 26px;
   height: 26px;
@@ -736,13 +735,58 @@
   background: var(--well);
   box-shadow: inset 0 2px 3px var(--shadow);
 }
-.native-miniature-checkbox > span:first-child:after {
-  content: "✓";
-  font-size: 16px;
-  color: var(--ink);
+.native-miniature-checkbox > span {
+  position: relative;
   display: grid;
   place-items: center;
-  height: 100%;
+  width: 38px;
+  height: 38px;
+  transform: none;
+  border: 1px solid #394a3d;
+  border-radius: 9px;
+  background: linear-gradient(140deg, #a5b4a0, #637b68 36%, #3a4e40);
+  box-shadow: inset 0 1px #f6ffedbd, inset 1px 0 #d9e7ce69, inset 0 -2px 2px #15251eb3, 0 3px #203329, 0 5px 7px #14241959;
+}
+.native-miniature-checkbox > span:nth-child(2) {
+  transform: none;
+}
+.native-miniature-checkbox > span:nth-child(n+3) {
+  display: none;
+}
+.native-miniature-checkbox > span::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 14px;
+  width: 5px;
+  height: 8px;
+  border: 1px solid #6e6556;
+  border-radius: 2px;
+  background: linear-gradient(#f5ebd6, #c1b49c 35%, #736957);
+  box-shadow: 31px 0 #c1b49c, 0 1px 2px #10180ed9, 31px 1px 2px #10180ed9;
+}
+.native-miniature-checkbox > span::after {
+  content: "–";
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 24px;
+  margin-bottom: 2px;
+  border: 1px solid #807766;
+  border-radius: 5px;
+  background: linear-gradient(155deg, #faf0df, #cbbda7);
+  color: #736754;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 2px #81735d, 0 1px 0 3px #24392d, inset 0 1px #ffffff8c, inset 0 -1px 2px #00000030;
+}
+.native-miniature-checkbox > span:first-child::after {
+  content: "✓";
+  border-color: #14291e;
+  background: linear-gradient(155deg, var(--accent-bright), var(--accent));
+  color: var(--accent-ink);
+  box-shadow: 0 2px #182f23, 0 1px 0 3px #24392d, inset 0 1px #ffffff8c, inset 0 -1px 2px #00000030;
 }
 .native-miniature-radio-group > span {
   border-radius: 50%;
