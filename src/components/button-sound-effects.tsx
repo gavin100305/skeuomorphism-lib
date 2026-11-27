@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useSyncExternalStore, type ReactNode } from "react";
-import { SkeuoSoundProvider } from "./skeuomorphic/skeuo-sound-provider";
+import { SkeuoSoundProvider, type SkeuoSelectionSound } from "./skeuomorphic/skeuo-sound-provider";
 import { Icon } from "./icons";
 import { playButtonSound, playKnobTurnSound, playRimTurnSound, preloadButtonSound, preloadRimSound } from "@/lib/button-sound";
 
@@ -18,10 +18,16 @@ function subscribeSound(listener: () => void) {
   };
 }
 const serverSoundSnapshot = () => false;
+const playSelectionSound: SkeuoSelectionSound = (control, checked, index) => {
+  if (control === "radio") return playKnobTurnSound("clockwise");
+  playButtonSound(checked ? "down" : "up", index);
+};
+
 export function ButtonSoundEffects({ children }: {children: ReactNode}) {
   const enabled = useSyncExternalStore(subscribeSound, soundSnapshot, serverSoundSnapshot);
   useEffect(() => { if (enabled) { preloadButtonSound(); preloadRimSound(); } }, [enabled]);
-  return <SkeuoSoundProvider enabled={enabled} onSound={playButtonSound} onTurnSound={playRimTurnSound} onKnobSound={playKnobTurnSound}>{children}</SkeuoSoundProvider>;
+  return <SkeuoSoundProvider enabled={enabled} onSound={playButtonSound} onTurnSound={playRimTurnSound}
+    onKnobSound={playKnobTurnSound} onSelectionSound={playSelectionSound}>{children}</SkeuoSoundProvider>;
 }
 export function SoundToggle() {
   const enabled = useSyncExternalStore(subscribeSound, soundSnapshot, serverSoundSnapshot);

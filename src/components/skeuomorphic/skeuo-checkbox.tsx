@@ -20,6 +20,7 @@ export function SkeuoCheckbox({
       <input
         {...props}
         type="checkbox"
+        data-sk-selection-sound="checkbox"
         checked={checked}
         onChange={(event) => onCheckedChange(event.currentTarget.checked)}
       />

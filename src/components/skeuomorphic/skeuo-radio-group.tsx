@@ -72,6 +72,7 @@ export function SkeuoRadioGroup({
             <label className="sk-radio-option" key={option.value}>
               <input
                 type="radio"
+                data-sk-selection-sound="radio"
                 name={name ?? id}
                 form={form}
                 value={option.value}

@@ -21,15 +21,21 @@ export function useSkeuoTurnSound(control: "rim" | "knob" = "rim") {
 }
 
 export type SkeuoSoundPhase = "down" | "up";
+export type SkeuoSelectionSound = (
+  control: "checkbox" | "radio",
+  checked: boolean,
+  index: number,
+) => void | Promise<void>;
 export type SkeuoSoundProviderProps = {
   children: ReactNode;
   enabled?: boolean;
   onTurnSound?: SkeuoTurnSound;
   onKnobSound?: SkeuoTurnSound;
   onSound?: (phase: SkeuoSoundPhase, index: number) => void;
+  onSelectionSound?: SkeuoSelectionSound;
 };
 /** Optional and silent by default. The host owns audio assets, playback, and preferences. */
-export function SkeuoSoundProvider({ children, enabled = false, onSound, onTurnSound, onKnobSound }: SkeuoSoundProviderProps) {
+export function SkeuoSoundProvider({ children, enabled = false, onSound, onTurnSound, onKnobSound, onSelectionSound }: SkeuoSoundProviderProps) {
   const counter = useRef(0);
   const down = useRef(new Map<number,number>());
   const recent = useRef(new WeakMap<Element,number>());
@@ -43,7 +49,23 @@ export function SkeuoSoundProvider({ children, enabled = false, onSound, onTurnS
     const button=target.closest("button,[role='button'],a[data-sk-sound]");
     return button && !button.matches(":disabled,[aria-disabled='true'],[data-sound='off'],[data-sk-sound='off']") ? button : null;
   }
-  return <TurnSoundContext.Provider value={{ enabled, onTurnSound, onKnobSound }}><div style={{display:"contents"}} onPointerDownCapture={event => {
+  return <TurnSoundContext.Provider value={{ enabled, onTurnSound, onKnobSound }}><div data-sk-sound-scope="" style={{display:"contents"}} onChangeCapture={(event) => {
+    const input = event.target;
+    if (!enabled || !(input instanceof HTMLInputElement) || input.matches(":disabled") ||
+        input.closest("[data-sk-sound-scope]") !== event.currentTarget ||
+        input.closest("[data-sk-sound='off'],[data-sound='off']")) return;
+
+    const choice = input.dataset.skSelectionSound;
+    if (choice !== "checkbox" && (choice !== "radio" || !input.checked)) return;
+
+    const index = counter.current++;
+    if (!onSelectionSound) {
+      play("down", index);
+      return;
+    }
+    try { void Promise.resolve(onSelectionSound(choice, input.checked, index)).catch(() => {}); }
+    catch { /* Sound never prevents a control action. */ }
+  }} onPointerDownCapture={event => {
     const button=control(event.target);
     if(!enabled || !button || !event.isPrimary || event.button !== 0 || event.pointerType === "touch") return;
     const index=counter.current++;down.current.set(event.pointerId,index);recent.current.set(button,performance.now());play("down",index);

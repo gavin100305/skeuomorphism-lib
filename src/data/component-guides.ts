@@ -28,7 +28,7 @@ export function Example() {
     checked={checked} onCheckedChange={setChecked} />;
 }
 `,
-    notes: "Supply the visible label and control checked in your application. Native input attributes such as name, value, required, and disabled are forwarded."
+    notes: "Supply the visible label and control checked in your application. Native input attributes such as name, value, required, and disabled are forwarded. An enabled SkeuoSoundProvider can play a click when the user flips the tile."
   },
   "radio-group": {
     example: `"use client";
@@ -46,7 +46,7 @@ export function Example() {
     ]} />;
 }
 `,
-    notes: "Give each option a unique value and a label. Provide a name to submit the selected value with a form. Set disabled on individual options or on the whole group."
+    notes: "Give each option a unique value and a label. Provide a name to submit the selected value with a form. Set disabled on individual options or on the whole group. An enabled SkeuoSoundProvider can play a tick when the user selects a different option."
   },
   "input": {
     "example": "import { SkeuoInput } from \"@/components/ui/skeuo-input\";\n\nexport function Example() {\n  return (\n    <label>Email address\n      <SkeuoInput type=\"email\" name=\"email\" placeholder=\"you@example.com\" />\n    </label>\n  );\n}",
@@ -113,6 +113,6 @@ export function Example() {
   },
   "sound-provider": {
     "example": "\"use client\";\nimport { useRef, useState } from \"react\";\nimport { SkeuoSoundProvider } from \"@/components/ui/skeuo-sound-provider\";\nimport { SkeuoFocusTimer } from \"@/components/ui/skeuo-focus-timer\";\n\nexport function Example() {\n  const [soundEnabled, setSoundEnabled] = useState(false);\n  const samples = useRef<Partial<Record<\"click\" | \"turn\", HTMLAudioElement>>>({});\n\n  function play(kind: \"click\" | \"turn\") {\n    // Replace these paths with short audio files you supply.\n    const audio = samples.current[kind] ??= new Audio(`/sounds/${kind}.wav`);\n    audio.volume = kind === \"turn\" ? 0.25 : 0.5;\n    audio.currentTime = 0;\n    return audio.play().catch(() => {});\n  }\n\n  return (\n    <>\n      <button onClick={() => setSoundEnabled(value => !value)}\n        aria-pressed={soundEnabled}>\n        Sound {soundEnabled ? \"on\" : \"off\"}\n      </button>\n      <SkeuoSoundProvider enabled={soundEnabled}\n        onSound={phase => { if (phase === \"down\") void play(\"click\"); }}\n        onTurnSound={() => play(\"turn\")}>\n        <SkeuoFocusTimer duration={25 * 60} />\n      </SkeuoSoundProvider>\n    </>\n  );\n}",
-    "notes": "Install skeuo-focus-timer separately for this example; it includes the button and sound-provider module. Supply your own short click.wav and turn.wav files or replace the playback callbacks. enabled defaults to false and should follow a user-controlled preference. onSound receives down/up phases and an activation index. onTurnSound receives clockwise/anticlockwise and a tick index; it fires only on duration changes, at most once every 80 ms, with no queued replay. Pointer, touch, and keyboard adjustments share the same behavior. No tick occurs at the limits, on countdown, or on Reset. Omit onTurnSound for a silent rim. No audio assets, network requests, global listeners, or storage settings are installed. data-sk-sound=\"off\" opts a button out; an inner disabled provider mutes its scope. Playback failures do not prevent timer adjustment."
+    "notes": "Install skeuo-focus-timer separately for this example; it includes the button and sound-provider module. Supply your own short click.wav and turn.wav files or replace the playback callbacks. enabled defaults to false and should follow a user-controlled preference. onSound receives down/up phases and an activation index. onTurnSound receives clockwise/anticlockwise and a tick index; it fires only on duration changes, at most once every 80 ms, with no queued replay. Pointer, touch, and keyboard adjustments share the same behavior. No tick occurs at the limits, on countdown, or on Reset. Omit onTurnSound for a silent rim. Checkbox and radio changes can use onSelectionSound for a distinct cue and otherwise use the down phase of onSound. No audio assets, network requests, global listeners, or storage settings are installed. data-sk-sound=\"off\" opts a button out; an inner disabled provider mutes its scope. Playback failures do not prevent timer adjustment."
   }
 };
