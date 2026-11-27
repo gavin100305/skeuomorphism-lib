@@ -30,6 +30,24 @@ export function Example() {
 `,
     notes: "Supply the visible label and control checked in your application. Native input attributes such as name, value, required, and disabled are forwarded."
   },
+  "radio-group": {
+    example: `"use client";
+
+import { useState } from "react";
+import { SkeuoRadioGroup } from "@/components/ui/skeuo-radio-group";
+
+export function Example() {
+  const [frequency, setFrequency] = useState("weekly");
+  return <SkeuoRadioGroup label="Frequency" name="frequency"
+    value={frequency} onValueChange={setFrequency} options={[
+      { value: "daily", label: "Daily" },
+      { value: "weekly", label: "Weekly" },
+      { value: "monthly", label: "Monthly" },
+    ]} />;
+}
+`,
+    notes: "Give each option a unique value and a label. Provide a name to submit the selected value with a form. Set disabled on individual options or on the whole group."
+  },
   "input": {
     "example": "import { SkeuoInput } from \"@/components/ui/skeuo-input\";\n\nexport function Example() {\n  return (\n    <label>Email address\n      <SkeuoInput type=\"email\" name=\"email\" placeholder=\"you@example.com\" />\n    </label>\n  );\n}",
     "notes": "All native input props are supported. Connect labels and helper text using id, htmlFor, and aria-describedby. Set aria-invalid when your own validation finds an error."

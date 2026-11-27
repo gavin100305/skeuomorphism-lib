@@ -9,6 +9,7 @@ import { SkeuoSectionDock as SectionDock } from "./skeuomorphic/skeuo-section-do
 import { SkeuoButton as Button } from "./skeuomorphic/skeuo-button";
 import { SkeuoSwitch as Switch } from "./skeuomorphic/skeuo-switch";
 import { SkeuoCheckbox } from "./skeuomorphic/skeuo-checkbox";
+import { SkeuoRadioGroup } from "./skeuomorphic/skeuo-radio-group";
 import { SkeuoInput as Input, SkeuoTextarea as Textarea } from "./skeuomorphic/skeuo-input";
 import { SkeuoSlider as Slider } from "./skeuomorphic/skeuo-slider";
 import { SkeuoTabs as Tabs } from "./skeuomorphic/skeuo-tabs";
@@ -36,6 +37,36 @@ const experiences = [
   { id: "product", label: "Product", role: "Product Designer", period: "2024 — 2025", description: "Taking early ideas through prototypes and into working products, with a focus on clarity and accessibility.", technologies: ["Figma","Prototyping","Design systems"] },
   { id: "independent", label: "Independent", role: "Independent Maker", period: "2023 — 2024", description: "A selection of experiments, small projects, and things made out of curiosity.", technologies: ["Next.js","Web APIs","SVG"] },
 ];
+
+const radioSamples = [
+  { label: "Single", selected: "Standard", options: ["Standard"] },
+  { label: "Four", selected: "Weekly", options: ["Daily", "Weekly", "Monthly", "Yearly"] },
+  {
+    label: "Long list", selected: "30 minutes",
+    options: ["5 minutes", "15 minutes", "30 minutes", "1 hour", "2 hours", "3 hours", "6 hours", "12 hours", "24 hours"],
+  },
+].map((sample) => ({
+  ...sample,
+  options: sample.options.map((label) => ({ value: label, label })),
+}));
+
+function RadioGroupDemo() {
+  const [sample, setSample] = useState(radioSamples[1]);
+  const [value, setValue] = useState(sample.selected);
+  return (
+    <div className="demo-stack demo-narrow">
+      <div className="demo-controls" role="group" aria-label="Example size">
+        {radioSamples.map((example) => (
+          <Button key={example.label} size="sm" aria-pressed={sample === example}
+            onClick={() => { setSample(example); setValue(example.selected); }}>
+            {example.label}
+          </Button>
+        ))}
+      </div>
+      <SkeuoRadioGroup key={sample.label} label="Frequency" options={sample.options} value={value} onValueChange={setValue} />
+    </div>
+  );
+}
 
 export function ComponentDemo({ slug }: { slug: string }) {
   const [colorMode, setColorMode] = useState<"same" | "alternating">("same");
@@ -72,6 +103,7 @@ export function ComponentDemo({ slug }: { slug: string }) {
     <SkeuoCheckbox label="Include a weekly summary" checked={on} onCheckedChange={setOn} />
     <SkeuoCheckbox label="Unavailable" checked={false} onCheckedChange={setOn} disabled />
   </div>;
+  if (slug === "radio-group") return <RadioGroupDemo />;
   if (slug === "input") return <div className="demo-stack demo-narrow"><label className="demo-field">Email address<Input type="email" placeholder="you@example.com" /></label><label className="demo-field">Disabled field<Input disabled placeholder="Unavailable" /></label></div>;
   if (slug === "textarea") return <label className="demo-field demo-narrow">Your message<Textarea placeholder="A little room for your next idea…" rows={4} /></label>;
   if (slug === "slider") return <div className="demo-stack demo-narrow"><div className="slider-heading"><span>Surface depth</span><output>{value}%</output></div><Slider value={value} onValueChange={setValue} aria-label="Surface depth" /><Surface variant="raised" className="demo-depth-surface" style={{ boxShadow: `inset 0 1px 0 var(--highlight), 0 ${value / 8}px 0 var(--base), 0 ${value / 8 + 1}px 0 var(--edge), 0 16px 18px var(--shadow)` }}><Icon name="layers" size={25} /></Surface></div>;
