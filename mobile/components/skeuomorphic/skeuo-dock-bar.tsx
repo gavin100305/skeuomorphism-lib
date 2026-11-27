@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Path } from "react-native-svg";
 import { SkeuoGlyph } from "./icons";
@@ -34,6 +34,9 @@ export function SkeuoDockBar({
 }: DockBarProps) {
   const { colors, dark } = useSkeuo();
   const feedback = useFeedback();
+  const { width } = useWindowDimensions();
+  const compact = width <= 600;
+  const iconSize = compact ? 20 : 24;
   // Use the Section Dock materials with the website’s green accent.
   const edge = dark ? "#484946" : "#c6c7c1";
   const highlight = dark ? "#ffffff1e" : "#fff";
@@ -56,13 +59,14 @@ export function SkeuoDockBar({
         showsHorizontalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
         style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[styles.scrollContent, compact && styles.compactScrollContent]}
       >
         <View
           accessibilityRole="tablist"
           accessibilityLabel="Bottom navigation"
           style={[
             styles.shell,
+            compact && styles.compactShell,
             {
               borderColor: edge,
               backgroundColor: colors.surface,
@@ -75,18 +79,20 @@ export function SkeuoDockBar({
             colors={[colors.raised, colors.surface]}
             start={gradientStart}
             end={gradientEnd}
-            style={styles.shellFace}
+            style={[styles.shellFace, compact && styles.compactShellFace]}
           />
           <View
             pointerEvents="none"
             style={[
               styles.shellFace,
+              compact && styles.compactShellFace,
               { boxShadow: `inset 0 2px 1px ${highlight}, inset 1px 0 ${highlight}, inset 0 -2px ${colors.base}` },
             ]}
           />
           <View
             style={[
               styles.track,
+              compact && styles.compactTrack,
               {
                 borderColor: colors.edge,
                 backgroundColor: colors.base,
@@ -118,6 +124,7 @@ export function SkeuoDockBar({
                   }}
                   style={({ pressed }) => [
                     styles.key,
+                    compact && styles.compactKey,
                     {
                       borderColor: keyEdge,
                       backgroundColor: keyBottom,
@@ -161,7 +168,7 @@ export function SkeuoDockBar({
                       />
                       <View pointerEvents="none" style={styles.icon}>
                         {item.icon ?? (path ? (
-                          <Svg width={24} height={24} viewBox="0 0 24 24" accessible={false}>
+                          <Svg width={iconSize} height={iconSize} viewBox="0 0 24 24" accessible={false}>
                             <Path
                               d={path}
                               fill="none"
@@ -171,7 +178,7 @@ export function SkeuoDockBar({
                               strokeLinejoin="round"
                             />
                           </Svg>
-                        ) : <SkeuoGlyph name={item.value} color={ink} size={24} />)}
+                        ) : <SkeuoGlyph name={item.value} color={ink} size={iconSize} />)}
                       </View>
                     </>
                   )}
@@ -197,8 +204,11 @@ const styles = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 16,
   },
+  compactScrollContent: { paddingBottom: 11 },
   shell: { padding: 9, borderWidth: 1, borderRadius: 29 },
+  compactShell: { paddingVertical: 4, paddingHorizontal: 5, borderRadius: 23 },
   shellFace: { ...StyleSheet.absoluteFillObject, borderRadius: 28 },
+  compactShellFace: { borderRadius: 22 },
   track: {
     flexDirection: "row",
     gap: 12,
@@ -208,6 +218,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 21,
   },
+  compactTrack: { gap: 7, paddingTop: 3, paddingBottom: 6, paddingHorizontal: 5, borderRadius: 17 },
   key: {
     alignItems: "center",
     justifyContent: "center",
@@ -216,6 +227,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
   },
+  compactKey: { width: 40, height: 38 },
   icon: { zIndex: 1 },
   keyFace: { ...StyleSheet.absoluteFillObject, borderRadius: 11 },
   keyInset: {

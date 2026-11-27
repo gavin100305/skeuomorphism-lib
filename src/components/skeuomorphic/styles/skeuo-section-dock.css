@@ -14,3 +14,10 @@
 .sk-dock-key:is(:hover,:focus-visible) .sk-dock-tooltip{opacity:1;}
 .sk-section-dock[data-orientation="horizontal"] .sk-dock-tooltip{top:auto;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);}
 @media(prefers-reduced-motion:reduce){.sk-dock-key{transition:none;}}
+
+@media (max-width: 600px) {
+  .sk-section-dock[data-orientation="horizontal"] { padding: 4px 5px; }
+  .sk-section-dock[data-orientation="horizontal"] .sk-dock-track { gap: 7px; padding: 3px 5px 6px; }
+  .sk-section-dock[data-orientation="horizontal"] .sk-dock-key { width: 40px; height: 38px; }
+  .sk-section-dock[data-orientation="horizontal"] .sk-dock-key > svg { width: 20px; height: 20px; }
+}
